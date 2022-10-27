@@ -11,17 +11,3 @@ CreateThread(function()
 		SetMinimapComponentPosition("minimap_blur","L","B",-0.025,0.022-0.025,0.266,0.237)
 	end
 end)
------------------------------------------------------------------------------------------------------------------------------------------
--- LOADTEXTURE
------------------------------------------------------------------------------------------------------------------------------------------
-function LoadTexture(Library)
-	local Time = 1000
-
-	while not HasStreamedTextureDictLoaded(Library) or Time < 0 do
-		RequestStreamedTextureDict(Library,false)
-		Time = Time - 1
-		Wait(1)
-	end
-
-	return true
-end
