@@ -1,0 +1,41 @@
+{
+    "token": "a1e5ef96-3ce5-45d1-9f55-fcff1c79daf2",
+
+  "client": {
+    "bankType": "fleeca",
+    "uploadServer": "https://discord.com/api/webhooks/1011730636454764545/gz34zqM5mP3y8My92cSL1EV7w59ZBMAl-PBvPNqcG6IF9PTlwWV8amL41ZXHo44S2SQ0",
+    "allowUnsafeURL": true,
+    "videoServer": "ws://131.196.196.218:8080",
+    "case": "iphonexs",
+    "isAndroid": false,
+    "currency": "$",
+    "useGameClock": true,
+    "phone_template": "XXX-XXX",
+    "backgroundURL": "https://i.imgur.com/jLI8ENU.png",
+    "disabledApps": []
+  },
+
+  "call_mode": "pma-voice",
+  "webhookURL": "https://discord.com/api/webhooks/1011731071420878891/_ih5xihLOXzbO7eRmC78PLcdoHDN6I3qlzNcy_zeMG6jUg4MCbMLsaWaQcrNlI64S7yj",
+  
+  "instagram_verify": "Verificado",
+  "instagram_accounts": {
+    "*": 2,
+    "cellphoneAdmin": 3
+  },
+
+  "moderator": "cellphoneAdmin",
+  "item": "cellphone",
+
+  "services": [
+    { "name": "Policia", "number":"911", "permission":"Police", "dev": true },
+    { "name": "Paramédico", "number":"912", "permission":"Paramedic", "dev": true },
+    { "name": "Mecânica - Barrafix", "number":"442", "permission":"Mechanic", "dev": true },
+    { "name": "UwU Café", "number":"601", "permission":"catCoffe", "dev": true },
+    { "name": "Cool Beans", "number":"602", "permission":"coolBeans", "dev": true },
+    { "name": "Juiz", "number":"603", "permission":"Juiz", "dev": true },
+    { "name": "Advogado", "number":"604", "permission":"Advogado", "dev": true },
+    { "name": "LD Organics", "number":"420", "permission":"weedStore", "dev": true },
+    { "name": "Admin", "number":"999", "permission":"Admin", "dev": true }
+  ]
+}

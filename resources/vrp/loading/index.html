@@ -1,0 +1,30 @@
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>Rogue</title>
+		<link href="css.css" rel="stylesheet" type="text/css"/>
+		<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+	</head>
+	<body>
+		<video src="video.webm" autoplay muted loop></video>
+
+		<audio id="music" autoplay loop>
+			<source src="audio.mp3" type="audio/mpeg">
+		</audio>
+
+		<script type="text/javascript">
+			var music = document.getElementById("music");
+			music.volume = 0.2;
+			document.addEventListener("keypress",(event) => {
+				if(event.key == "p"){
+					if(music.paused){
+						music.play();
+					} else {
+						music.pause();
+					}
+				}
+			});
+		</script>
+
+	</body>
+</html>

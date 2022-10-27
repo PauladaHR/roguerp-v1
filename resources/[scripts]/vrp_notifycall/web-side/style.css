@@ -1,0 +1,88 @@
+::-webkit-scrollbar { background: transparent; width: 0; }
+::selection { background: transparent; color: #fff; }
+::-moz-selection { background: transparent; color: #fff; }
+
+* {
+	color: white;
+	font-size: 13px;
+	-webkit-user-select: none;
+	font-family: Arial,Helvetica,sans-serif;
+}
+
+.body {
+	right: 0;
+	top: 100px;
+	height: 80%;
+	width: 355px;
+	overflow: hidden;
+	position: absolute;
+}
+
+.notification {
+	float: left;
+	width: 350px;
+	padding: 20px;
+	background: #010b20c4;
+	margin-bottom: 10px;
+	border-left: 5px solid #bd2020d8;
+}
+
+.content {
+	float: left;
+	width: 280px;
+}
+
+.buttons {
+	float: left;
+	width: 30px;
+}
+
+.content-line {
+	float: left;
+	padding: 4px 0 0;
+	margin-top: 10px;
+	min-width: 270px;
+	max-width: 270px;
+}
+
+.chamados {
+	float: left;
+	width: 30px;
+	height: 30px;
+	margin: 5px 0;
+	text-align: center;
+}
+
+.chamados svg {
+	font-size: 22px;
+}
+
+.code {
+	float: left;
+	color: #ffffff;
+	font-size: 11px;
+	padding: 8px 10px;
+	margin-right: 10px;
+	background: #9a243a;
+}
+
+.titulo {
+	float: left;
+	color: #ffffff;
+	max-width: 270px;
+	overflow: hidden;
+	padding: 7px 0 6px;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+}
+
+.text {
+	float: left;
+	color: #333;
+	margin-top: 14px;
+	min-width: 290px;
+	max-width: 290px;
+	background: #fff;
+	line-height: 16px;
+	padding: 8px 10px;
+}

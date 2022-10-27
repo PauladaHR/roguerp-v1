@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+      integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w=="
+      crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="src/app.css">
+    <link href="https://fonts.googleapis.com/css2?family=Jura:wght@600&display=swap" rel="stylesheet">
+		<link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+  </head>
+  <body>
+    <div id="Mumble">Bate-papo desconectado</div>
+
+    <watermark>
+      <img src="https://cdn.discordapp.com/attachments/877344387124842557/1032690326386778184/Rogue_City_Halloween.png">
+    </watermark>
+
+        <div id="displayHud">
+          <hudInfo>
+            <div class="clock align">
+              <i class="far fa-clock" style="margin: 0 5px 0 0"></i>
+                <div class="clock text">
+                  <span>10:40</span>
+                  <b>19.01.11</b>
+                </div>
+            </div>
+
+            <div class="location align">
+              <i class="fas fa-map-marker-alt icon"></i>
+              <div class="location text">
+                <span>Oeste</span><br>
+                <small>R. Novinha Safadinha</small>
+              </div>
+            </div>
+
+            <div class="microphone align">
+              <div class="bar">
+                <div class="fill"></div>
+              </div>
+              <div class="radio align">
+                <i class="far fa-signal-stream" style="margin: 2px 0 0 0"></i>
+                <div class="radio text">
+                  911.0Mhz
+                </div>
+              </div>
+            </div>
+          </hudInfo>
+
+          <hudStatus class="align exit-vehicle">
+            <velocimeter>
+              <div
+                class="ldBar"
+                data-value="100"
+                data-type="stroke"
+                data-stroke-width="2"
+                data-stroke-trail-width="2"
+                data-path="M91.31,111.3h0c0-18,12.64-32.66,51.4-32.66h55.18"
+      
+                data-stroke="#fff"
+                data-stroke-trail="rgba(204, 204, 204, 0.40)">
+
+                <div class="beltclass">
+                  <img id='belt' class="belt2" src='src/img/belt.svg'>
+                </div>
+
+                <div class="velocimetro text">
+                    <span>096 
+                    <small>KM/h</small>
+                    </span>
+                </div>
+
+                <div class="fuel"> 
+                  <div class="fuel text">
+                    <b>0</b></div>
+                    <i class="fas fa-gas-pump icon"></i>
+                  </div>
+              </div>
+            </velocimeter>
+
+            <div class="statusBar">
+              <div class="bar">
+                <div class="fill thirst-fill"></div>
+              </div>
+              <img class="thirstSvg" src="src/img/water.svg" alt="">
+            </div>
+
+            <div class="statusBar">
+              <div class="bar">
+                <div class="fill hunger-fill"></div>
+              </div>
+              <img class="hungerSvg" src="src/img/food.svg" alt="">
+            </div>
+
+            <armour style="display:none">
+              <div class="statusBar armour">
+                <div class="bar armour">
+                  <div class="fill armour-fill"></div>
+                </div>
+                <img class="armourSvg" src="src/img/shield.svg" alt="">
+              </div>
+            </armour>
+
+            <div class="statusBar">
+              <div class="bar">
+                <div class="fill life-fill"></div>
+              </div>
+              <img class="healthSvg" src="src/img/vida.svg" alt="">
+            </div>
+
+          </hudStatus>
+
+          <bolasStatus>
+            <progressBall>
+              <div id="progressBackground">
+                <div class="middleIcon" id="textProgress"></div>
+                <svg height="37px" width="37px">
+                  <circle id="progressDisplay" cx="17" cy="17" r="14"/>
+                </svg>
+              </div>
+          </progressBall>
+
+          <stressBall>
+            <div class="stressBackground">
+              <div class="middleIcon" style="background: url(src/img/stress.png);"></div>
+              <svg height="37px" width="37px">
+                <circle class="stressDisplay" cx="17" cy="17" r="14"/>
+              </svg>
+            </div>
+          </stressBall>
+
+          <oxigenBall>
+              <div class="oxigenBackground">
+                <div class="middleIcon" style="background: url(src/img/oxigen.png);"></div>
+                <svg height="37px" width="37px">
+                  <circle class="oxigenDisplay" cx="17" cy="17" r="14"/>
+                </svg>
+              </div>
+          </oxigenBall>
+
+        </bolasStatus>
+      <!--</div>-->
+
+      <div id="movieTop"></div>
+      <div id="movieBottom"></div>
+      <div id="hoodDisplay"></div>
+  </body>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script> 
+  <script src="js/font.js"></script>
+  <script src="js/loading-bar.js"></script>
+  <script src="src/app.js"></script>
+</html>

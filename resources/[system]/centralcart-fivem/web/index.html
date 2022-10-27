@@ -1,0 +1,153 @@
+<html>
+  <head>
+    <title>CentralCart</title>
+    <link rel="stylesheet" type="text/css" href="./styles.css" />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css?family=Roboto:light,regular,medium,thin,italic,mediumitalic,bold"
+      title="roboto"
+    />
+
+    <link rel="preconnect" href="https://fonts.gstatic.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <script src="nui://game/ui/jquery.js" type="text/javascript"></script>
+    <script src="js/jquery.js" type="text/javascript"></script>
+  </head>
+
+  <body id="body">
+    <div id="root"></div>
+    <script src="./citizen.js"></script>
+  </body>
+
+  <script
+    crossorigin
+    src="https://unpkg.com/react@17/umd/react.development.js"
+  ></script>
+  <script
+    crossorigin
+    src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"
+  ></script>
+  <script src="https://unpkg.com/react-router-dom@5.0.0/umd/react-router-dom.min.js"></script>
+  <script
+    crossorigin
+    src="https://unpkg.com/babel-standalone@6.26.0/babel.js"
+  ></script>
+
+  <script type="text/babel">
+    const { useState } = React;
+    const { useEffect } = React;
+
+    const { BrowserRouter, HashRouter, Switch, Route } = ReactRouterDOM;
+
+    let notify_id = 0;
+
+    const Home = () => {
+      useEffect(() => {
+        window.addEventListener('message', (event) => {
+          let data = event.data;
+
+          if (data.action == 'user-notify') {
+            let doc_id = notify_id;
+            notify_id = notify_id + 1;
+
+            const notify_area = document.querySelector('.user-notify-area');
+            notify_area.insertAdjacentHTML(
+              'beforeend',
+              `
+                    <div id="not-${doc_id}" class="user-notify-container">
+                        <img src="./assets/cart.svg" />
+                        <span>A compra de <b style="color:#BA69FF" >${data.product}</b> foi entregue!</span>
+                    </div>
+                   `
+            );
+
+            setTimeout(() => {
+              let element = document.querySelector(`#not-${doc_id}`);
+              element.remove();
+            }, 10 * 1000);
+          }
+
+          if (data.action === 'user-check-time') {
+            let doc_id = notify_id;
+            notify_id = notify_id + 1;
+
+            const notify_area = document.querySelector('.user-notify-area');
+            notify_area.insertAdjacentHTML(
+              'beforeend',
+              `
+										<div id="not2-${doc_id}" class="user-notify-container" style="display: block">
+                      <div style="display: flex; align-items: center; justify-content: center; margin-bottom: 8px;">
+                        <img src="./assets/cart.svg" />
+											  <span style="font-weight: bold">Seus produtos:</span>  
+                      </div>
+											<div class="product-list-${doc_id}"></div>
+                    </div>
+                `
+            );
+
+            const product_list = document.querySelector(
+              `.product-list-${doc_id}`
+            );
+
+            if (data.products.length) {
+              data.products.forEach((product, index) => {
+                const dateVar = new Date(product.expiry_date);
+
+                const time = dateVar.toLocaleString('pt-br', {
+                  timeStyle: 'short',
+                });
+                const date = dateVar.toLocaleString('pt-br', {
+                  dateStyle: 'short',
+                });
+
+                const formattedDate = date + ' às ' + time;
+
+                product_list.insertAdjacentHTML(
+                  'beforeend',
+                  `
+                   <p>${index + 1} - 
+                    <b>
+                      ${product.value.toUpperCase()}
+                    </b> 
+                    expira em: ${formattedDate}
+                  </p>
+              `
+                );
+              });
+            } else {
+              product_list.insertAdjacentHTML(
+                'beforeend',
+                `
+                  <p>Você ainda não tem nenhum produto :(</p>
+                `
+              );
+            }
+
+            setTimeout(() => {
+              let element = document.querySelector(`#not2-${doc_id}`);
+              element.remove();
+            }, 10 * 1000);
+          }
+        });
+      }, []);
+
+      return <div className="user-notify-area"></div>;
+    };
+
+    const Router = () => {
+      return (
+        <HashRouter>
+          <Route path="/" exact component={Home} />
+        </HashRouter>
+      );
+    };
+
+    // react render dom
+    const AppComponent = () => <Router />;
+    ReactDOM.render(<AppComponent />, document.getElementById('root'));
+  </script>
+</html>

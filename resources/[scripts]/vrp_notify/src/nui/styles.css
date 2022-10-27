@@ -1,0 +1,119 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap%22");
+
+html, body {
+	height: 100%;
+	width: 100%;
+}
+
+
+body {
+    margin-top: 40vh;  /*---[ CHANGING NOTIFY (Y) POSITION ]---*/
+    font-family: 'Poppins', sans-serif;
+    overflow: hidden;
+}
+
+#notify-wrapper {
+    width: 80px;
+    margin-left: 95vw;  /*---[ CHANGING NOTIFY (X) POSITION ]---*/
+}
+
+.wrapper {
+    width: 100px;
+    height: auto;
+    background-color: #1e1e1e;
+    float: right;
+}
+
+.main {
+    margin: 12px 16px 12px 65px;
+    position: relative;
+}
+
+.main::before {
+    top: calc(50% - 13px); 
+    left: -50px;
+    position: absolute;
+    background: #25282b;
+    padding: 15px;
+    width: 0.85vw; 
+    height: 0.85vw;
+    font-size: 17px;
+    border-radius: 100%;
+    margin-left: -5px; 
+    margin-top: -10px;
+    display: flex; 
+    justify-content: center; 
+    align-items: center;
+}
+
+.notify {
+	opacity: 0.9;
+	background: #191c1f;
+    /* box-shadow: 0 0 40px #00000069; */
+    color: #fff;
+    padding: 5px 5px 5px 5px;
+    letter-spacing: 1px;
+    /* margin-bottom: 5px; */
+    font-weight: 300;
+}
+
+/*---[ SUCCESS NOTIFY ]---*/
+
+.success-icon::before {
+    font-family: "Font Awesome 6 Free";
+    content: "\f00c";
+    color: #069a19;
+}
+
+/*---[ INFORMATION NOTIFY ]---*/
+
+.info-icon::before {
+    font-family: "Font Awesome 6 Free";
+    content: "\f0f3";
+    color: #0096c7;
+}
+
+/*---[ WARNING NOTIFY ]---*/
+
+.warning-icon::before {
+    font-family: "Font Awesome 6 Free";
+    content: "\21";
+    color: #ffb703;
+}
+
+/*---[ ERROR NOTIFY ]---*/
+
+.error-icon::before {
+    font-family: "Font Awesome 6 Free";
+    content: "\f00d";
+    color: #e5383b;
+}
+
+/*---[ NEW SMS NOTIFY ]---*/
+
+.fa-solid {
+	font: var(--fa-font-solid);
+}
+
+.clock-icon::before {
+    font-family: "Font Awesome 6 Free";
+    content: "\f017";
+    color: #7209b7;
+}
+
+/*---[ LONG MESSAGE NOTIFY ]---*/
+
+.long-icon::before {
+    font-family: "Font Awesome 6 Free";
+    content: "\f0c7";
+    color: #ffffff;
+}
+
+
+/*---[ NEW HALLOWEEN ]---*/
+
+.halloween-icon::before {
+    font-family: "Font Awesome 6 Free";
+    content: "\f6e8";
+    color: #df7604;
+}
