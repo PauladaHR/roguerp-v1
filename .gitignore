@@ -1,10 +1,10 @@
+.vscode
 /artifacts
 /cache
-/MarqCU.txt.txt
-/start_5837_default.bat
+MarqCU.txt.txt
 /txData
-/resources/[gabz]
-/resources/[addons]
-/resources/[maps]
-/resources/vrpserver
-/resources/MQCU
+resources/\[gabz\]
+resources/\[addons\]
+resources/\[maps\]
+resources/vrpserver
+resources/MQCU
