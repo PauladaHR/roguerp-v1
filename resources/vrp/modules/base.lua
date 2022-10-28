@@ -7,46 +7,23 @@ local Tunnel = module("lib/Tunnel")
 -- CONNECTION
 -----------------------------------------------------------------------------------------------------------------------------------------
 vRP = {}
-vRP.users = {}
-vRP.rusers = {}
-vRP.user_tables = {}
-vRP.user_sources = {}
 Proxy.addInterface("vRP",vRP)
 
 tvRP = {}
 Tunnel.bindInterface("vRP",tvRP)
 vRPC = Tunnel.getInterface("vRP")
+
+vRP.users = {}
+vRP.rusers = {}
+vRP.user_tables = {}
+vRP.user_sources = {}
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- VARIABLES
 -----------------------------------------------------------------------------------------------------------------------------------------
-local db_driver
 local showIds = {}
 local addPlayer = {}
-local db_drivers = {}
-local cached_queries = {}
-local cached_prepares = {}
-local db_initialized = false
------------------------------------------------------------------------------------------------------------------------------------------
--- REGISTERDBDRIVER
------------------------------------------------------------------------------------------------------------------------------------------
-function vRP.registerDBDriver(name,on_init,on_prepare,on_query)
-	if not db_drivers[name] then
-		db_drivers[name] = { on_init,on_prepare,on_query }
-		db_driver = db_drivers[name]
-		db_initialized = true
 
-		for _,prepare in pairs(cached_prepares) do
-			on_prepare(table.unpack(prepare,1,table.maxn(prepare)))
-		end
-
-		for _,query in pairs(cached_queries) do
-			query[2](on_query(table.unpack(query[1],1,table.maxn(query[1]))))
-		end
-
-		cached_prepares = nil
-		cached_queries = nil
-	end
-end
+local prepared_queries = {}
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- FORMAT
 -----------------------------------------------------------------------------------------------------------------------------------------
@@ -67,32 +44,20 @@ end
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- PREPARE
 -----------------------------------------------------------------------------------------------------------------------------------------
-function vRP.prepare(name,query)
-	if db_initialized then
-		db_driver[2](name,query)
-	else
-		table.insert(cached_prepares,{ name,query })
-	end
+function vRP.prepare(name, query)
+	prepared_queries[name] = query
 end
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- QUERY
 -----------------------------------------------------------------------------------------------------------------------------------------
-function vRP.query(name,params,mode)
-	if not mode then mode = "query" end
-
-	if db_initialized then
-		return db_driver[3](name,params or {},mode)
-	else
-		local r = async()
-		table.insert(cached_queries,{{ name,params or {},mode },r })
-		return r:wait()
-	end
+function vRP.query(name, params)
+	return exports["oxmysql"]:query_async(prepared_queries[name], params)
 end
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- EXECUTE
 -----------------------------------------------------------------------------------------------------------------------------------------
-function vRP.execute(name,params)
-	return vRP.query(name,params,"execute")
+function vRP.execute(name, params)
+	return exports["oxmysql"]:query_async(prepared_queries[name], params)
 end
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- GETUSERINFO
