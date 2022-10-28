@@ -25,7 +25,6 @@ vRP.prepare("vRP/update_whitelist","UPDATE vrp_infos SET whitelist = @whitelist 
 vRP.prepare("vRP/set_banned","UPDATE vrp_infos SET banned = @banned WHERE steam = @steam")
 vRP.prepare("vRP/set_whitelist","UPDATE vrp_infos SET whitelist = @whitelist WHERE steam = @steam")
 vRP.prepare("vRP/update_gems","UPDATE vrp_infos SET gems = gems + @gems WHERE steam = @steam")
-vRP.prepare("vRP/dateLogin","UPDATE vrp_infos SET login = @login WHERE steam = @steam")
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- PREPARE VRP_USERS_DATA
 -----------------------------------------------------------------------------------------------------------------------------------------

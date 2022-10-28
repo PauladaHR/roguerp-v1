@@ -24,6 +24,48 @@ local addPlayer = {}
 
 local prepared_queries = {}
 -----------------------------------------------------------------------------------------------------------------------------------------
+-- GETIDENTIFIERS
+-----------------------------------------------------------------------------------------------------------------------------------------
+function vRP.getIdentifiers(source)
+	local identifiers = GetPlayerIdentifiers(source)
+	local array = {}
+
+	for k,v in ipairs(identifiers) do
+		if string.sub(v,1,5) == "steam" then
+			array["steam"] = v
+		end
+
+		if string.sub(v,1,7) == "discord" then
+			array["discord"] = string.gsub(v,"discord:","")
+		end
+	end
+	
+	return array
+end
+----
+-----------------------------------------------------------------------------------------------------------------------------------------
+-- GETSTEAM
+-----------------------------------------------------------------------------------------------------------------------------------------
+function vRP.getSteam(source)
+	local identifiers = GetPlayerIdentifiers(source)
+	for k,v in ipairs(identifiers) do
+		if string.sub(v,1,5) == "steam" then
+			return v
+		end
+	end
+end
+-----------------------------------------------------------------------------------------------------------------------------------------
+-- GETDISCORD
+-----------------------------------------------------------------------------------------------------------------------------------------
+function vRP.getDiscord(source)
+	local identifiers = GetPlayerIdentifiers(source)
+	for k,v in ipairs(identifiers) do
+		if string.sub(v,1,7) == "discord" then
+			return v
+		end
+	end
+end
+-------------------------------------------------------------------------------------------------------------------------------------
 -- FORMAT
 -----------------------------------------------------------------------------------------------------------------------------------------
 function vRP.format(n)
@@ -59,21 +101,9 @@ function vRP.execute(name, params)
 	return exports["oxmysql"]:query_async(prepared_queries[name], params)
 end
 -----------------------------------------------------------------------------------------------------------------------------------------
--- GETUSERINFO
------------------------------------------------------------------------------------------------------------------------------------------
-function vRP.getInformation(user_id)
-	return vRP.query("vRP/get_vrp_users",{ id = parseInt(user_id) })
-end
------------------------------------------------------------------------------------------------------------------------------------------
--- GETUSERINFO
------------------------------------------------------------------------------------------------------------------------------------------
-function vRP.getInfos(steam)
-	return vRP.query("vRP/get_vrp_infos",{ steam = steam })
-end
------------------------------------------------------------------------------------------------------------------------------------------
 -- ISBANNED
 -----------------------------------------------------------------------------------------------------------------------------------------
-function vRP.isBanned(steam)
+function vRP.CheckBanned(steam)
 	local ConsultBanned = vRP.getInfos(steam)
 	if ConsultBanned[1] then
 		return ConsultBanned[1]["banned"]
@@ -209,17 +239,6 @@ function vRP.kick(user_id,reason)
 	end
 end
 -----------------------------------------------------------------------------------------------------------------------------------------
--- SALVARDB
------------------------------------------------------------------------------------------------------------------------------------------
-CreateThread(function()
-	while true do
-		Wait(10000)
-		for k,v in pairs(vRP.user_tables) do
-			vRP.setUData(parseInt(k),"Datatable",json.encode(v))
-		end
-	end
-end)
------------------------------------------------------------------------------------------------------------------------------------------
 -- REJOINSERVER
 -----------------------------------------------------------------------------------------------------------------------------------------
 function vRP.rejoinServer(source,reason)
@@ -228,14 +247,18 @@ function vRP.rejoinServer(source,reason)
 	if user_id then
 		local identity = vRP.getUserIdentity(user_id)
 		if identity then
-			TriggerEvent("vRP:playerLeave",user_id,source)
 			TriggerEvent("webhooks","exit","```prolog\n[ID]: "..user_id.." "..identity.name.." "..identity.name2.." \n[MOTIVO]: "..reason.." "..os.date("\n[Data]: %d/%m/%Y [Hora]: %H:%M:%S").." \r```","Exit")
-
-			vRP.setUData(user_id,"Datatable",json.encode(vRP.user_tables[user_id]))
-			vRP.users[identity.steam] = nil
-			vRP.user_sources[user_id] = nil
-			vRP.user_tables[user_id] = nil
-			vRP.rusers[user_id] = nil
+			
+			local DataTable = vRP.getUserDataTable(user_id)
+			if DataTable then
+				vRP.execute("playerdata/setUserdata",{ user_id = parseInt(user_id), key = "Datatable", value = json.encode(DataTable) })
+				print(json.encode(DataTable))
+				TriggerEvent("vRP:playerLeave",user_id,source)
+				vRP.users[identity.steam] = nil
+				vRP.user_sources[user_id] = nil
+				vRP.user_tables[user_id] = nil
+				vRP.rusers[user_id] = nil
+			end
 
 			Wait(1000)
 			
@@ -244,45 +267,19 @@ function vRP.rejoinServer(source,reason)
 	end
 end
 -----------------------------------------------------------------------------------------------------------------------------------------
--- GETSTEAM
+-- UPDATEINFORMATIONS
 -----------------------------------------------------------------------------------------------------------------------------------------
-function vRP.getSteam(source)
-	local identifiers = GetPlayerIdentifiers(source)
-	for k,v in ipairs(identifiers) do
-		if string.sub(v,1,5) == "steam" then
-			return v
+function tvRP.userUpdate(pArmour,pHealth,pCoords)
+	local source = source
+	local user_id = vRP.getUserId(source)
+	if user_id then
+		local dataTable = vRP.getUserDataTable(user_id)
+		if dataTable then
+			dataTable["armour"] = parseInt(pArmour)
+			dataTable["health"] = parseInt(pHealth)
+			dataTable["position"] = { x = mathLegth(pCoords["x"]), y = mathLegth(pCoords["y"]), z = mathLegth(pCoords["z"]) }
 		end
 	end
-end
------------------------------------------------------------------------------------------------------------------------------------------
--- GETDISCORD
------------------------------------------------------------------------------------------------------------------------------------------
-function vRP.getDiscord(source)
-	local identifiers = GetPlayerIdentifiers(source)
-	for k,v in ipairs(identifiers) do
-		if string.sub(v,1,7) == "discord" then
-			return v
-		end
-	end
-end
------------------------------------------------------------------------------------------------------------------------------------------
--- GETIDENTIFIERS
------------------------------------------------------------------------------------------------------------------------------------------
-function vRP.getIdentifiers(source)
-	local identifiers = GetPlayerIdentifiers(source)
-	local array = {}
-
-	for k,v in ipairs(identifiers) do
-		if string.sub(v,1,5) == "steam" then
-			array["steam"] = v
-		end
-
-		if string.sub(v,1,7) == "discord" then
-			array["discord"] = string.gsub(v,"discord:","")
-		end
-	end
-	
-	return array
 end
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- SETDISCORD
@@ -319,14 +316,13 @@ AddEventHandler("queue:playerConnecting",function(source,ids,name,setKickReason,
 	end
 
 	if steam then
-		if not vRP.isBanned(steam) then
+		if not vRP.CheckBanned(steam) then
 			local newUser = vRP.getInfos(steam)
 			if newUser[1] == nil then
 				vRP.execute("vRP/create_user",{ steam = steam, discord = discord, login = os.date("%d/%m/%Y") })
 			end
 
 			if vRP.checkRoleDiscord(discord,"953468179940782083") then
-				vRP.execute("vRP/dateLogin",{ steam = steam, login = os.date("%d/%m/%Y") })
 				deferrals.done()
 			else
 				deferrals.done("Você não tem whitelist em nosso servidor, entre em nosso discord e garanta já a sua whitelist! https://discord.gg/roguerp")
@@ -378,9 +374,8 @@ end
 --	end
 --	
 --	if steam then
---		if not vRP.isBanned(steam) then
+--		if not vRP.CheckBanned(steam) then
 --			if vRP.Allowlisted(steam) then
---				vRP.execute("vRP/dateLogin",{ steam = steam, login = os.date("%d/%m/%Y") })
 --				deferrals.done()
 --			else
 --				local newUser = vRP.getInfos(steam)
@@ -444,4 +439,11 @@ AddEventHandler("baseModule:idLoaded",function(source,user_id,model)
 
 		TriggerEvent("vRP:playerSpawn",user_id,source)
 	end
+end)
+-----------------------------------------------------------------------------------------------------------------------------------------
+-- THREADSERVER
+-----------------------------------------------------------------------------------------------------------------------------------------
+CreateThread(function()
+	SetGameType("Rogue")
+	SetMapName("www.bahamascity.com.br")
 end)

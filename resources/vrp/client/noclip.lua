@@ -23,9 +23,9 @@ end
 -----------------------------------------------------------------------------------------------------------------------------------------
 CreateThread(function()
 	while true do
-		local timeDistance = 500
+		local TimeDistance = 999
 		if noclip then
-			timeDistance = 4
+			TimeDistance = 1
 			local ped = PlayerPedId()
 			local x,y,z = table.unpack(GetEntityCoords(ped))
 			local dx,dy,dz = tvRP.getCamDirection()
@@ -67,6 +67,23 @@ CreateThread(function()
 
 			SetEntityCoordsNoOffset(ped,x,y,z,true,true,true)
 		end
-		Wait(timeDistance)
+		Wait(TimeDistance)
 	end
 end)
+-----------------------------------------------------------------------------------------------------------------------------------------
+-- GETCAMDIRECTION
+-----------------------------------------------------------------------------------------------------------------------------------------
+function tvRP.getCamDirection()
+	local heading = GetGameplayCamRelativeHeading()+GetEntityHeading(PlayerPedId())
+	local pitch = GetGameplayCamRelativePitch()
+	local x = -math.sin(heading*math.pi/180.0)
+	local y = math.cos(heading*math.pi/180.0)
+	local z = math.sin(pitch*math.pi/180.0)
+	local len = math.sqrt(x*x+y*y+z*z)
+	if len ~= 0 then
+		x = x / len
+		y = y / len
+		z = z / len
+	end
+	return x,y,z
+end

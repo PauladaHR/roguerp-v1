@@ -24,23 +24,23 @@ CreateThread(function()
 	Wait(1000)
 
 	print('^3[!] ^0Criação de itens ^3iniciada^0')
-	setupItemList()
+	SetupItemList()
 	print('^2[!] ^0Criação de itens ^2finalizada^0!')
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- UPDATE ITEM
 -----------------------------------------------------------------------------------------------------------------------------------------
-RegisterCommand("updateitem",function(source,args,rawCommand)
+RegisterCommand("updateitem",function(source)
 	if source ~= 0 then
 		return
 	end
 
 	print('^3[!] ^0Atualização de itens ^3iniciada^0')
-	setupItemList()
+	SetupItemList()
 	print('^2[!] ^0Atualização de itens ^2finalizada^0')
 end)
 
-function setupItemList()
+function SetupItemList()
 	itemlist = {}
 	local selectAll = exports["oxmysql"]:executeSync("SELECT * FROM `vrp_items`",{})
 	for k,v in pairs(selectAll) do
@@ -125,6 +125,26 @@ AddEventHandler("admin:KickAll",function()
 
 	print("Save no banco de dados terminou, ja pode reiniciar o servidor.")
 end)
+-----------------------------------------------------------------------------------------------------------------------------------------
+-- GETBACKPACK
+-----------------------------------------------------------------------------------------------------------------------------------------
+function vRP.getBackpack(user_id)
+	local DataTable = vRP.getUserDataTable(user_id)
+	if DataTable["backpack"] == nil then
+		DataTable["backpack"] = 50
+	end
+
+	return DataTable["backpack"]
+end
+-----------------------------------------------------------------------------------------------------------------------------------------
+-- SETBACKPACK
+-----------------------------------------------------------------------------------------------------------------------------------------
+function vRP.setBackpack(user_id,amount)
+	local DataTable = vRP.getUserDataTable(user_id)
+	if DataTable then
+		DataTable["backpack"] = amount
+	end
+end
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- ITEMBODYLIST
 -----------------------------------------------------------------------------------------------------------------------------------------

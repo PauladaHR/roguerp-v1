@@ -1,25 +1,9 @@
 -----------------------------------------------------------------------------------------------------------------------------------------
--- THREADSAVE
------------------------------------------------------------------------------------------------------------------------------------------
-CreateThread(function()
-	while true do
-		if LocalPlayer["state"]["Active"] then
-			local coords = GetEntityCoords(PlayerPedId())
-			vRPS._updatePositions(coords.x,coords.y,coords.z)
-			vRPS._updateHealth(GetEntityHealth(PlayerPedId()))
-			vRPS._updateArmour(GetPedArmour(PlayerPedId()))
-			vRPS._updateWeapons(tvRP.getWeapons())
-		end
-
-		Wait(10000)
-	end
-end)
------------------------------------------------------------------------------------------------------------------------------------------
 -- THREADREADY
 -----------------------------------------------------------------------------------------------------------------------------------------
 CreateThread(function()
 	NetworkSetFriendlyFireOption(true)
-	SetCanAttackFriendly(PlayerPedId(),true,true)
+	SetCanAttackFriendly(PlayerPedId(),true,false)
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- GETHEALTH
@@ -47,16 +31,7 @@ end
 -- DOWNHEALTH
 -----------------------------------------------------------------------------------------------------------------------------------------
 function tvRP.downHealth(number)
-	local ped = PlayerPedId()
-	local health = GetEntityHealth(ped)
-
-	SetEntityHealth(ped,parseInt(health-number))
-end
------------------------------------------------------------------------------------------------------------------------------------------
--- GETARMOUR
------------------------------------------------------------------------------------------------------------------------------------------
-function tvRP.getArmour()
-	return GetPedArmour(PlayerPedId())
+	ApplyDamageToPed(PlayerPedId(),number,false)
 end
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- SETARMOUR
@@ -66,7 +41,7 @@ function tvRP.setArmour(amount)
 	local armour = GetPedArmour(ped)
 	--SetPedArmour(ped,parseInt(armour+amount))
 	amount = amount+armour
-	if amount>100 then amount = 100 end
+	if amount>99 then amount = 99 end
 	TriggerEvent("armour:rogue",amount)
 end
 -----------------------------------------------------------------------------------------------------------------------------------------

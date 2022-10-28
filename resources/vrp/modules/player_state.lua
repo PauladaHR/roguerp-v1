@@ -1,52 +1,54 @@
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- PLAYERSPAWN
 -----------------------------------------------------------------------------------------------------------------------------------------
-local spawnLogin = {}
+local SpawnLogin = {}
 AddEventHandler("vRP:playerSpawn",function(user_id,source)
-	local data = vRP.getUserDataTable(user_id)
-	if data then
-		if data.position then
-			if data.position.x == nil or data.position.y == nil or data.position.z == nil then
-				data.position = { x = 27.66, y = -1763.32, z = 29.32 }
+	local DataTable = vRP.getUserDataTable(user_id)
+	if DataTable then
+		if DataTable["position"] then
+			if DataTable["position"]["x"] == nil or DataTable["position"]["y"] == nil or DataTable["position"]["z"] == nil then
+				DataTable["position"] = { x = 27.66, y = -1763.32, z = 29.32 }
 			end
 		else
-			data.position = { x = 27.66, y = -1763.32, z = 29.32 }
+			DataTable["position"] = { x = 27.66, y = -1763.32, z = 29.32 }
 		end
-		vRPC.teleport(source,data.position.x,data.position.y,data.position.z+0.5)
-		if data.skin then
-			vRPC.applySkin(source,data.skin)
+		vRPC.teleport(source,DataTable["position"]["x"],DataTable["position"]["y"],DataTable["position"].z+0.5)
+
+
+		if DataTable["skin"] then
+			vRPC.applySkin(source,DataTable["skin"])
 		end
 
-		if data["stress"] == nil then
-			data["stress"] = 0
+		if DataTable["stress"] == nil then
+			DataTable["stress"] = 0
 		end
 
-		if data["oxigen"] == nil then
-			data["oxigen"] = 100
+		if DataTable["oxigen"] == nil then
+			DataTable["oxigen"] = 100
 		end
 
-		if data.health then
-			vRPC.setHealth(source,data.health)
-			local colete = data.armour
+		if DataTable["inventory"] == nil then
+			DataTable["inventory"] = {}
+		end
+
+		if DataTable["weaps"] then
+			vRPC.giveWeapons(source,DataTable["weaps"],true)
+		end
+
+		if DataTable["health"] then
+			vRPC.setHealth(source,DataTable["health"])
+			local colete = DataTable["armour"]
 			SetTimeout(10000,function()
-				if data.armour then
+				if DataTable.armour then
 					source = vRP.getUserSource(user_id)
 					if(source~=nil)then
 						vRPC.setArmour(source,colete)
 					end
 				end
 			end)
-			TriggerClientEvent("statusHunger",source,data.hunger)
-			TriggerClientEvent("statusThirst",source,data.thirst)
-			TriggerClientEvent("statusStress",source,data.stress)
-		end
-
-		if data.inventory == nil then
-			data.inventory = {}
-		end
-
-		if data.weaps then
-			vRPC.giveWeapons(source,data.weaps,true)
+			TriggerClientEvent("statusHunger",source,DataTable.hunger)
+			TriggerClientEvent("statusThirst",source,DataTable.thirst)
+			TriggerClientEvent("statusStress",source,DataTable.stress)
 		end
 
 		Wait(1000)
@@ -54,11 +56,11 @@ AddEventHandler("vRP:playerSpawn",function(user_id,source)
 		local consultAppearence = vRP.query("vRP/get_appearence",{ id = parseInt(user_id) })
 		if consultAppearence[1]["appearence"] == 0 then
 			local PlayerAppearence = vRP.userData(user_id,"Character")
-			if spawnLogin[parseInt(user_id)] then
+			if SpawnLogin[parseInt(user_id)] then
 				TriggerClientEvent("vrp_character:updateCharacter",source,PlayerAppearence,false)
 				TriggerClientEvent("vrp_spawn:justSpawn",source,false)
 			else
-				spawnLogin[parseInt(user_id)] = true
+				SpawnLogin[parseInt(user_id)] = true
 				TriggerClientEvent("vrp_character:updateCharacter",source,PlayerAppearence,false)
 				TriggerClientEvent("vrp_spawn:justSpawn",source,true)
 			end
@@ -76,73 +78,6 @@ AddEventHandler("vRP:playerSpawn",function(user_id,source)
 		TriggerClientEvent("vRP:playerActive",source,user_id)
 	end
 end)
------------------------------------------------------------------------------------------------------------------------------------------
--- GETBACKPACK
------------------------------------------------------------------------------------------------------------------------------------------
-function vRP.getBackpack(user_id)
-	local data = vRP.getUserDataTable(user_id)
-	if data.backpack == nil then
-		data.backpack = 50
-	end
-
-	return data["backpack"]
-end
------------------------------------------------------------------------------------------------------------------------------------------
--- SETBACKPACK
------------------------------------------------------------------------------------------------------------------------------------------
-function vRP.setBackpack(user_id,amount)
-	local data = vRP.getUserDataTable(user_id)
-	if data then
-		data["backpack"] = amount
-	end
-end
------------------------------------------------------------------------------------------------------------------------------------------
--- UPDATEPOSITIONS
------------------------------------------------------------------------------------------------------------------------------------------
-function tvRP.updatePositions(x,y,z)
-	local source = source
-	local user_id = vRP.getUserId(source)
-	if user_id then
-		local data = vRP.getUserDataTable(user_id)
-		if data then
-			data.position = { x = tvRP.mathLegth(x), y = tvRP.mathLegth(y), z = tvRP.mathLegth(z) }
-		end
-	end
-end
------------------------------------------------------------------------------------------------------------------------------------------
--- UPDATEHOMEPOSITION
------------------------------------------------------------------------------------------------------------------------------------------
-function tvRP.updateHomePosition(user_id,x,y,z)
-	if vRP.user_tables[parseInt(user_id)] then
-		vRP.user_tables[parseInt(user_id)]["position"] = { x = tvRP.mathLegth(x), y = tvRP.mathLegth(y), z = tvRP.mathLegth(z) }
-	end
-end
------------------------------------------------------------------------------------------------------------------------------------------
--- UPDATEHEALTH
------------------------------------------------------------------------------------------------------------------------------------------
-function tvRP.updateHealth(health)
-	local source = source
-	local user_id = vRP.getUserId(source)
-	if user_id then
-		local data = vRP.getUserDataTable(user_id)
-		if data then
-			data.health = health
-		end
-	end
-end
------------------------------------------------------------------------------------------------------------------------------------------
--- UPDATEARMOUR
------------------------------------------------------------------------------------------------------------------------------------------
-function tvRP.updateArmour(armour)
-	local source = source
-	local user_id = vRP.getUserId(source)
-	if user_id then
-		local data = vRP.getUserDataTable(user_id)
-		if data then
-			data.armour = armour
-		end
-	end
-end
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- MATHLEGTH
 -----------------------------------------------------------------------------------------------------------------------------------------
@@ -171,16 +106,16 @@ AddEventHandler("clearInventory",function()
 	local source = source
 	local user_id = vRP.getUserId(source)
 	if user_id then
-		local data = vRP.getUserDataTable(user_id)
-		if data.inventory then
+		local DataTable = vRP.getUserDataTable(user_id)
+		if DataTable["inventory"] then
 
 			if vRP.userPremium(user_id) then
-				data.backpack = 100
+				DataTable["backpack"] = 100
 			else
-				data.backpack = 50
+				DataTable["backpack"] = 50
 			end
 
-			data.inventory = {}
+			DataTable["inventory"] = {}
 			vRP.generateItem(user_id,"identity",(1),false)
 			vRP.upgradeThirst(user_id,100)
 			vRP.upgradeHunger(user_id,100)
@@ -191,9 +126,9 @@ end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- THREAD THIRST/HUNGER
 -----------------------------------------------------------------------------------------------------------------------------------------
-Citizen.CreateThread(function()
+CreateThread(function()
 	while true do
-		Citizen.Wait(100000)
+		Wait(100000)
 		for k,v in pairs(vRP.users) do
 			vRP.downgradeThirst(v,1)
 			vRP.downgradeHunger(v,1)

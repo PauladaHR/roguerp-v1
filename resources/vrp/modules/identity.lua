@@ -77,7 +77,7 @@ function vRP.generateRegistrationNumber()
 	local user_id = nil
 	local registration = ""
 	repeat
-		Citizen.Wait(0)
+		Wait(0)
 		registration = vRP.generateStringNumber("DDLLLDDD")
 		user_id = vRP.getUserIdRegistration(registration)
 	until not user_id
@@ -91,7 +91,7 @@ function vRP.generatePlateNumber()
 	local user_id = nil
 	local registration = ""
 	repeat
-		Citizen.Wait(0)
+		Wait(0)
 		registration = vRP.generateStringNumber("DDLLLDDD")
 		user_id = vRP.getVehiclePlate(registration)
 	until not user_id
@@ -112,10 +112,22 @@ function vRP.generatePhoneNumber()
 	local phone = ""
 
 	repeat
-		Citizen.Wait(0)
+		Wait(0)
 		phone = vRP.generateStringNumber("DDD-DDD")
 		user_id = vRP.getUserByPhone(phone)
 	until not user_id
 
 	return phone
+end
+-----------------------------------------------------------------------------------------------------------------------------------------
+-- GETUSERINFO
+-----------------------------------------------------------------------------------------------------------------------------------------
+function vRP.getInformation(user_id)
+	return vRP.query("vRP/get_vrp_users",{ id = parseInt(user_id) })
+end
+-----------------------------------------------------------------------------------------------------------------------------------------
+-- GETUSERINFO
+-----------------------------------------------------------------------------------------------------------------------------------------
+function vRP.getInfos(steam)
+	return vRP.query("vRP/get_vrp_infos",{ steam = steam })
 end

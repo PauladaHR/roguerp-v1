@@ -57,6 +57,8 @@ CreateThread(function()
 			if GetGameTimer() >= updateTimers then
 				local ped = PlayerPedId()
 				updateTimers = GetGameTimer() + 10000
+				vRPS.userUpdate(GetPedArmour(ped),GetEntityHealth(ped),GetEntityCoords(ped))
+				vRPS.updateWeapons(tvRP.getWeapons())
 
 				if invencibleCount < 3 then
 					invencibleCount = invencibleCount + 1

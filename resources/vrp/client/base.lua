@@ -19,8 +19,7 @@ local players = {}
 -- TELEPORT
 -----------------------------------------------------------------------------------------------------------------------------------------
 function tvRP.teleport(x,y,z)
-	SetEntityCoords(PlayerPedId(),x+0.0001,y+0.0001,z+0.0001,1,0,0,1)
-	vRPS._updatePositions(x,y,z)
+	SetEntityCoords(PlayerPedId(),x + 0.0001,y + 0.0001,z + 0.0001,1,0,0,0)
 end
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- PLAYERS
@@ -154,18 +153,18 @@ end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 CreateThread(function()
 	while true do
-		local timeDistance = 500
-		local ped = PlayerPedId()
+		local TimeDistance = 999
+		local Ped = PlayerPedId()
 		if animActived then
-			timeDistance = 4
+			TimeDistance = 1
 			DisableControlAction(1,16,true)
 			DisableControlAction(1,17,true)
 			DisableControlAction(1,24,true)
 			DisableControlAction(1,25,true)
-			DisablePlayerFiring(PlayerPedId(),true)
+			DisablePlayerFiring(Ped,true)
 		end
 
-		Wait(timeDistance)
+		Wait(TimeDistance)
 	end
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
@@ -198,23 +197,8 @@ CreateThread(function()
 	end
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
--- GETCAMDIRECTION
+-- playScreenEffect
 -----------------------------------------------------------------------------------------------------------------------------------------
-function tvRP.getCamDirection()
-	local heading = GetGameplayCamRelativeHeading()+GetEntityHeading(PlayerPedId())
-	local pitch = GetGameplayCamRelativePitch()
-	local x = -math.sin(heading*math.pi/180.0)
-	local y = math.cos(heading*math.pi/180.0)
-	local z = math.sin(pitch*math.pi/180.0)
-	local len = math.sqrt(x*x+y*y+z*z)
-	if len ~= 0 then
-		x = x / len
-		y = y / len
-		z = z / len
-	end
-	return x,y,z
-end
-
 function tvRP.playScreenEffect(name,duration)
 	if duration < 0 then
 		StartScreenEffect(name,0,true)
