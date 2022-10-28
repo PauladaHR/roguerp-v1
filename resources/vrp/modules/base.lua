@@ -20,7 +20,6 @@ vRP.user_sources = {}
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- VARIABLES
 -----------------------------------------------------------------------------------------------------------------------------------------
-local showIds = {}
 local addPlayer = {}
 
 local prepared_queries = {}
@@ -75,18 +74,18 @@ end
 -- ISBANNED
 -----------------------------------------------------------------------------------------------------------------------------------------
 function vRP.isBanned(steam)
-	local rows = vRP.getInfos(steam)
-	if rows[1] then
-		return rows[1].banned
+	local ConsultBanned = vRP.getInfos(steam)
+	if ConsultBanned[1] then
+		return ConsultBanned[1]["banned"]
 	end
 end
 -----------------------------------------------------------------------------------------------------------------------------------------
--- ISWHITELISTED
+-- ALLOWLISTED
 -----------------------------------------------------------------------------------------------------------------------------------------
-function vRP.isWhitelisted(steam)
-	local rows = vRP.getInfos(steam)
-	if rows[1] then
-		return rows[1].whitelist
+function vRP.Allowlisted(steam)
+	local ConsultAllowlist = vRP.getInfos(steam)
+	if ConsultAllowlist[1] then
+		return ConsultAllowlist[1]["whitelist"]
 	end
 end
 -----------------------------------------------------------------------------------------------------------------------------------------
@@ -146,7 +145,7 @@ end
 function vRP.getInventory(user_id)
 	local data = vRP.user_tables[user_id]
 	if data then
-		return data.inventory
+		return data["inventory"]
 	end
 	return false
 end
@@ -156,7 +155,7 @@ end
 function vRP.updateSelectSkin(user_id,hash)
 	local data = vRP.user_tables[user_id]
 	if data then
-		data.skin = hash
+		data["skin"] = hash
 	end
 end
 -----------------------------------------------------------------------------------------------------------------------------------------
@@ -212,9 +211,9 @@ end
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- SALVARDB
 -----------------------------------------------------------------------------------------------------------------------------------------
-Citizen.CreateThread(function()
+CreateThread(function()
 	while true do
-		Citizen.Wait(10000)
+		Wait(10000)
 		for k,v in pairs(vRP.user_tables) do
 			vRP.setUData(parseInt(k),"Datatable",json.encode(v))
 		end
@@ -237,11 +236,8 @@ function vRP.rejoinServer(source,reason)
 			vRP.user_sources[user_id] = nil
 			vRP.user_tables[user_id] = nil
 			vRP.rusers[user_id] = nil
-			showIds[source] = nil
 
-			TriggerClientEvent("vRP:showIds",-1,showIds)
-
-			Citizen.Wait(1000)
+			Wait(1000)
 			
 			TriggerEvent("leaveHomes",user_id)
 		end
@@ -355,7 +351,7 @@ function vRP.checkRoleDiscord(discord,role)
     end)
 
 	while waitCheck == nil do
-		Citizen.Wait(100)
+		Wait(100)
 	end
 
     return waitCheck
@@ -365,7 +361,7 @@ end
 -----------------------------------------------------------------------------------------------------------------------------------------
 function vRP.updateWhitelist(steam)
 	if steam then
-		if not vRP.isWhitelisted(steam) then
+		if not vRP.Allowlisted(steam) then
 			vRP.execute("vRP/update_whitelist",{ steam = steam, whitelist = 1 })
 		end
 	end
@@ -383,7 +379,7 @@ end
 --	
 --	if steam then
 --		if not vRP.isBanned(steam) then
---			if vRP.isWhitelisted(steam) then
+--			if vRP.Allowlisted(steam) then
 --				vRP.execute("vRP/dateLogin",{ steam = steam, login = os.date("%d/%m/%Y") })
 --				deferrals.done()
 --			else
@@ -440,9 +436,6 @@ AddEventHandler("baseModule:idLoaded",function(source,user_id,model)
 			vRP.users[identity.steam] = user_id
 			vRP.rusers[user_id] = identity.steam
 		end
-
-		showIds[source] = user_id
-		TriggerClientEvent("vRP:showIds",-1,showIds)
 
 		local registration = vRP.getUserRegistration(user_id)
 		if registration == nil then

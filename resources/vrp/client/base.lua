@@ -14,10 +14,7 @@ Proxy.addInterface("vRP",tvRP)
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- VARIABLES
 -----------------------------------------------------------------------------------------------------------------------------------------
-local anims = {}
 local players = {}
-local showblips = {}
-local anim_ids = Tools.newIDGenerator()
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- TELEPORT
 -----------------------------------------------------------------------------------------------------------------------------------------
@@ -50,13 +47,6 @@ function tvRP.getPlayers()
 	return players
 end
 -----------------------------------------------------------------------------------------------------------------------------------------
--- ADDPLAYER
------------------------------------------------------------------------------------------------------------------------------------------
-RegisterNetEvent("vRP:showIds")
-AddEventHandler("vRP:showIds",function(status)
-	showblips = status
-end)
------------------------------------------------------------------------------------------------------------------------------------------
 -- NEARESTPLAYER
 -----------------------------------------------------------------------------------------------------------------------------------------
 function tvRP.nearestPlayer(vDistance)
@@ -85,25 +75,6 @@ function tvRP.nearestPlayers(vDistance)
 			local distance = #(coords - coordsPed)
 			if distance <= vDistance then
 				r[GetPlayerServerId(player)] = distance
-			end
-		end
-	end
-	return r
-end
------------------------------------------------------------------------------------------------------------------------------------------
--- NEARESTPLAYERSBLIPS
------------------------------------------------------------------------------------------------------------------------------------------
-function tvRP.nearestPlayersBlips(vDistance)
-	local r = {}
-	for k,v in pairs(showblips) do
-		local player = GetPlayerFromServerId(k)
-		if player ~= PlayerId() and NetworkIsPlayerConnected(player) then
-			local oped = GetPlayerPed(player)
-			local coords = GetEntityCoords(oped)
-			local coordsPed = GetEntityCoords(PlayerPedId())
-			local distance = #(coords - coordsPed)
-			if distance <= vDistance then
-				r[GetPlayerServerId(player)] = { v,coords.x,coords.y,coords.z,GetEntityHealth(oped),GetPedArmour(oped) }
 			end
 		end
 	end
