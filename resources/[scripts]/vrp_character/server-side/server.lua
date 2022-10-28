@@ -7,8 +7,8 @@ vRP = Proxy.getInterface("vRP")
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- CONNECTION
 -----------------------------------------------------------------------------------------------------------------------------------------
-cRP = {}
-Tunnel.bindInterface("vrp_character",cRP)
+Hiro = {}
+Tunnel.bindInterface("vrp_character",Hiro)
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- VRP_CHARACTER:FINISHEDCHARACTER
 -----------------------------------------------------------------------------------------------------------------------------------------
@@ -27,10 +27,9 @@ AddEventHandler("vrp_character:finishedCharacter",function(currentCharacterMode,
 			TriggerClientEvent("vrp_character:updateCharacter",source,currentCharacterMode,true)
 		end
 		
-		local tattooData = vRP.getUData(user_id,"Tattoos")
-		local result = json.decode(tattooData)
-		if result then 
-			TriggerClientEvent("tattoos:Apply",source,result)
+		local PlayerTattoos = vRP.userData(user_id,"Tattoos")
+		if PlayerTattoos then 
+			TriggerClientEvent("tattoos:Apply",source,PlayerTattoos)
 		end
 	end
 end)
@@ -42,24 +41,21 @@ AddEventHandler("vrp_character:resetBarber",function()
 	local source = source
 	local user_id = vRP.getUserId(source)
 	if user_id then
-		local playerData = vRP.getUData(user_id,"Character")
-		local resultData = json.decode(playerData)
-		if resultData then
-			TriggerClientEvent("vrp_character:updateCharacter",source,resultData,true)
+		local PlayerAppearence = vRP.userData(user_id,"Character")
+		if PlayerAppearence then
+			TriggerClientEvent("vrp_character:updateCharacter",source,PlayerAppearence,true)
 		end
 
-		local tattooData = vRP.getUData(user_id,"Tattoos")
-		local result = json.decode(tattooData)
-		if result then 
-			TriggerClientEvent("tattoos:Apply",source,result)
-			
+		local PlayerTattoos = vRP.userData(user_id,"Tattoos")
+		if PlayerTattoos then 
+			TriggerClientEvent("tattoos:Apply",source,PlayerTattoos)
 		end
 	end
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- CHECKOPEN
 -----------------------------------------------------------------------------------------------------------------------------------------
-function cRP.checkOpen()
+function Hiro.CheckWanted()
 	local source = source
 	local user_id = vRP.getUserId(source)
 	if user_id then

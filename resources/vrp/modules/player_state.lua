@@ -69,7 +69,7 @@ AddEventHandler("vRP:playerSpawn",function(user_id,source)
 
 		Wait(1000)
 
-		TriggerClientEvent("tattoos:apply",source,vRP.userData(user_id,"Tattoos"))
+		TriggerClientEvent("tattoos:Apply",source,vRP.userData(user_id,"Tattoos"))
 
 		Wait(1000)
 

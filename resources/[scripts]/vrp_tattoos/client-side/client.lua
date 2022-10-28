@@ -7,8 +7,6 @@ vRP = Proxy.getInterface("vRP")
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- CONNECTION
 -----------------------------------------------------------------------------------------------------------------------------------------
-cRP = {}
-Tunnel.bindInterface("tattoos",cRP)
 vSERVER = Tunnel.getInterface("tattoos")
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- VARIABLES
@@ -110,6 +108,20 @@ local tattooShop = {
 				{ ["name"] = "MP_Gunrunning_Tattoo_022_M", ["part"] = "mpgunrunning_overlays" },
 				{ ["name"] = "MP_Gunrunning_Tattoo_028_M", ["part"] = "mpgunrunning_overlays" },
 				{ ["name"] = "MP_Gunrunning_Tattoo_029_M", ["part"] = "mpgunrunning_overlays" },
+				{ ["name"] = "mpHeist3_Tat_023_M", ["part"] = "mpheist3_overlays" },
+				{ ["name"] = "mpHeist3_Tat_024_M", ["part"] = "mpheist3_overlays" },
+				{ ["name"] = "mpHeist3_Tat_025_M", ["part"] = "mpheist3_overlays" },
+				{ ["name"] = "mpHeist3_Tat_026_M", ["part"] = "mpheist3_overlays" },
+				{ ["name"] = "mpHeist3_Tat_027_M", ["part"] = "mpheist3_overlays" },
+				{ ["name"] = "mpHeist3_Tat_028_M", ["part"] = "mpheist3_overlays" },
+				{ ["name"] = "mpHeist3_Tat_029_M", ["part"] = "mpheist3_overlays" },
+				{ ["name"] = "mpHeist3_Tat_030_M", ["part"] = "mpheist3_overlays" },
+				{ ["name"] = "mpHeist3_Tat_033_M", ["part"] = "mpheist3_overlays" },
+				{ ["name"] = "mpHeist3_Tat_035_M", ["part"] = "mpheist3_overlays" },
+				{ ["name"] = "mpHeist3_Tat_036_M", ["part"] = "mpheist3_overlays" },
+				{ ["name"] = "mpHeist3_Tat_037_M", ["part"] = "mpheist3_overlays" },
+				{ ["name"] = "mpHeist3_Tat_038_M", ["part"] = "mpheist3_overlays" },
+				{ ["name"] = "mpHeist3_Tat_039_M", ["part"] = "mpheist3_overlays" },
 				{ ["name"] = "FM_Hip_M_Tat_000", ["part"] = "mphipster_overlays" },
 				{ ["name"] = "FM_Hip_M_Tat_002", ["part"] = "mphipster_overlays" },
 				{ ["name"] = "FM_Hip_M_Tat_006", ["part"] = "mphipster_overlays" },
@@ -198,6 +210,27 @@ local tattooShop = {
 				{ ["name"] = "MP_MP_Stunt_tat_044_M", ["part"] = "mpstunt_overlays" },
 				{ ["name"] = "MP_MP_Stunt_tat_046_M", ["part"] = "mpstunt_overlays" },
 				{ ["name"] = "MP_MP_Stunt_tat_048_M", ["part"] = "mpstunt_overlays" },
+				{ ["name"] = "MP_Vinewood_Tat_000_M", ["part"] = "mpvinewood_overlays" },
+				{ ["name"] = "MP_Vinewood_Tat_001_M", ["part"] = "mpvinewood_overlays" },
+				{ ["name"] = "MP_Vinewood_Tat_003_M", ["part"] = "mpvinewood_overlays" },
+				{ ["name"] = "MP_Vinewood_Tat_006_M", ["part"] = "mpvinewood_overlays" },
+				{ ["name"] = "MP_Vinewood_Tat_007_M", ["part"] = "mpvinewood_overlays" },
+				{ ["name"] = "MP_Vinewood_Tat_008_M", ["part"] = "mpvinewood_overlays" },
+				{ ["name"] = "MP_Vinewood_Tat_009_M", ["part"] = "mpvinewood_overlays" },
+				{ ["name"] = "MP_Vinewood_Tat_010_M", ["part"] = "mpvinewood_overlays" },
+				{ ["name"] = "MP_Vinewood_Tat_011_M", ["part"] = "mpvinewood_overlays" },
+				{ ["name"] = "MP_Vinewood_Tat_012_M", ["part"] = "mpvinewood_overlays" },
+				{ ["name"] = "MP_Vinewood_Tat_015_M", ["part"] = "mpvinewood_overlays" },
+				{ ["name"] = "MP_Vinewood_Tat_016_M", ["part"] = "mpvinewood_overlays" },
+				{ ["name"] = "MP_Vinewood_Tat_017_M", ["part"] = "mpvinewood_overlays" },
+				{ ["name"] = "MP_Vinewood_Tat_021_M", ["part"] = "mpvinewood_overlays" },
+				{ ["name"] = "MP_Vinewood_Tat_022_M", ["part"] = "mpvinewood_overlays" },
+				{ ["name"] = "MP_Vinewood_Tat_023_M", ["part"] = "mpvinewood_overlays" },
+				{ ["name"] = "MP_Vinewood_Tat_024_M", ["part"] = "mpvinewood_overlays" },
+				{ ["name"] = "MP_Vinewood_Tat_029_M", ["part"] = "mpvinewood_overlays" },
+				{ ["name"] = "MP_Vinewood_Tat_030_M", ["part"] = "mpvinewood_overlays" },
+				{ ["name"] = "MP_Vinewood_Tat_031_M", ["part"] = "mpvinewood_overlays" },
+				{ ["name"] = "MP_Vinewood_Tat_032_M", ["part"] = "mpvinewood_overlays" },
 				{ ["name"] = "FM_Tat_Award_M_003", ["part"] = "multiplayer_overlays" },
 				{ ["name"] = "FM_Tat_Award_M_004", ["part"] = "multiplayer_overlays" },
 				{ ["name"] = "FM_Tat_Award_M_005", ["part"] = "multiplayer_overlays" },
@@ -245,6 +278,31 @@ local tattooShop = {
 				{ ["name"] = "MP_Xmas2_M_Tat_024", ["part"] = "mpchristmas2_overlays" },
 				{ ["name"] = "MP_Xmas2_M_Tat_025", ["part"] = "mpchristmas2_overlays" },
 				{ ["name"] = "MP_Xmas2_M_Tat_029", ["part"] = "mpchristmas2_overlays" },
+				{ ["name"] = "mpHeist3_Tat_000_M", ["part"] = "mpheist3_overlays" },
+				{ ["name"] = "mpHeist3_Tat_001_M", ["part"] = "mpheist3_overlays" },
+				{ ["name"] = "mpHeist3_Tat_002_M", ["part"] = "mpheist3_overlays" },
+				{ ["name"] = "mpHeist3_Tat_003_M", ["part"] = "mpheist3_overlays" },
+				{ ["name"] = "mpHeist3_Tat_004_M", ["part"] = "mpheist3_overlays" },
+				{ ["name"] = "mpHeist3_Tat_006_M", ["part"] = "mpheist3_overlays" },
+				{ ["name"] = "mpHeist3_Tat_007_M", ["part"] = "mpheist3_overlays" },
+				{ ["name"] = "mpHeist3_Tat_008_M", ["part"] = "mpheist3_overlays" },
+				{ ["name"] = "mpHeist3_Tat_009_M", ["part"] = "mpheist3_overlays" },
+				{ ["name"] = "mpHeist3_Tat_010_M", ["part"] = "mpheist3_overlays" },
+				{ ["name"] = "mpHeist3_Tat_011_M", ["part"] = "mpheist3_overlays" },
+				{ ["name"] = "mpHeist3_Tat_012_M", ["part"] = "mpheist3_overlays" },
+				{ ["name"] = "mpHeist3_Tat_013_M", ["part"] = "mpheist3_overlays" },
+				{ ["name"] = "mpHeist3_Tat_014_M", ["part"] = "mpheist3_overlays" },
+				{ ["name"] = "mpHeist3_Tat_015_M", ["part"] = "mpheist3_overlays" },
+				{ ["name"] = "mpHeist3_Tat_016_M", ["part"] = "mpheist3_overlays" },
+				{ ["name"] = "mpHeist3_Tat_017_M", ["part"] = "mpheist3_overlays" },
+				{ ["name"] = "mpHeist3_Tat_018_M", ["part"] = "mpheist3_overlays" },
+				{ ["name"] = "mpHeist3_Tat_019_M", ["part"] = "mpheist3_overlays" },
+				{ ["name"] = "mpHeist3_Tat_020_M", ["part"] = "mpheist3_overlays" },
+				{ ["name"] = "mpHeist3_Tat_021_M", ["part"] = "mpheist3_overlays" },
+				{ ["name"] = "mpHeist3_Tat_022_M", ["part"] = "mpheist3_overlays" },
+				{ ["name"] = "mpHeist3_Tat_042_M", ["part"] = "mpheist3_overlays" },
+				{ ["name"] = "mpHeist3_Tat_043_M", ["part"] = "mpheist3_overlays" },
+				{ ["name"] = "mpHeist3_Tat_044_M", ["part"] = "mpheist3_overlays" },
 				{ ["name"] = "FM_Hip_M_Tat_005", ["part"] = "mphipster_overlays" },
 				{ ["name"] = "FM_Hip_M_Tat_021", ["part"] = "mphipster_overlays" },
 				{ ["name"] = "MP_Smuggler_Tattoo_011_M", ["part"] = "mpsmuggler_overlays" },
@@ -290,6 +348,8 @@ local tattooShop = {
 				{ ["name"] = "MP_Gunrunning_Tattoo_016_M", ["part"] = "mpgunrunning_overlays" },
 				{ ["name"] = "MP_Gunrunning_Tattoo_025_M", ["part"] = "mpgunrunning_overlays" },
 				{ ["name"] = "MP_Gunrunning_Tattoo_027_M", ["part"] = "mpgunrunning_overlays" },
+				{ ["name"] = "mpHeist3_Tat_040_M", ["part"] = "mpheist3_overlays" },
+				{ ["name"] = "mpHeist3_Tat_041_M", ["part"] = "mpheist3_overlays" },
 				{ ["name"] = "FM_Hip_M_Tat_003", ["part"] = "mphipster_overlays" },
 				{ ["name"] = "FM_Hip_M_Tat_007", ["part"] = "mphipster_overlays" },
 				{ ["name"] = "FM_Hip_M_Tat_015", ["part"] = "mphipster_overlays" },
@@ -329,6 +389,11 @@ local tattooShop = {
 				{ ["name"] = "MP_MP_Stunt_tat_035_M", ["part"] = "mpstunt_overlays" },
 				{ ["name"] = "MP_MP_Stunt_tat_039_M", ["part"] = "mpstunt_overlays" },
 				{ ["name"] = "MP_MP_Stunt_tat_043_M", ["part"] = "mpstunt_overlays" },
+				{ ["name"] = "MP_Vinewood_Tat_002_M", ["part"] = "mpvinewood_overlays" },
+				{ ["name"] = "MP_Vinewood_Tat_005_M", ["part"] = "mpvinewood_overlays" },
+				{ ["name"] = "MP_Vinewood_Tat_014_M", ["part"] = "mpvinewood_overlays" },
+				{ ["name"] = "MP_Vinewood_Tat_019_M", ["part"] = "mpvinewood_overlays" },
+				{ ["name"] = "MP_Vinewood_Tat_026_M", ["part"] = "mpvinewood_overlays" },
 				{ ["name"] = "FM_Tat_Award_M_001", ["part"] = "multiplayer_overlays" },
 				{ ["name"] = "FM_Tat_Award_M_007", ["part"] = "multiplayer_overlays" },
 				{ ["name"] = "FM_Tat_Award_M_015", ["part"] = "multiplayer_overlays" },
@@ -370,6 +435,7 @@ local tattooShop = {
 				{ ["name"] = "MP_Gunrunning_Tattoo_002_M", ["part"] = "mpgunrunning_overlays" },
 				{ ["name"] = "MP_Gunrunning_Tattoo_021_M", ["part"] = "mpgunrunning_overlays" },
 				{ ["name"] = "MP_Gunrunning_Tattoo_024_M", ["part"] = "mpgunrunning_overlays" },
+				{ ["name"] = "mpHeist3_Tat_034_M", ["part"] = "mpheist3_overlays" },
 				{ ["name"] = "FM_Hip_M_Tat_001", ["part"] = "mphipster_overlays" },
 				{ ["name"] = "FM_Hip_M_Tat_004", ["part"] = "mphipster_overlays" },
 				{ ["name"] = "FM_Hip_M_Tat_008", ["part"] = "mphipster_overlays" },
@@ -404,6 +470,10 @@ local tattooShop = {
 				{ ["name"] = "MP_MP_Stunt_tat_036_M", ["part"] = "mpstunt_overlays" },
 				{ ["name"] = "MP_MP_Stunt_tat_038_M", ["part"] = "mpstunt_overlays" },
 				{ ["name"] = "MP_MP_Stunt_tat_049_M", ["part"] = "mpstunt_overlays" },
+				{ ["name"] = "MP_Vinewood_Tat_004_M", ["part"] = "mpvinewood_overlays" },
+				{ ["name"] = "MP_Vinewood_Tat_018_M", ["part"] = "mpvinewood_overlays" },
+				{ ["name"] = "MP_Vinewood_Tat_025_M", ["part"] = "mpvinewood_overlays" },
+				{ ["name"] = "MP_Vinewood_Tat_028_M", ["part"] = "mpvinewood_overlays" },
 				{ ["name"] = "FM_Tat_Award_M_002", ["part"] = "multiplayer_overlays" },
 				{ ["name"] = "FM_Tat_Award_M_010", ["part"] = "multiplayer_overlays" },
 				{ ["name"] = "FM_Tat_M_000", ["part"] = "multiplayer_overlays" },
@@ -434,6 +504,7 @@ local tattooShop = {
 				{ ["name"] = "MP_Gunrunning_Tattoo_007_M", ["part"] = "mpgunrunning_overlays" },
 				{ ["name"] = "MP_Gunrunning_Tattoo_011_M", ["part"] = "mpgunrunning_overlays" },
 				{ ["name"] = "MP_Gunrunning_Tattoo_023_M", ["part"] = "mpgunrunning_overlays" },
+				{ ["name"] = "mpHeist3_Tat_032_M", ["part"] = "mpheist3_overlays" },
 				{ ["name"] = "FM_Hip_M_Tat_009", ["part"] = "mphipster_overlays" },
 				{ ["name"] = "FM_Hip_M_Tat_019", ["part"] = "mphipster_overlays" },
 				{ ["name"] = "FM_Hip_M_Tat_040", ["part"] = "mphipster_overlays" },
@@ -445,6 +516,8 @@ local tattooShop = {
 				{ ["name"] = "MP_MP_Stunt_tat_007_M", ["part"] = "mpstunt_overlays" },
 				{ ["name"] = "MP_MP_Stunt_tat_013_M", ["part"] = "mpstunt_overlays" },
 				{ ["name"] = "MP_MP_Stunt_tat_021_M", ["part"] = "mpstunt_overlays" },
+				{ ["name"] = "MP_Vinewood_Tat_013_M", ["part"] = "mpvinewood_overlays" },
+				{ ["name"] = "MP_Vinewood_Tat_027_M", ["part"] = "mpvinewood_overlays" },
 				{ ["name"] = "FM_Tat_Award_M_009", ["part"] = "multiplayer_overlays" },
 				{ ["name"] = "FM_Tat_M_002", ["part"] = "multiplayer_overlays" },
 				{ ["name"] = "FM_Tat_M_008", ["part"] = "multiplayer_overlays" },
@@ -469,6 +542,7 @@ local tattooShop = {
 				{ ["name"] = "MP_Gunrunning_Tattoo_006_M", ["part"] = "mpgunrunning_overlays" },
 				{ ["name"] = "MP_Gunrunning_Tattoo_026_M", ["part"] = "mpgunrunning_overlays" },
 				{ ["name"] = "MP_Gunrunning_Tattoo_030_M", ["part"] = "mpgunrunning_overlays" },
+				{ ["name"] = "mpHeist3_Tat_031_M", ["part"] = "mpheist3_overlays" },
 				{ ["name"] = "FM_Hip_M_Tat_038", ["part"] = "mphipster_overlays" },
 				{ ["name"] = "FM_Hip_M_Tat_042", ["part"] = "mphipster_overlays" },
 				{ ["name"] = "MP_LR_Tat_030_M", ["part"] = "mplowrider2_overlays" },
@@ -485,83 +559,6 @@ local tattooShop = {
 				{ ["name"] = "MP_MP_Stunt_tat_045_M", ["part"] = "mpstunt_overlays" },
 				{ ["name"] = "MP_MP_Stunt_tat_047_M", ["part"] = "mpstunt_overlays" },
 				{ ["name"] = "FM_Tat_M_043", ["part"] = "multiplayer_overlays" }
-			}
-		},
-		["hair"] = {
-			["tattoo"] = {
-				{ ["part"] = "mpbeach_overlays", ["name"] = "FM_Hair_Fuzz" },
-				{ ["part"] = "multiplayer_overlays", ["name"] = "NG_M_Hair_001" },
-				{ ["part"] = "multiplayer_overlays", ["name"] = "NG_M_Hair_002" },
-				{ ["part"] = "multiplayer_overlays", ["name"] = "NG_M_Hair_003" },
-				{ ["part"] = "multiplayer_overlays", ["name"] = "NG_M_Hair_004" },
-				{ ["part"] = "multiplayer_overlays", ["name"] = "NG_M_Hair_005" },
-				{ ["part"] = "multiplayer_overlays", ["name"] = "NG_M_Hair_006" },
-				{ ["part"] = "multiplayer_overlays", ["name"] = "NG_M_Hair_007" },
-				{ ["part"] = "multiplayer_overlays", ["name"] = "NG_M_Hair_008" },
-				{ ["part"] = "multiplayer_overlays", ["name"] = "NG_M_Hair_009" },
-				{ ["part"] = "multiplayer_overlays", ["name"] = "NG_M_Hair_013" },
-				{ ["part"] = "multiplayer_overlays", ["name"] = "NG_M_Hair_002" },
-				{ ["part"] = "multiplayer_overlays", ["name"] = "NG_M_Hair_011" },
-				{ ["part"] = "multiplayer_overlays", ["name"] = "NG_M_Hair_012" },
-				{ ["part"] = "multiplayer_overlays", ["name"] = "NG_M_Hair_014" },
-				{ ["part"] = "multiplayer_overlays", ["name"] = "NG_M_Hair_015" },
-				{ ["part"] = "multiplayer_overlays", ["name"] = "NGBea_M_Hair_000" },
-				{ ["part"] = "multiplayer_overlays", ["name"] = "NGBea_M_Hair_001" },
-				{ ["part"] = "multiplayer_overlays", ["name"] = "NGBus_M_Hair_000" },
-				{ ["part"] = "multiplayer_overlays", ["name"] = "NGBus_M_Hair_001" },
-				{ ["part"] = "multiplayer_overlays", ["name"] = "NGHip_M_Hair_000" },
-				{ ["part"] = "multiplayer_overlays", ["name"] = "NGHip_M_Hair_001" },
-				{ ["part"] = "multiplayer_overlays", ["name"] = "NGInd_M_Hair_000" },
-				{ ["part"] = "mplowrider_overlays", ["name"] = "LR_M_Hair_000" },
-				{ ["part"] = "mplowrider_overlays", ["name"] = "LR_M_Hair_001" },
-				{ ["part"] = "mplowrider_overlays", ["name"] = "LR_M_Hair_002" },
-				{ ["part"] = "mplowrider_overlays", ["name"] = "LR_M_Hair_003" },
-				{ ["part"] = "mplowrider2_overlays", ["name"] = "LR_M_Hair_004" },
-				{ ["part"] = "mplowrider2_overlays", ["name"] = "LR_M_Hair_005" },
-				{ ["part"] = "mplowrider2_overlays", ["name"] = "LR_M_Hair_006" },
-				{ ["part"] = "mpbiker_overlays", ["name"] = "MP_Biker_Hair_000_M" },
-				{ ["part"] = "mpbiker_overlays", ["name"] = "MP_Biker_Hair_001_M" },
-				{ ["part"] = "mpbiker_overlays", ["name"] = "MP_Biker_Hair_002_M" },
-				{ ["part"] = "mpbiker_overlays", ["name"] = "MP_Biker_Hair_003_M" },
-				{ ["part"] = "mpbiker_overlays", ["name"] = "MP_Biker_Hair_004_M" },
-				{ ["part"] = "mpbiker_overlays", ["name"] = "MP_Biker_Hair_005_M" },
-				{ ["part"] = "multiplayer_overlays", ["name"] = "NG_M_Hair_001" },
-				{ ["part"] = "multiplayer_overlays", ["name"] = "NG_M_Hair_002" },
-				{ ["part"] = "multiplayer_overlays", ["name"] = "NG_M_Hair_003" },
-				{ ["part"] = "multiplayer_overlays", ["name"] = "NG_M_Hair_004" },
-				{ ["part"] = "multiplayer_overlays", ["name"] = "NG_M_Hair_005" },
-				{ ["part"] = "multiplayer_overlays", ["name"] = "NG_M_Hair_006" },
-				{ ["part"] = "multiplayer_overlays", ["name"] = "NG_M_Hair_007" },
-				{ ["part"] = "multiplayer_overlays", ["name"] = "NG_M_Hair_008" },
-				{ ["part"] = "multiplayer_overlays", ["name"] = "NG_M_Hair_009" },
-				{ ["part"] = "multiplayer_overlays", ["name"] = "NG_M_Hair_013" },
-				{ ["part"] = "multiplayer_overlays", ["name"] = "NG_M_Hair_002" },
-				{ ["part"] = "multiplayer_overlays", ["name"] = "NG_M_Hair_011" },
-				{ ["part"] = "multiplayer_overlays", ["name"] = "NG_M_Hair_012" },
-				{ ["part"] = "multiplayer_overlays", ["name"] = "NG_M_Hair_014" },
-				{ ["part"] = "multiplayer_overlays", ["name"] = "NG_M_Hair_015" },
-				{ ["part"] = "multiplayer_overlays", ["name"] = "NGBea_M_Hair_000" },
-				{ ["part"] = "multiplayer_overlays", ["name"] = "NGBea_M_Hair_001" },
-				{ ["part"] = "multiplayer_overlays", ["name"] = "NGBus_M_Hair_000" },
-				{ ["part"] = "multiplayer_overlays", ["name"] = "NGBus_M_Hair_001" },
-				{ ["part"] = "multiplayer_overlays", ["name"] = "NGHip_M_Hair_000" },
-				{ ["part"] = "multiplayer_overlays", ["name"] = "NGHip_M_Hair_001" },
-				{ ["part"] = "multiplayer_overlays", ["name"] = "NGInd_M_Hair_000" },
-				{ ["part"] = "mplowrider_overlays", ["name"] = "LR_M_Hair_000" },
-				{ ["part"] = "mplowrider_overlays", ["name"] = "LR_M_Hair_001" },
-				{ ["part"] = "mplowrider_overlays", ["name"] = "LR_M_Hair_002" },
-				{ ["part"] = "mplowrider_overlays", ["name"] = "LR_M_Hair_003" },
-				{ ["part"] = "mplowrider2_overlays", ["name"] = "LR_M_Hair_004" },
-				{ ["part"] = "mplowrider2_overlays", ["name"] = "LR_M_Hair_005" },
-				{ ["part"] = "mplowrider2_overlays", ["name"] = "LR_M_Hair_006" },
-				{ ["part"] = "mpbiker_overlays", ["name"] = "MP_Biker_Hair_000_M" },
-				{ ["part"] = "mpbiker_overlays", ["name"] = "MP_Biker_Hair_001_M" },
-				{ ["part"] = "mpbiker_overlays", ["name"] = "MP_Biker_Hair_002_M" },
-				{ ["part"] = "mpbiker_overlays", ["name"] = "MP_Biker_Hair_003_M" },
-				{ ["part"] = "mpbiker_overlays", ["name"] = "MP_Biker_Hair_004_M" },
-				{ ["part"] = "mpbiker_overlays", ["name"] = "MP_Biker_Hair_005_M" },
-				{ ["part"] = "mpgunrunning_overlays", ["name"] = "MP_Gunrunning_Hair_M_000_M"},
-				{ ["part"] = "mpgunrunning_overlays", ["name"] = "MP_Gunrunning_Hair_M_001_M"}
 			}
 		}
 	},
@@ -666,6 +663,20 @@ local tattooShop = {
 				{ ["name"] = "MP_Gunrunning_Tattoo_022_F", ["part"] = "mpgunrunning_overlays" },
 				{ ["name"] = "MP_Gunrunning_Tattoo_028_F", ["part"] = "mpgunrunning_overlays" },
 				{ ["name"] = "MP_Gunrunning_Tattoo_029_F", ["part"] = "mpgunrunning_overlays" },
+				{ ["name"] = "mpHeist3_Tat_023_F", ["part"] = "mpheist3_overlays" },
+				{ ["name"] = "mpHeist3_Tat_024_F", ["part"] = "mpheist3_overlays" },
+				{ ["name"] = "mpHeist3_Tat_025_F", ["part"] = "mpheist3_overlays" },
+				{ ["name"] = "mpHeist3_Tat_026_F", ["part"] = "mpheist3_overlays" },
+				{ ["name"] = "mpHeist3_Tat_027_F", ["part"] = "mpheist3_overlays" },
+				{ ["name"] = "mpHeist3_Tat_028_F", ["part"] = "mpheist3_overlays" },
+				{ ["name"] = "mpHeist3_Tat_029_F", ["part"] = "mpheist3_overlays" },
+				{ ["name"] = "mpHeist3_Tat_030_F", ["part"] = "mpheist3_overlays" },
+				{ ["name"] = "mpHeist3_Tat_033_F", ["part"] = "mpheist3_overlays" },
+				{ ["name"] = "mpHeist3_Tat_035_F", ["part"] = "mpheist3_overlays" },
+				{ ["name"] = "mpHeist3_Tat_036_F", ["part"] = "mpheist3_overlays" },
+				{ ["name"] = "mpHeist3_Tat_037_F", ["part"] = "mpheist3_overlays" },
+				{ ["name"] = "mpHeist3_Tat_038_F", ["part"] = "mpheist3_overlays" },
+				{ ["name"] = "mpHeist3_Tat_039_F", ["part"] = "mpheist3_overlays" },
 				{ ["name"] = "FM_Hip_F_Tat_000", ["part"] = "mphipster_overlays" },
 				{ ["name"] = "FM_Hip_F_Tat_002", ["part"] = "mphipster_overlays" },
 				{ ["name"] = "FM_Hip_F_Tat_006", ["part"] = "mphipster_overlays" },
@@ -754,6 +765,27 @@ local tattooShop = {
 				{ ["name"] = "MP_MP_Stunt_tat_044_F", ["part"] = "mpstunt_overlays" },
 				{ ["name"] = "MP_MP_Stunt_tat_046_F", ["part"] = "mpstunt_overlays" },
 				{ ["name"] = "MP_MP_Stunt_tat_048_F", ["part"] = "mpstunt_overlays" },
+				{ ["name"] = "MP_Vinewood_Tat_000_F", ["part"] = "mpvinewood_overlays" },
+				{ ["name"] = "MP_Vinewood_Tat_001_F", ["part"] = "mpvinewood_overlays" },
+				{ ["name"] = "MP_Vinewood_Tat_003_F", ["part"] = "mpvinewood_overlays" },
+				{ ["name"] = "MP_Vinewood_Tat_006_F", ["part"] = "mpvinewood_overlays" },
+				{ ["name"] = "MP_Vinewood_Tat_007_F", ["part"] = "mpvinewood_overlays" },
+				{ ["name"] = "MP_Vinewood_Tat_008_F", ["part"] = "mpvinewood_overlays" },
+				{ ["name"] = "MP_Vinewood_Tat_009_F", ["part"] = "mpvinewood_overlays" },
+				{ ["name"] = "MP_Vinewood_Tat_010_F", ["part"] = "mpvinewood_overlays" },
+				{ ["name"] = "MP_Vinewood_Tat_011_F", ["part"] = "mpvinewood_overlays" },
+				{ ["name"] = "MP_Vinewood_Tat_012_F", ["part"] = "mpvinewood_overlays" },
+				{ ["name"] = "MP_Vinewood_Tat_015_F", ["part"] = "mpvinewood_overlays" },
+				{ ["name"] = "MP_Vinewood_Tat_016_F", ["part"] = "mpvinewood_overlays" },
+				{ ["name"] = "MP_Vinewood_Tat_017_F", ["part"] = "mpvinewood_overlays" },
+				{ ["name"] = "MP_Vinewood_Tat_021_F", ["part"] = "mpvinewood_overlays" },
+				{ ["name"] = "MP_Vinewood_Tat_022_F", ["part"] = "mpvinewood_overlays" },
+				{ ["name"] = "MP_Vinewood_Tat_023_F", ["part"] = "mpvinewood_overlays" },
+				{ ["name"] = "MP_Vinewood_Tat_024_F", ["part"] = "mpvinewood_overlays" },
+				{ ["name"] = "MP_Vinewood_Tat_029_F", ["part"] = "mpvinewood_overlays" },
+				{ ["name"] = "MP_Vinewood_Tat_030_F", ["part"] = "mpvinewood_overlays" },
+				{ ["name"] = "MP_Vinewood_Tat_031_F", ["part"] = "mpvinewood_overlays" },
+				{ ["name"] = "MP_Vinewood_Tat_032_F", ["part"] = "mpvinewood_overlays" },
 				{ ["name"] = "FM_Tat_Award_F_003", ["part"] = "multiplayer_overlays" },
 				{ ["name"] = "FM_Tat_Award_F_004", ["part"] = "multiplayer_overlays" },
 				{ ["name"] = "FM_Tat_Award_F_005", ["part"] = "multiplayer_overlays" },
@@ -798,6 +830,31 @@ local tattooShop = {
 				{ ["name"] = "MP_Xmas2_F_Tat_025", ["part"] = "mpchristmas2_overlays" },
 				{ ["name"] = "MP_Xmas2_F_Tat_029", ["part"] = "mpchristmas2_overlays" },
 				{ ["name"] = "MP_Gunrunning_Tattoo_003_F", ["part"] = "mpgunrunning_overlays" },
+				{ ["name"] = "mpHeist3_Tat_000_F", ["part"] = "mpheist3_overlays" },
+				{ ["name"] = "mpHeist3_Tat_001_F", ["part"] = "mpheist3_overlays" },
+				{ ["name"] = "mpHeist3_Tat_002_F", ["part"] = "mpheist3_overlays" },
+				{ ["name"] = "mpHeist3_Tat_003_F", ["part"] = "mpheist3_overlays" },
+				{ ["name"] = "mpHeist3_Tat_004_F", ["part"] = "mpheist3_overlays" },
+				{ ["name"] = "mpHeist3_Tat_006_F", ["part"] = "mpheist3_overlays" },
+				{ ["name"] = "mpHeist3_Tat_007_F", ["part"] = "mpheist3_overlays" },
+				{ ["name"] = "mpHeist3_Tat_008_F", ["part"] = "mpheist3_overlays" },
+				{ ["name"] = "mpHeist3_Tat_009_F", ["part"] = "mpheist3_overlays" },
+				{ ["name"] = "mpHeist3_Tat_010_F", ["part"] = "mpheist3_overlays" },
+				{ ["name"] = "mpHeist3_Tat_011_F", ["part"] = "mpheist3_overlays" },
+				{ ["name"] = "mpHeist3_Tat_012_F", ["part"] = "mpheist3_overlays" },
+				{ ["name"] = "mpHeist3_Tat_013_F", ["part"] = "mpheist3_overlays" },
+				{ ["name"] = "mpHeist3_Tat_014_F", ["part"] = "mpheist3_overlays" },
+				{ ["name"] = "mpHeist3_Tat_015_F", ["part"] = "mpheist3_overlays" },
+				{ ["name"] = "mpHeist3_Tat_016_F", ["part"] = "mpheist3_overlays" },
+				{ ["name"] = "mpHeist3_Tat_017_F", ["part"] = "mpheist3_overlays" },
+				{ ["name"] = "mpHeist3_Tat_018_F", ["part"] = "mpheist3_overlays" },
+				{ ["name"] = "mpHeist3_Tat_019_F", ["part"] = "mpheist3_overlays" },
+				{ ["name"] = "mpHeist3_Tat_020_F", ["part"] = "mpheist3_overlays" },
+				{ ["name"] = "mpHeist3_Tat_021_F", ["part"] = "mpheist3_overlays" },
+				{ ["name"] = "mpHeist3_Tat_022_F", ["part"] = "mpheist3_overlays" },
+				{ ["name"] = "mpHeist3_Tat_042_F", ["part"] = "mpheist3_overlays" },
+				{ ["name"] = "mpHeist3_Tat_043_F", ["part"] = "mpheist3_overlays" },
+				{ ["name"] = "mpHeist3_Tat_044_F", ["part"] = "mpheist3_overlays" },
 				{ ["name"] = "FM_Hip_F_Tat_005", ["part"] = "mphipster_overlays" },
 				{ ["name"] = "FM_Hip_F_Tat_021", ["part"] = "mphipster_overlays" },
 				{ ["name"] = "MP_Smuggler_Tattoo_011_F", ["part"] = "mpsmuggler_overlays" },
@@ -842,6 +899,8 @@ local tattooShop = {
 				{ ["name"] = "MP_Gunrunning_Tattoo_016_F", ["part"] = "mpgunrunning_overlays" },
 				{ ["name"] = "MP_Gunrunning_Tattoo_025_F", ["part"] = "mpgunrunning_overlays" },
 				{ ["name"] = "MP_Gunrunning_Tattoo_027_F", ["part"] = "mpgunrunning_overlays" },
+				{ ["name"] = "mpHeist3_Tat_040_F", ["part"] = "mpheist3_overlays" },
+				{ ["name"] = "mpHeist3_Tat_041_F", ["part"] = "mpheist3_overlays" },
 				{ ["name"] = "FM_Hip_F_Tat_003", ["part"] = "mphipster_overlays" },
 				{ ["name"] = "FM_Hip_F_Tat_007", ["part"] = "mphipster_overlays" },
 				{ ["name"] = "FM_Hip_F_Tat_015", ["part"] = "mphipster_overlays" },
@@ -881,6 +940,11 @@ local tattooShop = {
 				{ ["name"] = "MP_MP_Stunt_tat_035_F", ["part"] = "mpstunt_overlays" },
 				{ ["name"] = "MP_MP_Stunt_tat_039_F", ["part"] = "mpstunt_overlays" },
 				{ ["name"] = "MP_MP_Stunt_tat_043_F", ["part"] = "mpstunt_overlays" },
+				{ ["name"] = "MP_Vinewood_Tat_002_F", ["part"] = "mpvinewood_overlays" },
+				{ ["name"] = "MP_Vinewood_Tat_005_F", ["part"] = "mpvinewood_overlays" },
+				{ ["name"] = "MP_Vinewood_Tat_014_F", ["part"] = "mpvinewood_overlays" },
+				{ ["name"] = "MP_Vinewood_Tat_019_F", ["part"] = "mpvinewood_overlays" },
+				{ ["name"] = "MP_Vinewood_Tat_026_F", ["part"] = "mpvinewood_overlays" },
 				{ ["name"] = "FM_Tat_Award_F_001", ["part"] = "multiplayer_overlays" },
 				{ ["name"] = "FM_Tat_Award_F_007", ["part"] = "multiplayer_overlays" },
 				{ ["name"] = "FM_Tat_Award_F_015", ["part"] = "multiplayer_overlays" },
@@ -920,6 +984,7 @@ local tattooShop = {
 				{ ["name"] = "MP_Gunrunning_Tattoo_002_F", ["part"] = "mpgunrunning_overlays" },
 				{ ["name"] = "MP_Gunrunning_Tattoo_021_F", ["part"] = "mpgunrunning_overlays" },
 				{ ["name"] = "MP_Gunrunning_Tattoo_024_F", ["part"] = "mpgunrunning_overlays" },
+				{ ["name"] = "mpHeist3_Tat_034_F", ["part"] = "mpheist3_overlays" },
 				{ ["name"] = "FM_Hip_F_Tat_001", ["part"] = "mphipster_overlays" },
 				{ ["name"] = "FM_Hip_F_Tat_004", ["part"] = "mphipster_overlays" },
 				{ ["name"] = "FM_Hip_F_Tat_008", ["part"] = "mphipster_overlays" },
@@ -958,6 +1023,10 @@ local tattooShop = {
 				{ ["name"] = "MP_MP_Stunt_tat_036_F", ["part"] = "mpstunt_overlays" },
 				{ ["name"] = "MP_MP_Stunt_tat_038_F", ["part"] = "mpstunt_overlays" },
 				{ ["name"] = "MP_MP_Stunt_tat_049_F", ["part"] = "mpstunt_overlays" },
+				{ ["name"] = "MP_Vinewood_Tat_004_F", ["part"] = "mpvinewood_overlays" },
+				{ ["name"] = "MP_Vinewood_Tat_018_F", ["part"] = "mpvinewood_overlays" },
+				{ ["name"] = "MP_Vinewood_Tat_025_F", ["part"] = "mpvinewood_overlays" },
+				{ ["name"] = "MP_Vinewood_Tat_028_F", ["part"] = "mpvinewood_overlays" },
 				{ ["name"] = "FM_Tat_Award_F_002", ["part"] = "multiplayer_overlays" },
 				{ ["name"] = "FM_Tat_Award_F_010", ["part"] = "multiplayer_overlays" },
 				{ ["name"] = "FM_Tat_F_001", ["part"] = "multiplayer_overlays" },
@@ -986,6 +1055,7 @@ local tattooShop = {
 				{ ["name"] = "MP_Gunrunning_Tattoo_007_F", ["part"] = "mpgunrunning_overlays" },
 				{ ["name"] = "MP_Gunrunning_Tattoo_011_F", ["part"] = "mpgunrunning_overlays" },
 				{ ["name"] = "MP_Gunrunning_Tattoo_023_F", ["part"] = "mpgunrunning_overlays" },
+				{ ["name"] = "mpHeist3_Tat_032_F", ["part"] = "mpheist3_overlays" },
 				{ ["name"] = "MP_Buis_F_LLeg_000", ["part"] = "mpbusiness_overlays" },
 				{ ["name"] = "FM_Hip_F_Tat_009", ["part"] = "mphipster_overlays" },
 				{ ["name"] = "FM_Hip_F_Tat_019", ["part"] = "mphipster_overlays" },
@@ -998,6 +1068,8 @@ local tattooShop = {
 				{ ["name"] = "MP_MP_Stunt_tat_007_F", ["part"] = "mpstunt_overlays" },
 				{ ["name"] = "MP_MP_Stunt_tat_013_F", ["part"] = "mpstunt_overlays" },
 				{ ["name"] = "MP_MP_Stunt_tat_021_F", ["part"] = "mpstunt_overlays" },
+				{ ["name"] = "MP_Vinewood_Tat_013_F", ["part"] = "mpvinewood_overlays" },
+				{ ["name"] = "MP_Vinewood_Tat_027_F", ["part"] = "mpvinewood_overlays" },
 				{ ["name"] = "FM_Tat_Award_F_009", ["part"] = "multiplayer_overlays" },
 				{ ["name"] = "FM_Tat_F_002", ["part"] = "multiplayer_overlays" },
 				{ ["name"] = "FM_Tat_F_008", ["part"] = "multiplayer_overlays" },
@@ -1023,6 +1095,7 @@ local tattooShop = {
 				{ ["name"] = "MP_Gunrunning_Tattoo_030_F", ["part"] = "mpgunrunning_overlays" },
 				{ ["name"] = "MP_Bea_F_RLeg_000", ["part"] = "mpbeach_overlays" },
 				{ ["name"] = "MP_Buis_F_RLeg_000", ["part"] = "mpbusiness_overlays" },
+				{ ["name"] = "mpHeist3_Tat_031_F", ["part"] = "mpheist3_overlays" },
 				{ ["name"] = "FM_Hip_F_Tat_038", ["part"] = "mphipster_overlays" },
 				{ ["name"] = "FM_Hip_F_Tat_042", ["part"] = "mphipster_overlays" },
 				{ ["name"] = "MP_LR_Tat_030_F", ["part"] = "mplowrider2_overlays" },
@@ -1040,87 +1113,6 @@ local tattooShop = {
 				{ ["name"] = "MP_MP_Stunt_tat_047_F", ["part"] = "mpstunt_overlays" },
 				{ ["name"] = "FM_Tat_F_043", ["part"] = "multiplayer_overlays" }
 			}
-		},
-		["hair"] = {
-			["tattoo"] = {
-				{ ["part"] = "mpbeach_overlays", ["name"] = "FM_Hair_Fuzz" },
-				{ ["part"] = "multiplayer_overlays", ["name"] = "NG_F_Hair_001" },
-				{ ["part"] = "multiplayer_overlays", ["name"] = "NG_F_Hair_002" },
-				{ ["part"] = "multiplayer_overlays", ["name"] = "NG_F_Hair_003" },
-				{ ["part"] = "multiplayer_overlays", ["name"] = "NG_F_Hair_004" },
-				{ ["part"] = "multiplayer_overlays", ["name"] = "NG_F_Hair_005" },
-				{ ["part"] = "multiplayer_overlays", ["name"] = "NG_F_Hair_006" },
-				{ ["part"] = "multiplayer_overlays", ["name"] = "NG_F_Hair_007" },
-				{ ["part"] = "multiplayer_overlays", ["name"] = "NG_F_Hair_008" },
-				{ ["part"] = "multiplayer_overlays", ["name"] = "NG_F_Hair_009" },
-				{ ["part"] = "multiplayer_overlays", ["name"] = "NG_F_Hair_010" },
-				{ ["part"] = "multiplayer_overlays", ["name"] = "NG_F_Hair_011" },
-				{ ["part"] = "multiplayer_overlays", ["name"] = "NG_F_Hair_012" },
-				{ ["part"] = "multiplayer_overlays", ["name"] = "NG_F_Hair_013" },
-				{ ["part"] = "multiplayer_overlays", ["name"] = "NG_M_Hair_014" },
-				{ ["part"] = "multiplayer_overlays", ["name"] = "NG_M_Hair_015" },
-				{ ["part"] = "multiplayer_overlays", ["name"] = "NGBea_F_Hair_000" },
-				{ ["part"] = "multiplayer_overlays", ["name"] = "NGBea_F_Hair_001" },
-				{ ["part"] = "multiplayer_overlays", ["name"] = "NG_F_Hair_007" },
-				{ ["part"] = "multiplayer_overlays", ["name"] = "NGBus_F_Hair_000" },
-				{ ["part"] = "multiplayer_overlays", ["name"] = "NGBus_F_Hair_001" },
-				{ ["part"] = "multiplayer_overlays", ["name"] = "NGBea_F_Hair_001" },
-				{ ["part"] = "multiplayer_overlays", ["name"] = "NGHip_F_Hair_000" },
-				{ ["part"] = "multiplayer_overlays", ["name"] = "NGInd_F_Hair_000" },
-				{ ["part"] = "mplowrider_overlays", ["name"] = "LR_F_Hair_000" },
-				{ ["part"] = "mplowrider_overlays", ["name"] = "LR_F_Hair_001" },
-				{ ["part"] = "mplowrider_overlays", ["name"] = "LR_F_Hair_002" },
-				{ ["part"] = "mplowrider2_overlays", ["name"] = "LR_F_Hair_003" },
-				{ ["part"] = "mplowrider2_overlays", ["name"] = "LR_F_Hair_003" },
-				{ ["part"] = "mplowrider2_overlays", ["name"] = "LR_F_Hair_004" },
-				{ ["part"] = "mplowrider2_overlays", ["name"] = "LR_F_Hair_006" },
-				{ ["part"] = "mpbiker_overlays", ["name"] = "MP_Biker_Hair_000_F" },
-				{ ["part"] = "mpbiker_overlays", ["name"] = "MP_Biker_Hair_001_F" },
-				{ ["part"] = "mpbiker_overlays", ["name"] = "MP_Biker_Hair_002_F" },
-				{ ["part"] = "mpbiker_overlays", ["name"] = "MP_Biker_Hair_003_F" },
-				{ ["part"] = "multiplayer_overlays", ["name"] = "NG_F_Hair_003" },
-				{ ["part"] = "mpbiker_overlays", ["name"] = "MP_Biker_Hair_006_F" },
-				{ ["part"] = "mpbiker_overlays", ["name"] = "MP_Biker_Hair_004_F" },
-				{ ["part"] = "multiplayer_overlays", ["name"] = "NG_F_Hair_001" },
-				{ ["part"] = "multiplayer_overlays", ["name"] = "NG_F_Hair_002" },
-				{ ["part"] = "multiplayer_overlays", ["name"] = "NG_F_Hair_003" },
-				{ ["part"] = "multiplayer_overlays", ["name"] = "NG_F_Hair_004" },
-				{ ["part"] = "multiplayer_overlays", ["name"] = "NG_F_Hair_005" },
-				{ ["part"] = "multiplayer_overlays", ["name"] = "NG_F_Hair_006" },
-				{ ["part"] = "multiplayer_overlays", ["name"] = "NG_F_Hair_007" },
-				{ ["part"] = "multiplayer_overlays", ["name"] = "NG_F_Hair_008" },
-				{ ["part"] = "multiplayer_overlays", ["name"] = "NG_F_Hair_009" },
-				{ ["part"] = "multiplayer_overlays", ["name"] = "NG_F_Hair_010" },
-				{ ["part"] = "multiplayer_overlays", ["name"] = "NG_F_Hair_011" },
-				{ ["part"] = "multiplayer_overlays", ["name"] = "NG_F_Hair_012" },
-				{ ["part"] = "multiplayer_overlays", ["name"] = "NG_F_Hair_013" },
-				{ ["part"] = "multiplayer_overlays", ["name"] = "NG_M_Hair_014" },
-				{ ["part"] = "multiplayer_overlays", ["name"] = "NG_M_Hair_015" },
-				{ ["part"] = "multiplayer_overlays", ["name"] = "NGBea_F_Hair_000" },
-				{ ["part"] = "multiplayer_overlays", ["name"] = "NGBea_F_Hair_001" },
-				{ ["part"] = "multiplayer_overlays", ["name"] = "NG_F_Hair_007" },
-				{ ["part"] = "multiplayer_overlays", ["name"] = "NGBus_F_Hair_000" },
-				{ ["part"] = "multiplayer_overlays", ["name"] = "NGBus_F_Hair_001" },
-				{ ["part"] = "multiplayer_overlays", ["name"] = "NGBea_F_Hair_001" },
-				{ ["part"] = "multiplayer_overlays", ["name"] = "NGHip_F_Hair_000" },
-				{ ["part"] = "multiplayer_overlays", ["name"] = "NGInd_F_Hair_000" },
-				{ ["part"] = "mplowrider_overlays", ["name"] = "LR_F_Hair_000" },
-				{ ["part"] = "mplowrider_overlays", ["name"] = "LR_F_Hair_001" },
-				{ ["part"] = "mplowrider_overlays", ["name"] = "LR_F_Hair_002" },
-				{ ["part"] = "mplowrider2_overlays", ["name"] = "LR_F_Hair_003" },
-				{ ["part"] = "mplowrider2_overlays", ["name"] = "LR_F_Hair_003" },
-				{ ["part"] = "mplowrider2_overlays", ["name"] = "LR_F_Hair_004" },
-				{ ["part"] = "mplowrider2_overlays", ["name"] = "LR_F_Hair_006" },
-				{ ["part"] = "mpbiker_overlays", ["name"] = "MP_Biker_Hair_000_F" },
-				{ ["part"] = "mpbiker_overlays", ["name"] = "MP_Biker_Hair_001_F" },
-				{ ["part"] = "mpbiker_overlays", ["name"] = "MP_Biker_Hair_002_F" },
-				{ ["part"] = "mpbiker_overlays", ["name"] = "MP_Biker_Hair_003_F" },
-				{ ["part"] = "multiplayer_overlays", ["name"] = "NG_F_Hair_003" },
-				{ ["part"] = "mpbiker_overlays", ["name"] = "MP_Biker_Hair_006_F" },
-				{ ["part"] = "mpbiker_overlays", ["name"] = "MP_Biker_Hair_004_F" },
-				{ ["part"] = "mpgunrunning_overlays", ["name"] = "MP_Gunrunning_Hair_F_000_F"},
-				{ ["part"] = "mpgunrunning_overlays", ["name"] = "MP_Gunrunning_Hair_F_001_F"}
-			}
 		}
 	}
 }
@@ -1133,12 +1125,12 @@ end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- TATTOOS:APPLY
 -----------------------------------------------------------------------------------------------------------------------------------------
-RegisterNetEvent("tattoos:apply")
-AddEventHandler("tattoos:apply",function(status)
+RegisterNetEvent("tattoos:Apply")
+AddEventHandler("tattoos:Apply",function(status)
 	atualTattoo = status
 
 	for k,v in pairs(atualTattoo) do
-		SetPedDecoration(PlayerPedId(),GetHashKey(v[1]),GetHashKey(k))
+		AddPedDecorationFromHashes(PlayerPedId(),GetHashKey(v[1]),GetHashKey(k))
 	end
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
@@ -1147,6 +1139,7 @@ end)
 function openTattooShop()
 	setCameraCoords()
 	SetNuiFocus(true,true)
+	TriggerEvent("hoverfy:updateMenu",true)
 
 	local ped = PlayerPedId()
 	if GetEntityModel(ped) == GetHashKey("mp_m_freemode_01") then
@@ -1178,13 +1171,12 @@ function openTattooShop()
 	end
 
 	ClearAllPedProps(ped)
-
 	SendNUIMessage({ openNui = true, shop = atualShop, tattoo = atualTattoo })
 end
 -----------------------------------------------------------------------------------------------------------------------------------------
--- ATUALIZARTATTOO
+-- UPDATETATTOO
 -----------------------------------------------------------------------------------------------------------------------------------------
-function atualizarTattoo()
+function updateTattoo()
 	ClearPedDecorations(PlayerPedId())
 
 	for k,v in pairs(atualTattoo) do
@@ -1206,16 +1198,17 @@ function setCameraCoords()
 	RenderScriptCams(true,true,500,true,true)
 	pos = GetEntityCoords(PlayerPedId())
 	camPos = GetOffsetFromEntityInWorldCoords(PlayerPedId(),0.0,2.0,0.0)
-	SetCamCoord(cam,camPos["x"],camPos["y"],camPos["z"] + 0.75)
-	PointCamAtCoord(cam,pos["x"],pos["y"],pos["z"] + 0.15)
+	SetCamCoord(cam,camPos.x,camPos.y,camPos.z + 0.75)
+	PointCamAtCoord(cam,pos.x,pos.y,pos.z + 0.15)
 end
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- CLOSE
 -----------------------------------------------------------------------------------------------------------------------------------------
 RegisterNUICallback("close",function(data,cb)
-	TriggerEvent("skinshop:updateTattoo")
 	RenderScriptCams(false,true,250,1,0)
 	vSERVER.updateTattoo(atualTattoo)
+	TriggerEvent("skinshop:updateTattoo")
+	TriggerEvent("hoverfy:updateMenu",false)
 	SetNuiFocus(false,false)
 	DestroyCam(cam,false)
 	cam = nil
@@ -1237,17 +1230,17 @@ local coordsSystem = {
 CreateThread(function()
 	local innerTable = {}
 	for k,v in pairs(coordsSystem) do
-		table.insert(innerTable,{ v[1],v[2],v[3],2,"E","Loja de Tatuagem","Pressione para abrir" })
+		table.insert(innerTable,{ v[1],v[2],v[3],2,"E","Tatuagem","Pressione para abrir" })
 	end
 
-	TriggerEvent("hoverfy:Insert",innerTable)
+	TriggerEvent("hoverfy:insertTable",innerTable)
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
--- THREADSYSTEM
+-- THREAD
 -----------------------------------------------------------------------------------------------------------------------------------------
 CreateThread(function()
 	while true do
-		local timeDistance = 999
+		local TimeDistance = 999
 		local ped = PlayerPedId()
 		if not IsPedInAnyVehicle(ped) then
 			local coords = GetEntityCoords(ped)
@@ -1255,7 +1248,7 @@ CreateThread(function()
 			for k,v in pairs(coordsSystem) do
 				local distance = #(coords - vector3(v[1],v[2],v[3]))
 				if distance <= 2 then
-					timeDistance = 1
+					TimeDistance = 1
 
 					if IsControlJustPressed(1,38) and vSERVER.CheckWanted() then
 						openTattooShop()
@@ -1264,7 +1257,7 @@ CreateThread(function()
 			end
 		end
 
-		Wait(timeDistance)
+		Wait(TimeDistance)
 	end
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
@@ -1272,7 +1265,7 @@ end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 RegisterNUICallback("changeTattoo",function(data,cb)
 	local newAtualTattoo = {}
-	local tattooData = atualShop[data["type"]]["tattoo"][data["id"] + 1]
+	local tattooData = atualShop[data.type]["tattoo"][data.id + 1]
 
 	for k,v in pairs(atualTattoo) do
 		if k ~= tattooData["name"] then
@@ -1285,14 +1278,14 @@ RegisterNUICallback("changeTattoo",function(data,cb)
 	end
 
 	atualTattoo = newAtualTattoo
-	atualizarTattoo()
+	updateTattoo()
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
--- LIMPATATTOO
+-- CLEARTATTOO
 -----------------------------------------------------------------------------------------------------------------------------------------
-RegisterNUICallback("limpaTattoo",function(data,cb)
-	ClearPedDecorations(PlayerPedId())
+RegisterNUICallback("clearTattoo",function(data,cb)
 	atualTattoo = {}
+	ClearPedDecorations(PlayerPedId())
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- ROTATE
@@ -1310,11 +1303,10 @@ end)
 -- HANDSUP
 -----------------------------------------------------------------------------------------------------------------------------------------
 RegisterNUICallback("handsup",function(data,cb)
-	local ped = PlayerPedId()
-	if IsEntityPlayingAnim(ped,"random@mugging3","handsup_standing_base",3) then
-		StopAnimTask(ped,"random@mugging3","handsup_standing_base",2.0)
-		vRP.stopActived()
-	else
-		vRP.playAnim(true,{"random@mugging3","handsup_standing_base"},true)
-	end
+    local ped = PlayerPedId()
+    if IsEntityPlayingAnim(ped,"random@mugging3","handsup_standing_base",3) then
+        vRP.stopAnim()
+    else
+        vRP.playAnim(true,{"random@mugging3","handsup_standing_base"},true)
+    end
 end)

@@ -96,7 +96,7 @@ CreateThread(function()
 					timeDistance = 4
 					DrawMarker(23,v[1],v[2],v[3]-0.98,0,0,0,0,0,0,3.0,3.0,1.0,128,18,54,50,0,0,0,0)
 
-					if IsControlJustPressed(1,38) and vSERVER.checkOpen() then
+					if IsControlJustPressed(1,38) and vSERVER.CheckWanted() then
 						displayBarbershop(true)
 					end
 				end

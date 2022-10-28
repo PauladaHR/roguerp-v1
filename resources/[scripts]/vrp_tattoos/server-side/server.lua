@@ -24,7 +24,20 @@ function Hiro.CheckWanted()
 	end
 end
 -----------------------------------------------------------------------------------------------------------------------------------------
--- GETPLAYERS
+-- GETTATTOO
+-----------------------------------------------------------------------------------------------------------------------------------------
+function Hiro.getTattoo()
+	local source = source
+	local user_id = vRP.getUserId(source)
+	if user_id then
+		local PlayerTattoos = vRP.userData(user_id,"Tattoos")
+		if PlayerTattoos then
+			TriggerClientEvent("tattoos:Apply",source,PlayerTattoos)
+		end
+	end
+end
+-----------------------------------------------------------------------------------------------------------------------------------------
+-- UPDATETATTOO
 -----------------------------------------------------------------------------------------------------------------------------------------
 function Hiro.updateTattoo(Tattoos)
 	local source = source

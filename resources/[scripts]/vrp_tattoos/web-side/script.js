@@ -3,12 +3,11 @@ const TattooStore = {
 	selectedTattoos: {},
 	categories: {
 		"head": { "title": "Cabeça", "available": [] },
-		"torso": { "title": "Torso", "available": [] },
+		"torso": { "title": "Peito", "available": [] },
 		"leftarm": { "title": "Braço Esquerdo", "available": [] },
 		"rightarm": { "title": "Braço Direito", "available": [] },
 		"leftleg": { "title": "Perna Esquerda", "available": [] },
-		"rightleg": { "title": "Perna Direita", "available": [] },
-		"hair": { "title": "Micropigmentação", "available": [] }
+		"rightleg": { "title": "Perna Direita", "available": [] }
 	},
 	changeCategory: function(category){
 		$(".category").removeClass("selected");
@@ -45,7 +44,7 @@ const TattooStore = {
 		$(".item").removeClass("selected");
 
 		TattooStore.selectedTattoos = {};
-		TattooStore.callServer("limpaTattoo",{});
+		TattooStore.callServer("clearTattoo",{});
 	},
 	loadStaticListeners: function(){
 		$(".category").on("click",function(){
@@ -59,7 +58,7 @@ const TattooStore = {
 		document.onkeydown = function(data) {
 			switch(data.keyCode) {
 				case 27:
-					$("#tattoo-container").css("display","none");
+					$("#tattoo-container").removeClass("open");
 					TattooStore.callServer("close",{});
 				break;
 
@@ -88,15 +87,14 @@ const TattooStore = {
 	load: function(tattoos,selectedTattoos){
 		TattooStore.categories = {
 			"head": { "title": "Cabeça", "available": [] },
-			"torso": { "title": "Torso", "available": [] },
+			"torso": { "title": "Peito", "available": [] },
 			"leftarm": { "title": "Braço Esquerdo", "available": [] },
 			"rightarm": { "title": "Braço Direito", "available": [] },
 			"leftleg": { "title": "Perna Esquerda", "available": [] },
-			"rightleg": { "title": "Perna Direita", "available": [] },
-			"hair": { "title": "Micropigmentação", "available": [] }
+			"rightleg": { "title": "Perna Direita", "available": [] }
 		};
 
-		$("#tattoo-container").css("display","block");
+		$("#tattoo-container").addClass("open");
 		TattooStore.selectedTattoos = selectedTattoos;
 
 		$.each(tattoos,function(category,element){
