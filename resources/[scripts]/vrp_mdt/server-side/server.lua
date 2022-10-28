@@ -460,7 +460,7 @@ function hiro.checkKey()
         if vRP.tryGetInventoryItem(user_id,"key",1) then
             vCLIENT.stopPrison(source)
             vRP.execute("vRP/resgate_prison",{ user_id = parseInt(user_id) })
-			vRP.setUData(user_id, "prison:administrative", "")
+			vRP.execute("playerdata/setUserdata",{ user_id = parseInt(user_id), key = "prison:administrative", value = "" })
             return true
 		else
 			TriggerClientEvent("Notify",source,"vermelho","Você não tem uma <b>Chaves</b>.",3000, 'error')
@@ -545,7 +545,7 @@ function hiro.reducePrison()
 		if parseInt(consult[1].prison) <= 0 then
 			vCLIENT.stopPrison(source)
 			vRPC.teleport(source,1849.24,2586.12,45.68)
-			vRP.setUData(user_id, "prison:administrative", "")
+			vRP.execute("playerdata/setUserdata",{ user_id = parseInt(user_id), key = "prison:administrative", value = "" })
 		else
 			local udata = vRP.getUData(user_id, "prison:administrative")
 			local administrative = false
@@ -607,7 +607,8 @@ RegisterCommand("punicao", function(source)
 			vRPC.teleport(nplayer,1677.72,2509.68,45.57)
 		end
 		vRP.execute("vRP/set_prison",{ user_id = uid, prison = services, locate = 1 })
-		vRP.setUData(user_id, "prison:administrative", "true")
+		
+		vRP.execute("playerdata/setUserdata",{ user_id = parseInt(user_id), key = "prison:administrative", value = "true" })
 	end
 end)
 

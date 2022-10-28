@@ -1155,15 +1155,14 @@ end
 RegisterServerEvent("leaveHomes")
 AddEventHandler("leaveHomes",function(user_id)
 	if homeEnter[user_id] then
-		local playerData = vRP.getUData(parseInt(user_id),"Datatable")
-		local resultData = json.decode(playerData) or {}
-		if resultData then
-			if resultData["position"] then
-				resultData["position"] = { x = homesList[homeEnter[user_id]][1], y = homesList[homeEnter[user_id]][2], z = homesList[homeEnter[user_id]][3] }
+		local DataTable = vRP.userData(parseInt(user_id),"Datatable")
+		if DataTable then
+			if DataTable["position"] then
+				DataTable["position"] = { x = homesList[homeEnter[user_id]][1], y = homesList[homeEnter[user_id]][2], z = homesList[homeEnter[user_id]][3] }
 			end
 		end
 
-		vRP.setUData(user_id,"Datatable",json.encode(resultData))
+		vRP.execute("playerdata/setUserdata",{ user_id = parseInt(user_id), key = "Datatable", value = json.encode(DataTable) })
 		homeEnter[user_id] = nil
 	end
 
