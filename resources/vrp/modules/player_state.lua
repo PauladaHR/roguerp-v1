@@ -57,11 +57,11 @@ AddEventHandler("vRP:playerSpawn",function(user_id,source)
 		if consultAppearence[1]["appearence"] == 0 then
 			local PlayerAppearence = vRP.userData(user_id,"Character")
 			if SpawnLogin[parseInt(user_id)] then
-				TriggerClientEvent("vrp_character:updateCharacter",source,PlayerAppearence,false)
+				TriggerClientEvent("character:Apply",source,PlayerAppearence,false)
 				TriggerClientEvent("vrp_spawn:justSpawn",source,false)
 			else
 				SpawnLogin[parseInt(user_id)] = true
-				TriggerClientEvent("vrp_character:updateCharacter",source,PlayerAppearence,false)
+				TriggerClientEvent("character:Apply",source,PlayerAppearence,false)
 				TriggerClientEvent("vrp_spawn:justSpawn",source,true)
 			end
 			TriggerClientEvent("skinshop:apply",source,vRP.userData(user_id,"Clothings"))

@@ -8,7 +8,7 @@ vRP = Proxy.getInterface("vRP")
 -- CONNECTION
 -----------------------------------------------------------------------------------------------------------------------------------------
 Hiro = {}
-Tunnel.bindInterface("vrp_character",Hiro)
+Tunnel.bindInterface("character",Hiro)
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- CHECKOPEN
 -----------------------------------------------------------------------------------------------------------------------------------------
@@ -23,10 +23,10 @@ function Hiro.CheckWanted()
 	return false
 end
 -----------------------------------------------------------------------------------------------------------------------------------------
--- VRP_CHARACTER:FINISHEDCHARACTER
+-- CHARACTER:FINISHEDCHARACTER
 -----------------------------------------------------------------------------------------------------------------------------------------
-RegisterServerEvent("vrp_character:finishedCharacter")
-AddEventHandler("vrp_character:finishedCharacter",function(currentCharacterMode,status)
+RegisterServerEvent("character:finishedCharacter")
+AddEventHandler("character:finishedCharacter",function(currentCharacterMode,status)
 	local source = source
 	local user_id = vRP.getUserId(source)
 	if user_id then
@@ -34,11 +34,11 @@ AddEventHandler("vrp_character:finishedCharacter",function(currentCharacterMode,
 
 		vRP.query("playerdata/setUserdata",{ user_id = parseInt(user_id), key = "Character", dalue = json.encode(currentCharacterMode) })
 		if status then
-			TriggerClientEvent("vrp_character:updateCharacter",source,currentCharacterMode,false)
+			TriggerClientEvent("character:Apply",source,currentCharacterMode,false)
 			
 			TriggerClientEvent("vrp_spawn:justSpawn",source,true)
 		else
-			TriggerClientEvent("vrp_character:updateCharacter",source,currentCharacterMode,true)
+			TriggerClientEvent("character:Apply",source,currentCharacterMode,true)
 		end
 		
 		local PlayerTattoos = vRP.userData(user_id,"Tattoos")

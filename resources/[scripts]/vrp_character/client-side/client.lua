@@ -7,7 +7,7 @@ vRP = Proxy.getInterface("vRP")
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- CONNECTION
 -----------------------------------------------------------------------------------------------------------------------------------------
-vSERVER = Tunnel.getInterface("vrp_character")
+vSERVER = Tunnel.getInterface("character")
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- VARIABLES
 -----------------------------------------------------------------------------------------------------------------------------------------
@@ -18,8 +18,8 @@ local currentCharacterMode = { fathersID = 0, mothersID = 0, skinColor = 0, shap
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- CREATECHARACTER
 -----------------------------------------------------------------------------------------------------------------------------------------
-RegisterNetEvent("vrp_character:createCharacter")
-AddEventHandler("vrp_character:createCharacter",function()
+RegisterNetEvent("character:createCharacter")
+AddEventHandler("character:createCharacter",function()
 	local ped = PlayerPedId()
 	SetEntityInvincible(ped,false) -- mqcu
 	SetEntityVisible(ped,true,false)
@@ -54,10 +54,10 @@ AddEventHandler("vrp_character:createCharacter",function()
 	end)
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
--- VRP_CHARACTER:UPDATECHARACTER
+-- CHARACTER:APPLY
 -----------------------------------------------------------------------------------------------------------------------------------------
-RegisterNetEvent("vrp_character:updateCharacter")
-AddEventHandler("vrp_character:updateCharacter",function(data,barbershop)
+RegisterNetEvent("character:Apply")
+AddEventHandler("character:Apply",function(data,barbershop)
 	if not barbershop then
 		currentCharacterMode = data
 		defaultCharacter(true)
@@ -173,9 +173,9 @@ RegisterNUICallback("Save",function(data,cb)
 			end
 		end
 	
-		TriggerServerEvent("vrp_character:finishedCharacter",currentCharacterMode,true)
+		TriggerServerEvent("character:finishedCharacter",currentCharacterMode,true)
 	else
-		TriggerServerEvent("vrp_character:finishedCharacter",currentCharacterMode,false)
+		TriggerServerEvent("character:finishedCharacter",currentCharacterMode,false)
 	end
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
@@ -183,7 +183,7 @@ end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 RegisterNUICallback("CloseBarbershop",function(data,cb)
 	displayBarbershop(false)
-	TriggerServerEvent("vrp_character:finishedCharacter",currentCharacterMode,false)
+	TriggerServerEvent("character:finishedCharacter",currentCharacterMode,false)
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- UPDATESKINOPTIONS
