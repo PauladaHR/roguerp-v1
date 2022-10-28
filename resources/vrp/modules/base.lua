@@ -252,8 +252,8 @@ function vRP.rejoinServer(source,reason)
 			local DataTable = vRP.getUserDataTable(user_id)
 			if DataTable then
 				vRP.execute("playerdata/setUserdata",{ user_id = parseInt(user_id), key = "Datatable", value = json.encode(DataTable) })
-				print(json.encode(DataTable))
 				TriggerEvent("vRP:playerLeave",user_id,source)
+				
 				vRP.users[identity.steam] = nil
 				vRP.user_sources[user_id] = nil
 				vRP.user_tables[user_id] = nil
@@ -319,7 +319,7 @@ AddEventHandler("queue:playerConnecting",function(source,ids,name,setKickReason,
 		if not vRP.CheckBanned(steam) then
 			local newUser = vRP.getInfos(steam)
 			if newUser[1] == nil then
-				vRP.execute("vRP/create_user",{ steam = steam, discord = discord, login = os.date("%d/%m/%Y") })
+				vRP.execute("vRP/create_user",{ steam = steam, discord = discord })
 			end
 
 			if vRP.checkRoleDiscord(discord,"953468179940782083") then

@@ -142,6 +142,7 @@ RegisterCommand("globalFunctions",function(source)
 			exports["vrp_dynamic"]:AddButton("Sem roupas","Remover todas as roupas.","player:outfitFunctions","pelado","outfit",true)	
 
 			exports["vrp_dynamic"]:AddButton("Desmanche","Listagem dos veículos.","hiro_dismantle:checkVehicleList","","others",true)
+			exports["vrp_dynamic"]:AddButton("Desbugar","Recarregar o personagem.","character:Debug","","others",true)
 
 				if vSERVER.checkPremium() then
 					exports["vrp_dynamic"]:AddButton("Premium","Checar tempo do premium.","player:checkPremium","","others",true)

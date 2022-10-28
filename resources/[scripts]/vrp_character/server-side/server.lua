@@ -10,6 +10,19 @@ vRP = Proxy.getInterface("vRP")
 Hiro = {}
 Tunnel.bindInterface("vrp_character",Hiro)
 -----------------------------------------------------------------------------------------------------------------------------------------
+-- CHECKOPEN
+-----------------------------------------------------------------------------------------------------------------------------------------
+function Hiro.CheckWanted()
+	local source = source
+	local user_id = vRP.getUserId(source)
+	if user_id then
+		if not vRP.wantedReturn(user_id) and not vRP.reposeReturn(user_id) then
+			return true
+		end
+	end
+	return false
+end
+-----------------------------------------------------------------------------------------------------------------------------------------
 -- VRP_CHARACTER:FINISHEDCHARACTER
 -----------------------------------------------------------------------------------------------------------------------------------------
 RegisterServerEvent("vrp_character:finishedCharacter")
@@ -34,34 +47,21 @@ AddEventHandler("vrp_character:finishedCharacter",function(currentCharacterMode,
 	end
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
--- VRP_CHARACTER:RESETBARBER
+-- DEBUG
 -----------------------------------------------------------------------------------------------------------------------------------------
-RegisterServerEvent("vrp_character:resetBarber")
-AddEventHandler("vrp_character:resetBarber",function()
+RegisterServerEvent("character:Debug")
+AddEventHandler("character:Debug",function()
 	local source = source
 	local user_id = vRP.getUserId(source)
 	if user_id then
-		local PlayerAppearence = vRP.userData(user_id,"Character")
-		if PlayerAppearence then
-			TriggerClientEvent("vrp_character:updateCharacter",source,PlayerAppearence,true)
-		end
+		TriggerClientEvent("character:Apply",source,vRP.userData(user_id,"Character"),false)
+		TriggerClientEvent("skinshop:apply",source,vRP.userData(user_id,"Clothings"))
+		TriggerClientEvent("tattoos:apply",source,vRP.userData(user_id,"Tatuagens"))
+		TriggerClientEvent("target:resetDebug",source)
 
-		local PlayerTattoos = vRP.userData(user_id,"Tattoos")
-		if PlayerTattoos then 
-			TriggerClientEvent("tattoos:Apply",source,PlayerTattoos)
-		end
+		local ped = GetPlayerPed(source)
+		local coords = GetEntityCoords(ped)
+
+		TriggerClientEvent("syncarea",-1,coords["x"],coords["y"],coords["z"],1)
 	end
 end)
------------------------------------------------------------------------------------------------------------------------------------------
--- CHECKOPEN
------------------------------------------------------------------------------------------------------------------------------------------
-function Hiro.CheckWanted()
-	local source = source
-	local user_id = vRP.getUserId(source)
-	if user_id then
-		if not vRP.wantedReturn(user_id) and not vRP.reposeReturn(user_id) then
-			return true
-		end
-	end
-	return false
-end
