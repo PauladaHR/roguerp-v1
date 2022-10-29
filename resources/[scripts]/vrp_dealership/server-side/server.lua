@@ -291,18 +291,17 @@ function src.startDrive()
 
 			if not vRP.wantedReturn(user_id) then
 				if vRP.request(source,"Concessíonaria","Iniciar o teste por <b>$100</b> dólares?",60) then
-					-- if vRP.paymentFull(user_id,100) then
+					if vRP.paymentFull(user_id,100) then
 						plateVehs[user_id] = "PDMS"..(1000 + user_id)
 
 						TriggerEvent("setPlateEveryone",plateVehs[user_id])
-						SetPlayerRoutingBucket(source,user_id)
-						LocalPlayer["state"]["Route"] = user_id
+						TriggerEvent("vRP:Bucket",source,"Enter")
 						actived[user_id] = nil
 
 						return true,plateVehs[user_id]
-					-- else
-					-- 	TriggerClientEvent("Notify",source,"vermelho","<b>Dólares</b> insuficientes.",5000)
-					-- end
+					else
+						TriggerClientEvent("Notify",source,"vermelho","<b>Dólares</b> insuficientes.",5000)
+					end
 				end
 			end
 
@@ -320,8 +319,7 @@ function src.removeDrive()
 	local user_id = vRP.getUserId(source)
 	if user_id then
 		TriggerEvent("plateReveryone",plateVehs[user_id])
-		SetPlayerRoutingBucket(source,0)
-		LocalPlayer["state"]["Route"] = 0
+		TriggerEvent("vRP:Bucket",source,"Exit")
 	end
 end
 -----------------------------------------------------------------------------------------------------------------------------------------

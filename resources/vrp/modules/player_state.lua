@@ -312,6 +312,23 @@ function vRP.ModelPlayer(source)
 	end
 end
 -----------------------------------------------------------------------------------------------------------------------------------------
+-- VRP:BUCKET
+-----------------------------------------------------------------------------------------------------------------------------------------
+RegisterServerEvent("vRP:Bucket")
+AddEventHandler("vRP:Bucket",function(Mode)
+	local source = source
+	local Passport = vRP.Passport(source)
+	if Passport then
+		if Mode == "Enter" then
+			Player(source)["state"]["Route"] = Passport
+			SetPlayerRoutingBucket(source,Passport)
+		elseif Mode == "Exit" then
+			Player(source)["state"]["Route"] = 0
+			SetPlayerRoutingBucket(source,0)
+		end
+	end
+end)
+-----------------------------------------------------------------------------------------------------------------------------------------
 -- GETGRIDZONE
 -----------------------------------------------------------------------------------------------------------------------------------------
 RegisterCommand("gg",function(source)
