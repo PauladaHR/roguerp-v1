@@ -57,7 +57,7 @@ AddEventHandler("character:Debug",function()
 	if user_id then
 		TriggerClientEvent("character:Apply",source,vRP.userData(user_id,"Character"),false)
 		TriggerClientEvent("skinshop:apply",source,vRP.userData(user_id,"Clothings"))
-		TriggerClientEvent("tattoos:apply",source,vRP.userData(user_id,"Tatuagens"))
+		TriggerClientEvent("tattoos:apply",source,vRP.userData(user_id,"Tattoos"))
 		TriggerClientEvent("target:resetDebug",source)
 
 		local ped = GetPlayerPed(source)

@@ -296,6 +296,7 @@ function src.startDrive()
 
 						TriggerEvent("setPlateEveryone",plateVehs[user_id])
 						SetPlayerRoutingBucket(source,user_id)
+						LocalPlayer["state"]["Route"] = user_id
 						actived[user_id] = nil
 
 						return true,plateVehs[user_id]
@@ -320,12 +321,13 @@ function src.removeDrive()
 	if user_id then
 		TriggerEvent("plateReveryone",plateVehs[user_id])
 		SetPlayerRoutingBucket(source,0)
+		LocalPlayer["state"]["Route"] = 0
 	end
 end
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- PLAYERDISCONNECT
 -----------------------------------------------------------------------------------------------------------------------------------------
-AddEventHandler("playerDisconnect",function(user_id)
+AddEventHandler("vRP:playerLeave",function(user_id)
 	if actived[user_id] then
 		actived[user_id] = nil
 	end

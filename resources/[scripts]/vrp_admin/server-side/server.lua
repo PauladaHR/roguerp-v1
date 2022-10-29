@@ -8,10 +8,9 @@ vRPC = Tunnel.getInterface("vRP")
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- CONNECTION
 -----------------------------------------------------------------------------------------------------------------------------------------
-cRP = {}
-Tunnel.bindInterface("vrp_admin",cRP)
+Hiro = {}
+Tunnel.bindInterface("vrp_admin",Hiro)
 vCLIENT = Tunnel.getInterface("vrp_admin")
-vHOMES = Tunnel.getInterface("vrp_homes")
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- GOD
 -----------------------------------------------------------------------------------------------------------------------------------------
@@ -315,7 +314,6 @@ end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 RegisterCommand("clearchest",function(source,args,rawCommand)
     local user_id = vRP.getUserId(source)
-    local identity = vRP.getUserIdentity(user_id)
 	if vRP.hasRank(user_id,"Admin",60) then
         if args[1] then
             local identity2 = vRP.getUserIdentity(parseInt(args[2]))
@@ -323,21 +321,6 @@ RegisterCommand("clearchest",function(source,args,rawCommand)
                 vRP.execute("vRP/rem_srv_data",{ dkey = "chest:"..tostring(args[1]) })
 				TriggerClientEvent("Notify",source,"verde", "Você limpou o baú <b>"..args[1].."</b>.", 5000)
             end
-        end
-    end
-end)
------------------------------------------------------------------------------------------------------------------------------------------
--- ESTOQUE
------------------------------------------------------------------------------------------------------------------------------------------
-RegisterCommand("estoque",function(source,args,rawCommand)
-    local user_id = vRP.getUserId(source)
-	if vRP.hasRank(user_id,"Admin",40) then
-        if args[1] and args[2] then
-			if vRP.request(source,"Conce","Deseja adicionar <b>"..args[2].."</b> de estoque para o veículo <b>"..vRP.vehicleName(args[1]).."</b> ?",35) then
-				exports["oxmysql"]:executeSync("UPDATE vrp_vehicles SET stock = ? WHERE spawn = ?", { args[2], args[1] })
-				-- vRP.execute("vRP/set_stock",{ spawn = args[1], stock = args[2] })
-				TriggerClientEvent("Notify",source,"verde", "Voce colocou <b>"..args[2].."</b> de estoque, para o veículo <b>"..vRP.vehicleName(args[1]).."</b>.", 5000)
-			end
         end
     end
 end)
@@ -885,7 +868,7 @@ end
 -------------------------------------------------------------------------------------------------------------------------------------------
 ---- CDS
 -------------------------------------------------------------------------------------------------------------------------------------------
---function cRP.buttonTxt()
+--function Hiro.buttonTxt()
 --	local source = source
 --	local user_id = vRP.getUserId(source)
 --	if user_id then
@@ -901,7 +884,7 @@ end
 -- local numbers = 0	
 -- local locs = {}
 
--- function cRP.buttonTxt3()
+-- function Hiro.buttonTxt3()
 -- 	local source = source
 -- 	local user_id = vRP.getUserId(source)
 -- 	if user_id then
@@ -917,7 +900,7 @@ end
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- TXTENTITY
 -----------------------------------------------------------------------------------------------------------------------------------------
-function cRP.TxtEntity(m,c,r,h)
+function Hiro.TxtEntity(m,c,r,h)
 	local source = source
 	local user_id = vRP.getUserId(source)
 	if vRP.hasRank(user_id,'Admin',60) then

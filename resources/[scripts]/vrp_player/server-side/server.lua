@@ -1425,19 +1425,21 @@ AddEventHandler("player:outfitFunctions",function(mode)
 				TriggerClientEvent("Notify",source,"verde","Roupas salvas.",3000)
 			end
 		elseif mode == "remover" then
-			local model = vRPC.ModelPlayer(source)
+			local model = vRP.ModelPlayer(source)
 			if model == "mp_m_freemode_01" then
 				TriggerClientEvent("updateRoupas",source,removeFit["Remove"]["homem"])
 			elseif model == "mp_f_freemode_01" then
 				TriggerClientEvent("updateRoupas",source,removeFit["Remove"]["mulher"])
 			end
+			TriggerClientEvent("Notify",source,"verde","Roupas removidas.",3000)
 		elseif mode == "pelado" then
-			local model = vRPC.ModelPlayer(source)
+			local model = vRP.ModelPlayer(source)
 			if model == "mp_m_freemode_01" then
 				TriggerClientEvent("updateRoupas",source,removeFit["Naked"]["homem"])
 			elseif model == "mp_f_freemode_01" then
 				TriggerClientEvent("updateRoupas",source,removeFit["Naked"]["mulher"])
 			end
+			TriggerClientEvent("Notify",source,"verde","Roupas removidas.",3000)
 		end
 	end
 end)
