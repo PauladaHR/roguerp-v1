@@ -8,8 +8,8 @@ vRPC = Tunnel.getInterface("vRP")
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- CONNECTION
 -----------------------------------------------------------------------------------------------------------------------------------------
-cRP = {}
-Tunnel.bindInterface("vrp_trunkchest",cRP)
+Hiro = {}
+Tunnel.bindInterface("vrp_trunkchest",Hiro)
 vCLIENT = Tunnel.getInterface("vrp_trunkchest")
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- VARIABLES
@@ -46,7 +46,7 @@ local noFull = {
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- STOREITEM
 -----------------------------------------------------------------------------------------------------------------------------------------
-function cRP.storeItem(itemName,slot,amount,target)
+function Hiro.storeItem(itemName,slot,amount,target)
 	local source = source
 	local user_id = vRP.getUserId(source)
 	local consult = vRP.getSData(vehChest[parseInt(user_id)])
@@ -58,9 +58,7 @@ function cRP.storeItem(itemName,slot,amount,target)
 				TriggerClientEvent("Notify",source,"amarelo","Você não pode armazenar este item em veículos.",5000)
                 return
             end
-        end
-
-        if not storeVehs[vehNames[parseInt(user_id)]] and vRP.itemHungerList(itemName) or vRP.itemWaterList(itemName) or itemName == "identity" or itemName == "dollars2" or noFull[itemName] then
+        elseif not storeVehs[vehNames[parseInt(user_id)]] and vRP.itemHungerList(itemName) or vRP.itemWaterList(itemName) or itemName == "identity" or itemName == "dollars2" or noFull[itemName] then
             TriggerClientEvent("vrp_trunkchest:Update",source,"requestChest")
 			TriggerClientEvent("Notify",source,"amarelo","Você não pode armazenar este item em veículos.",5000)
             return
@@ -75,7 +73,7 @@ end
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- TAKEITEM
 -----------------------------------------------------------------------------------------------------------------------------------------
-function cRP.takeItem(itemName,slot,amount,target)
+function Hiro.takeItem(itemName,slot,amount,target)
 	local source = source
 	local user_id = vRP.getUserId(source)
 	local consult = vRP.getSData(vehChest[parseInt(user_id)])
@@ -90,7 +88,7 @@ end
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- UPDATECHEST
 -----------------------------------------------------------------------------------------------------------------------------------------
-function cRP.updateChest(itemName,slot,target,amount)
+function Hiro.updateChest(itemName,slot,target,amount)
 	local source = source
 	local user_id = vRP.getUserId(source)
 	local consult = vRP.getSData(vehChest[parseInt(user_id)])
@@ -143,7 +141,7 @@ end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- CHESTCLOSE
 -----------------------------------------------------------------------------------------------------------------------------------------
-function cRP.chestClose()
+function Hiro.chestClose()
 	local source = source
 	local user_id = vRP.getUserId(source)
 	if user_id then
@@ -162,7 +160,7 @@ end
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- MOCHILA
 -----------------------------------------------------------------------------------------------------------------------------------------
-function cRP.openChest()
+function Hiro.openChest()
 	local source = source
 	local user_id = vRP.getUserId(source)
 	local identity = vRP.getUserIdentity(user_id)
