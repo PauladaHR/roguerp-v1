@@ -5,8 +5,6 @@ vRPC = Tunnel.getInterface("vRP")
 
 src = {}
 Tunnel.bindInterface(GetCurrentResourceName(), src)
-vGARAGE = Tunnel.getInterface("vrp_garages")
-
 
 local dismantleList = {}
 local dismantleTimer = os.time()
@@ -49,13 +47,14 @@ function src.paymentMethod(Vehicle,Plate)
 	local source = source
 	local user_id = vRP.getUserId(source)
 	local VehPlateID = vRP.getVehiclePlate(Plate)
+	local Veh,Network,Plate,VehicleName = vRPC.vehList(source,20)
 	if user_id then
-		vGARAGE.deleteVehicle(source,Vehicle)
+		cfg.DeleteVehicle(source,Vehicle)
 		cfg.paymentDismantle()
 
 		if VehPlateID then
+			exports["oxmysql"]:executeSync("UPDATE vrp_users_vehicles SET arrest = ? WHERE user_id = ? AND vehicle = ? ", { 1,VehPlateID,VehicleName } )
 			cfg.paymentDismantlePlayer()
-			vRP.execute("vRP/set_dismantle",{ user_id = parseInt(VehPlateID), vehicle = Vehicle, dismantle = 1 })
 		end
 
 		local reputationValue = vRP.checkReputation(user_id,"Dismantle")

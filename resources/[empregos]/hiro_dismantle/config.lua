@@ -1,3 +1,6 @@
+local Tunnel = module("vrp","lib/Tunnel")
+vGARAGE = Tunnel.getInterface("vrp_garages")
+
 cfg = {}
 
 cfg.DismantleList = {
@@ -15,7 +18,7 @@ cfg.DismantleList = {
 	"cavalcade2","speedo","washington","intruder","minivan","bus","schafter2","fusilade"
 }
 
-cfg.locs = { x = 2349.52, y = 3052.3, z = 48.17 }
+cfg.locs = { x = 2130.71, y = 4785.51, z = 40.98 }
 
 cfg.itensList = {
 	[1] = "plastic",
@@ -34,6 +37,10 @@ cfg.vehicleParts = {
 }
 
 cfg.reputationGive = 20
+
+function cfg.DeleteVehicle(source,Vehicle)
+	vGARAGE.deleteVehicle(source,Vehicle)
+end
 
 cfg.permList = { "Desmanche01","Desmanche02" }
 

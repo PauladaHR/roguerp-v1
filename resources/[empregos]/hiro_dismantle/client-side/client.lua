@@ -23,7 +23,7 @@ CreateThread(function()
         local pedCoords = GetEntityCoords(ped)
         local distanceMantle = #(pedCoords - vector3(cfg.locs.x,cfg.locs.y,cfg.locs.z))
         if distanceMantle <= 6 then
-            timeDistance = 0
+            timeDistance = 1
             DrawMarker(23,cfg.locs.x,cfg.locs.y,cfg.locs.z - 0.95,0.0,0.0,0.0,0.0,0.0,0.0,5.0,5.0,0.0,255,0,0,50,0,0,0)
         end
         Wait(timeDistance)
@@ -94,7 +94,7 @@ function chopDoor(vehicle)
             local distanceBetween = #(doorsCds - pedCds)
             if distanceBetween <= 1.5 and IsControlJustPressed(0, 38) then
                 canSeeDoorText = false
-                LocalPlayer["state"]["Commands"] = true
+                -- LocalPlayer["state"]["Commands"] = true
                 TaskStartScenarioInPlace(ped,"WORLD_HUMAN_WELDING",0)
                 TriggerEvent("Progress",15000)
                 Wait(15000)
@@ -144,7 +144,7 @@ function createAndAttachDoor()
     deliveryDoor(object)
 end
 
-local DELIVERY_DOORS_COORDS = vector3(cfg.locs.x-15,cfg.locs.y,cfg.locs.z)
+local DELIVERY_DOORS_COORDS = vector3(cfg.locs.x-5,cfg.locs.y,cfg.locs.z)
 
 function deliveryDoor(object)
     while true do
@@ -160,6 +160,7 @@ function deliveryDoor(object)
             doorsToDismantle = doorsToDismantle - 1
             if doorsToDismantle == 0 then
                 endDismantle()
+                LocalPlayer["state"]["Commands"] = false
             end
             LocalPlayer["state"]["Commands"] = false
             canSeeDoorText = true

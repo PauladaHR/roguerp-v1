@@ -308,15 +308,6 @@ function cRP.spawnVehicles(vehName,garageName)
 							TriggerClientEvent("Notify",source,"vermelho","Dólares insuficientes.",5000)
 						end
 					end
-				elseif parseInt(vehicle[1]["dismantle"]) >= 1 then
-					local status = vRP.request(source,"Veículo desmanchado, deseja acionar o seguro pagando <b>$"..parseFormat(vehPrice * 0.10).."</b> dólares?",60)
-					if status then
-						if vRP.paymentFull(user_id,vehPrice * 0.01) then
-							vRP.execute("vRP/set_dismantle",{ user_id = parseInt(user_id), vehicle = vehName, dismantle = 0 })
-						else
-							TriggerClientEvent("Notify",source,"vermelho","Dólares insuficientes.",5000)
-						end
-					end
 				else
 					-- if parseInt(vehicle[1]["rental"]) > 0 then
 					-- 	if parseInt(os.time()) >= (vehicle[1]["rental"] + 24 * vehicle[1]["rendays"] * 60 * 60) then
