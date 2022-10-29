@@ -13,6 +13,22 @@ Tunnel.bindInterface("vrp_player",cRP)
 vCLIENT = Tunnel.getInterface("vrp_player")
 vTASKBAR = Tunnel.getInterface("vrp_taskbar")
 vSKINSHOP = Tunnel.getInterface("vrp_skinshop")
+-----------------------------------------------------------------------------------------------------------------------------------------
+-- ME
+-----------------------------------------------------------------------------------------------------------------------------------------
+RegisterCommand("me",function(source,args,rawCommand)
+	local user_id = vRP.getUserId(source)
+	if user_id and args[1] then
+		local message = string.sub(rawCommand:sub(4),1,100)
+
+		local Players = vRPC.Players(source)
+		for _,v in ipairs(Players) do
+			async(function()
+				TriggerClientEvent("showme:pressMe",v,source,message,10)
+			end)
+		end
+	end
+end)
  -----------------------------------------------------------------------------------------------------------------------------------------
 -- UPGRADESTRESS
 -----------------------------------------------------------------------------------------------------------------------------------------
@@ -64,7 +80,7 @@ RegisterCommand("garmas",function(source,args,rawCommand)
 				end
 
 				if request == "sim" then
-					Citizen.Wait(2500)
+					Wait(2500)
 					local weapons = vRPC.replaceWeapons(source)
 					for k,v in pairs(weapons) do
 						vRP.giveInventoryItem(user_id,k,1)
@@ -230,23 +246,23 @@ end
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- PD
 -----------------------------------------------------------------------------------------------------------------------------------------
-RegisterCommand("pd",function(source,args,rawCommand)
+RegisterCommand("pd",function(source,Message,rawCommand)
 	if exports["chat"]:statusChat(source) then
 		local user_id = vRP.getUserId(source)
-		if user_id and args[1] then
+		if user_id and Message[1] then
 			if vRP.hasPermission(user_id,{"Police","actionPolice"})  then
-				if vRPC.getHealth(source) > 101 and not vCLIENT.getHandcuff(source) then
+				if vRPC.getHealth(source) > 101 and not Player(source)["state"]["Handcuff"] then
 					local identity = vRP.getUserIdentity(user_id)
 					local police = vRP.numPermission("Police")
 					local action = vRP.numPermission("actionPolice")
 					for k,v in pairs(police) do
 						async(function()
-							TriggerClientEvent("chatMessage",v,identity.name.." "..identity.name2,{93,153,253},rawCommand:sub(3))
+							TriggerClientEvent("chatME",v,"^2911^3"..identity["name"].."^0"..rawCommand:sub(4))
 						end)
 					end
 					for k,v in pairs(action) do
 						async(function()
-							TriggerClientEvent("chatMessage",v,identity.name.." "..identity.name2,{93,153,2535},rawCommand:sub(3))
+							TriggerClientEvent("chatME",v,"^2ACTION^3"..identity["name"].."^0"..rawCommand:sub(4))
 						end)
 					end
 				end
@@ -257,17 +273,17 @@ end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- HR
 -----------------------------------------------------------------------------------------------------------------------------------------
-RegisterCommand("hr",function(source,args,rawCommand)
+RegisterCommand("hr",function(source,Message,rawCommand)
 	if exports["chat"]:statusChat(source) then
 		local user_id = vRP.getUserId(source)
-		if user_id and args[1] then
+		if user_id and Message[1] then
 			if vRP.hasPermission(user_id,"Paramedic") then
 				if vRPC.getHealth(source) > 101 and not vCLIENT.getHandcuff(source) then
 					local identity = vRP.getUserIdentity(user_id)
 					local police = vRP.numPermission("Paramedic")
 					for k,v in pairs(police) do
 						async(function()
-							TriggerClientEvent("chatMessage",v,identity.name.." "..identity.name2,{255,175,175},rawCommand:sub(3))
+							TriggerClientEvent("chatME",v,"^4112^9"..identity["name"].." "..identity["name2"].."^0"..rawCommand:sub(4))
 						end)
 					end
 				end
