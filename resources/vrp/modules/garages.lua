@@ -1,7 +1,7 @@
 local vehList = {}
 
-Citizen.CreateThread(function()
-	Citizen.Wait(1000)
+CreateThread(function()
+	Wait(1000)
 
 	print('^3[!] ^0Criação de veículos ^3iniciada^0')
 	setupVehicleList()

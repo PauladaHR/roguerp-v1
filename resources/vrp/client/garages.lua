@@ -87,7 +87,6 @@ end
 -- LASTVEHICLE
 -----------------------------------------------------------------------------------------------------------------------------------------
 function tvRP.lastVehicle(vehName)
-	local ped = PlayerPedId()
 	local vehHash = GetHashKey(vehName)
 	local vehicle = GetLastDrivenVehicle()
 	if IsVehicleModel(vehicle,vehHash) then
@@ -95,4 +94,17 @@ function tvRP.lastVehicle(vehName)
 	end
 
 	return false
+end
+-----------------------------------------------------------------------------------------------------------------------------------------
+-- VEHICLENAME
+-----------------------------------------------------------------------------------------------------------------------------------------
+function tvRP.vehicleName()
+	local Ped = PlayerPedId()
+	if IsPedInAnyVehicle(Ped) then
+		local vehicle = GetVehiclePedIsUsing(Ped)
+		local VehicleModel = vRPS.vehicleHash(GetEntityModel(vehicle))
+		local VehicleName = vRPS.vehicleName(VehicleModel)
+
+		return VehicleName
+	end
 end
