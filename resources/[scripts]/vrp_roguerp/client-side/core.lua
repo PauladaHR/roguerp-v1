@@ -97,37 +97,6 @@ CreateThread(function()
 	end
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
--- VEHICLETYREBURST
------------------------------------------------------------------------------------------------------------------------------------------
-function vehicleTyreBurst(Vehicle)
-	local vehModel = GetEntityModel(Vehicle)
-	if GetVehicleClass(Vehicle) ~= 8 then
-		local Tyre = math.random(4)
-		if Tyre == 1 then
-			if GetTyreHealth(Vehicle,0) == 1000.0 then
-				SetVehicleTyreBurst(Vehicle,0,true,1000.0)
-			end
-		elseif Tyre == 2 then
-			if GetTyreHealth(Vehicle,1) == 1000.0 then
-				SetVehicleTyreBurst(Vehicle,1,true,1000.0)
-			end
-		elseif Tyre == 3 then
-			if GetTyreHealth(Vehicle,4) == 1000.0 then
-				SetVehicleTyreBurst(Vehicle,4,true,1000.0)
-			end
-		elseif Tyre == 4 then
-			if GetTyreHealth(Vehicle,5) == 1000.0 then
-				SetVehicleTyreBurst(Vehicle,5,true,1000.0)
-			end
-		end
-
-		if math.random(100) < 25 then
-			Wait(500)
-			vehicleTyreBurst(Vehicle)
-		end
-	end
-end
------------------------------------------------------------------------------------------------------------------------------------------
 -- PEDSWIMMING
 -----------------------------------------------------------------------------------------------------------------------------------------
 CreateThread(function()
@@ -142,34 +111,6 @@ CreateThread(function()
 		Wait(timeDistance)
 	end
 end)
------------------------------------------------------------------------------------------------------------------------------------------
--- VEHICLETYREBURST
------------------------------------------------------------------------------------------------------------------------------------------
-function vehicleTyreBurst(vehicle)
-	local tyre = math.random(4)
-	if tyre == 1 then
-		if not IsVehicleTyreBurst(vehicle,0,false) then
-			SetVehicleTyreBurst(vehicle,0,true,1000.0)
-		end
-	elseif tyre == 2 then
-		if not IsVehicleTyreBurst(vehicle,1,false) then
-			SetVehicleTyreBurst(vehicle,1,true,1000.0)
-		end
-	elseif tyre == 3 then
-		if not IsVehicleTyreBurst(vehicle,4,false) then
-			SetVehicleTyreBurst(vehicle,4,true,1000.0)
-		end
-	elseif tyre == 4 then
-		if not IsVehicleTyreBurst(vehicle,5,false) then
-			SetVehicleTyreBurst(vehicle,5,true,1000.0)
-		end
-	end
-
-	if math.random(100) < 30 then
-		Wait(10)
-		vehicleTyreBurst(vehicle)
-	end
-end
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- BLIPS
 -----------------------------------------------------------------------------------------------------------------------------------------
@@ -403,6 +344,18 @@ CreateThread(function()
 		SetCreateRandomCopsOnScenarios(false)
 		SetCreateRandomCopsNotOnScenarios(false)
 
+		SetVehicleModelIsSuppressed(GetHashKey("jet"),true)
+		SetVehicleModelIsSuppressed(GetHashKey("besra"),true)
+		SetVehicleModelIsSuppressed(GetHashKey("luxor"),true)
+		SetVehicleModelIsSuppressed(GetHashKey("blimp"),true)
+		SetVehicleModelIsSuppressed(GetHashKey("polmav"),true)
+		SetVehicleModelIsSuppressed(GetHashKey("buzzard2"),true)
+		SetVehicleModelIsSuppressed(GetHashKey("mammatus"),true)
+		SetVehicleModelIsSuppressed(GetHashKey("rhino"),true)
+		SetPedModelIsSuppressed(GetHashKey("s_m_y_prismuscl_01"),true)
+		SetPedModelIsSuppressed(GetHashKey("u_m_y_prisoner_01"),true)
+		SetPedModelIsSuppressed(GetHashKey("s_m_y_prisoner_01"),true)
+
 		Wait(1000)
 	end
 end)
@@ -496,12 +449,23 @@ CreateThread(function()
 		SetPlayerCanBeHassledByGangs(PlayerPedId(),false)
 		SetIgnoreLowPriorityShockingEvents(PlayerPedId(),true)
 
-		SetVehicleDensityMultiplierThisFrame(0.50)
-		SetRandomVehicleDensityMultiplierThisFrame(0.50)
-		SetParkedVehicleDensityMultiplierThisFrame(1.0)
-		SetAmbientVehicleRangeMultiplierThisFrame(1.0)
-		SetScenarioPedDensityMultiplierThisFrame(1.0,1.0)
-		SetPedDensityMultiplierThisFrame(1.0)
+
+		if LocalPlayer["state"]["Route"] > 0 then
+			SetVehicleDensityMultiplierThisFrame(0.0)
+			SetRandomVehicleDensityMultiplierThisFrame(0.0)
+			SetParkedVehicleDensityMultiplierThisFrame(0.0)
+			SetAmbientVehicleRangeMultiplierThisFrame(0.0)
+			SetScenarioPedDensityMultiplierThisFrame(0.0,0.0)
+			SetPedDensityMultiplierThisFrame(0.0)
+		else
+			SetVehicleDensityMultiplierThisFrame(0.50)
+			SetRandomVehicleDensityMultiplierThisFrame(0.50)
+			SetParkedVehicleDensityMultiplierThisFrame(1.0)
+			SetAmbientVehicleRangeMultiplierThisFrame(1.0)
+			SetScenarioPedDensityMultiplierThisFrame(1.0,1.0)
+			SetPedDensityMultiplierThisFrame(1.0)
+		end
+
 		SetRandomBoats(false)
 		SetGarbageTrucks(false)
 
@@ -609,27 +573,6 @@ CreateThread(function()
     end
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
--- THREADTIMERS
------------------------------------------------------------------------------------------------------------------------------------------
-CreateThread(function()
-	while true do
-
-		SetVehicleModelIsSuppressed(GetHashKey("jet"),true)
-		SetVehicleModelIsSuppressed(GetHashKey("besra"),true)
-		SetVehicleModelIsSuppressed(GetHashKey("luxor"),true)
-		SetVehicleModelIsSuppressed(GetHashKey("blimp"),true)
-		SetVehicleModelIsSuppressed(GetHashKey("polmav"),true)
-		SetVehicleModelIsSuppressed(GetHashKey("buzzard2"),true)
-		SetVehicleModelIsSuppressed(GetHashKey("mammatus"),true)
-		SetVehicleModelIsSuppressed(GetHashKey("rhino"),true)
-		SetPedModelIsSuppressed(GetHashKey("s_m_y_prismuscl_01"),true)
-		SetPedModelIsSuppressed(GetHashKey("u_m_y_prisoner_01"),true)
-		SetPedModelIsSuppressed(GetHashKey("s_m_y_prisoner_01"),true)
-
-		Wait(1000)
-	end
-end)
------------------------------------------------------------------------------------------------------------------------------------------
 -- TELEPORT
 -----------------------------------------------------------------------------------------------------------------------------------------
 local teleport = {
@@ -727,7 +670,6 @@ end)
 local tasertime = false
 CreateThread(function()
 	while true do
-		Wait(100)
 		local ped = PlayerPedId()
 		if IsPedBeingStunned(ped) then
 			SetPedToRagdoll(ped,10000,10000,0,0,0,0)
@@ -748,5 +690,6 @@ CreateThread(function()
 				end)
 			end)
 		end
+		Wait(1000)
 	end
 end)

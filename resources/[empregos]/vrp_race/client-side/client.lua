@@ -248,3 +248,60 @@ function drawText(text,height)
 	DrawText(0.500,0.150)
 	SetTextProportional(1)
 end
+-----------------------------------------------------------------------------------------------------------------------------------------
+-- NEWVARIABLES
+-----------------------------------------------------------------------------------------------------------------------------------------
+local Actived = false
+local TyreExplodes = 0
+CreateThread(function()
+	while true do
+		local TimeDistance = 999
+		if not Actived then
+			local Ped = PlayerPedId()
+			if IsPedInAnyVehicle(Ped) and not IsPedOnAnyBike(Ped) then
+				TimeDistance = 1
+
+				DisableControlAction(0,345,true)
+
+				local Vehicle = GetVehiclePedIsUsing(Ped)
+				if GetPedInVehicleSeat(Vehicle,-1) == Ped then
+					if GetVehicleDirtLevel(Vehicle) ~= 0.0 then
+						SetVehicleDirtLevel(Vehicle,0.0)
+					end
+
+					local Speed = GetEntitySpeed(Vehicle) * 2.236936
+					if Speed ~= TyreExplodes then
+						if (TyreExplodes - Speed) >= 125 then
+							local Tyre = math.random(4)
+							if Tyre == 1 then
+								if GetTyreHealth(Vehicle,0) == 1000.0 then
+									SetVehicleTyreBurst(Vehicle,0,true,1000.0)
+								end
+							elseif Tyre == 2 then
+								if GetTyreHealth(Vehicle,1) == 1000.0 then
+									SetVehicleTyreBurst(Vehicle,1,true,1000.0)
+								end
+							elseif Tyre == 3 then
+								if GetTyreHealth(Vehicle,4) == 1000.0 then
+									SetVehicleTyreBurst(Vehicle,4,true,1000.0)
+								end
+							elseif Tyre == 4 then
+								if GetTyreHealth(Vehicle,5) == 1000.0 then
+									SetVehicleTyreBurst(Vehicle,5,true,1000.0)
+								end
+							end
+						end
+
+						TyreExplodes = Speed
+					end
+				end
+			else
+				if TyreExplodes ~= 0 then
+					TyreExplodes = 0
+				end
+			end
+		end
+
+		Wait(TimeDistance)
+	end
+end)
