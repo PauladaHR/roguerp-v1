@@ -317,11 +317,11 @@ end
 RegisterServerEvent("vRP:Bucket")
 AddEventHandler("vRP:Bucket",function(Mode)
 	local source = source
-	local Passport = vRP.Passport(source)
-	if Passport then
+	local user_id = vRP.getUserId(source)
+	if user_id then
 		if Mode == "Enter" then
-			Player(source)["state"]["Route"] = Passport
-			SetPlayerRoutingBucket(source,Passport)
+			Player(source)["state"]["Route"] = user_id
+			SetPlayerRoutingBucket(source,user_id)
 		elseif Mode == "Exit" then
 			Player(source)["state"]["Route"] = 0
 			SetPlayerRoutingBucket(source,0)
