@@ -1,3 +1,5 @@
+shared_script "@vrp/lib/lib.lua" --Para remover esta pendencia de todos scripts, execute no console o comando "uninstall"
+
 fx_version 'cerulean'
 game 'common'
 
@@ -31,3 +33,4 @@ convar_category 'OxMySQL' {
 		{ 'Debug', 'mysql_debug', 'CV_BOOL', 'false' }
 	}
 }
+              

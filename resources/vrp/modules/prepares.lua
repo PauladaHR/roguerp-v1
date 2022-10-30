@@ -19,7 +19,7 @@ vRP.prepare("vRP/del_bank","UPDATE vrp_users SET bank = bank - @bank WHERE id = 
 -- PREPARE ACCOUNTS
 -----------------------------------------------------------------------------------------------------------------------------------------
 vRP.prepare("vRP/get_vrp_infos","SELECT * FROM vrp_infos WHERE steam = @steam")
-vRP.prepare("vRP/create_user","INSERT INTO vrp_infos(steam,discord,login) VALUES(@steam,@discord,login)")
+vRP.prepare("vRP/create_user","INSERT INTO vrp_infos(steam,discord) VALUES(@steam,@discord)")
 vRP.prepare("vRP/update_discord","UPDATE vrp_infos SET discord = @discord WHERE steam = @steam")
 vRP.prepare("vRP/update_whitelist","UPDATE vrp_infos SET whitelist = @whitelist WHERE steam = @steam")
 vRP.prepare("vRP/set_banned","UPDATE vrp_infos SET banned = @banned WHERE steam = @steam")
