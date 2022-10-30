@@ -160,9 +160,6 @@ local workgarage = {
 	["PoliciaHeli"] = {
 		"B412"
 	},
-	["Prisão"] = {
-		"pbus"
-	},
 	["Motorista"] = {
 		"bus"
 	},
@@ -410,7 +407,7 @@ end
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- CAR
 -----------------------------------------------------------------------------------------------------------------------------------------
-RegisterCommand("car",function(source,args,rawCommand)
+RegisterCommand("car",function(source,args)
 	local user_id = vRP.getUserId(source)
 	local identity = vRP.getUserIdentity(user_id)
 	local x,y,z = vRPC.getPositions(source)

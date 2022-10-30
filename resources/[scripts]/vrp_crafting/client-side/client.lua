@@ -66,7 +66,7 @@ local craftList = {
 	{ -1802.39,3088.67,32.85,"Arma03Crafting" },
 
 	{ 580.59,-3113.14,6.07,"Municao01Crafting"},
-	{ 1272.73,-1711.34,54.78,"Municao02Crafting"},
+	{ 1247.22,-1576.44,58.36,"Municao02Crafting"},
 	{ 989.52,-135.89,74.07,"Municao03Crafting" },
 	
     { 1980.01,-948.54,82.44,"Cupim"},
