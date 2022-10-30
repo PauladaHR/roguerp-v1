@@ -37,7 +37,6 @@ vRP.prepare("playerdata/remUserdata","DELETE FROM vrp_users_data WHERE dkey = @d
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- PREPARE VRP_SRV_DATA
 -----------------------------------------------------------------------------------------------------------------------------------------
-vRP.prepare("vRP/removeData","DELETE FROM vrp_srv_data WHERE dkey = @key")
 vRP.prepare("vRP/set_srvdata","REPLACE INTO vrp_srv_data(dkey,dvalue) VALUES(@key,@value)")
 vRP.prepare("vRP/get_srvdata","SELECT dvalue FROM vrp_srv_data WHERE dkey = @key")
 
@@ -97,7 +96,7 @@ vRP.prepare("vRP/rem_vehicle","DELETE FROM vrp_users_vehicles WHERE user_id = @u
 vRP.prepare("vRP/get_vehicles","SELECT * FROM vrp_users_vehicles WHERE user_id = @user_id AND vehicle = @vehicle")
 vRP.prepare("vRP/set_update_vehicles","UPDATE vrp_users_vehicles SET engine = @engine, body = @body, fuel = @fuel, doors = @doors, windows = @windows, tyres = @tyres WHERE user_id = @user_id AND vehicle = @vehicle")
 vRP.prepare("vRP/set_arrest","UPDATE vrp_users_vehicles SET arrest = @arrest, time = @time WHERE user_id = @user_id AND vehicle = @vehicle")
-vRP.prepare("vRP/set_tax","UPDATE vrp_users_vehicles SET tax = @tax WHERE user_id = @user_id AND vehicle = @vehicle")
+vRP.prepare("vehicles/updateVehiclesTax","UPDATE vrp_users_vehicles SET tax = @tax WHERE user_id = @user_id AND vehicle = @vehicle")
 vRP.prepare("vRP/move_vehicle","UPDATE vrp_users_vehicles SET user_id = @nuser_id WHERE user_id = @user_id AND vehicle = @vehicle")
 vRP.prepare("vRP/add_vehicle","INSERT IGNORE INTO vrp_users_vehicles(user_id,vehicle,plate,work) VALUES(@user_id,@vehicle,@plate,@work)")
 vRP.prepare("vRP/con_maxvehs","SELECT COUNT(vehicle) as qtd FROM vrp_users_vehicles WHERE user_id = @user_id AND work = 'false'")

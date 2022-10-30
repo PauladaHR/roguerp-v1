@@ -68,7 +68,7 @@ local garageLocates = {
 	["42"] = { name = "Jardineiro", payment = false },
 	["43"] = { name = "Eletricista", payment = false },
 	["44"] = { name = "Garagem", payment = true},
-	["45"] = { name = "Fedex", payment = false, perm = "Fedex" },
+	-- ["45"] = { name = "Fedex", payment = false, perm = "Fedex" },
 	["46"] = { name = "Garagem", payment = false },
 	["47"] = { name = "Bicicletário", payment = false },
 	-- ["48"] = { name = "Lavagem03", payment = false, perm = "Lavagem03" },
@@ -191,9 +191,6 @@ local workgarage = {
 	["Taxi"] = {
 		"taxi"
 	},
-	["Delivery"] = {
-		"faggio"
-	},
 	["Mecânica"] = {
 		"flatbed",
 		"towtruck",
@@ -217,9 +214,6 @@ local workgarage = {
         "taco3",
 		"faggio"
     },
-	["Fedex"] = {
-		"velum"
-	},
 	["Construtor"] = {
 		"scrap"
 	},
@@ -286,11 +280,9 @@ function cRP.spawnVehicles(vehName,garageName)
 			if vehNet == nil then
 				local vehPrice = vRP.vehiclePrice(vehName)
 
-				-- if os.time() >= parseInt(vehicle[1]["tax"] + 24 * 10 * 60 * 60) then
-				-- 	if vRP.vehicleClass(vehName) == "cars" or vRP.vehicleClass(vehName) == "bikes" or vRP.vehicleClass(vehName) == "rental" then
-				-- 		TriggerClientEvent("Notify",source,"amarelo","Taxa do veículo atrasada, efetue o pagamento<br>através do seu tablet no sistema da concessionária.",5000)
-				-- 	end
-				if parseInt(os.time()) <= parseInt(vehicle[1]["time"] + 24 * 60 * 60) then
+				if os.time() >= parseInt(vehicle[1]["tax"] + 24 * 10 * 60 * 60) then
+						TriggerClientEvent("Notify",source,"amarelo","Taxa do veículo atrasada, efetue o pagamento<br>através do seu tablet no sistema da concessionária.",5000)
+				elseif parseInt(os.time()) <= parseInt(vehicle[1]["time"] + 24 * 60 * 60) then
 					local status = vRP.request(source,"Veículo detido, deseja acionar o seguro pagando <b>$"..parseFormat(vehPrice * 0.01).."</b> dólares?",60)
 					if status then
 						if vRP.paymentFull(user_id,vehPrice * 0.01) then
@@ -317,12 +309,6 @@ function cRP.spawnVehicles(vehName,garageName)
 					-- 		return
 					-- 	end
 					-- end
-
-					if vehicle[1]["tax"] == 0 and vehicle[1]["rental"] == 0 then
-						if vRP.vehicleClass(vehName) == "cars" or vRP.vehicleClass(vehName) == "bikes" or vRP.vehicleClass(vehName) == "rental" then
-							vRP.execute("vRP/set_tax",{ user_id = parseInt(user_id), vehicle = vehName, tax = parseInt(os.time()) })
-						end
-					end
 
 					local mHash = GetHashKey(vehName)
 					local checkSpawn,vehCoords = vCLIENT.spawnPosition(source)
@@ -656,26 +642,6 @@ AddEventHandler("garages:vehicleFunctions",function(vehFunctions)
 					end
 					TriggerEvent("webhooks","enviarcarro","```ini\n[======== ENVIAR CARRO ========]\n[ID]: "..user_id.." "..identity.name.." "..identity.name2.." \n[TRANSFERIU]: "..vRP.vehicleName(tostring(vehName)).." [PARA ID:] "..parseInt(nuser_id).." "..nidentity.name.." "..nidentity.name2.." "..os.date("\n[Data]: %d/%m/%Y [Hora]: %H:%M:%S").. " \r```","ENVIAR CARRO")
 					TriggerClientEvent("Notify",source,"verde", "Transferência concluída com sucesso.", 5000)
-				end
-			end
-		end
-
-		if vehFunctions == "tax" then
-			TriggerClientEvent("vrp_dynamic:closeSystem",source)
-
-			local vehName = vRP.prompt(source,"Vehicle Model:","")
-			if vehName == "" then
-				return
-			end
-
-			local vehicle = vRP.query("vRP/get_vehicles",{ user_id = parseInt(user_id), vehicle = vehName })
-			local status = vRP.request(source,"Deseja efetuar o pagamento da taxa de <b>$"..vRP.format(parseInt(vRP.vehiclePrice(vehName)*0.05)).."</b> dólares?",60)
-			if status then
-				if vRP.paymentBank(user_id,parseInt(vRP.vehiclePrice(vehName)*0.05)) then
-					vRP.execute("vRP/set_tax",{ user_id = parseInt(user_id), vehicle = vehName, tax = parseInt(os.time()) })
-					TriggerClientEvent("Notify",source,"verde", "Pagamento do <b>Vehicle Tax</b> conclúido com sucesso.",5000)
-				else
-					TriggerClientEvent("Notify",source,"vermelho", "Dinheiro insuficiente.",5000)
 				end
 			end
 		end

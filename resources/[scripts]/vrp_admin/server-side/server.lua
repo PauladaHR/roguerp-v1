@@ -277,16 +277,15 @@ end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- ADD CAR
 -----------------------------------------------------------------------------------------------------------------------------------------
-RegisterCommand("addvehs",function(source,args,rawCommand)
+RegisterCommand("addvehs",function(source,args)
     local user_id = vRP.getUserId(source)
-    local identity = vRP.getUserIdentity(user_id)
 	if vRP.hasRank(user_id,"Admin",80) then
         if args[1] and args[2] then
             local identity2 = vRP.getUserIdentity(parseInt(args[2]))
             local nuser_id = vRP.getUserId(identity2)
 			if vRP.request(source,"Casas","Deseja adicionar o carro <b>"..vRP.vehicleName(args[1]).."</b> para o Passaporte: <b>"..parseInt(args[2]).." "..identity2.name.." "..identity2.name2.."</b> ?",30) then
 				vRP.execute("vRP/add_vehicle",{ user_id = parseInt(args[2]), vehicle = args[1], plate = vRP.generatePlateNumber(), work = tostring(false) })
-				vRP.execute("vRP/set_tax",{ user_id = parseInt(args[2]), vehicle = args[1], tax = parseInt(os.time()) })
+				vRP.query("vehicles/updateVehiclesTax",{ user_id = parseInt(user_id), vehicle = args[1], tax = os.time() })
 				TriggerClientEvent("Notify",source,"verde", "Voce adicionou o veículo <b>"..vRP.vehicleName(args[1]).."</b> para o Passaporte: <b>"..parseInt(args[2]).."</b>.", 5000)
 			end
 		end

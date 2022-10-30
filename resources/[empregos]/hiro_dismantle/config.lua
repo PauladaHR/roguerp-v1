@@ -68,10 +68,11 @@ function cfg.paymentDismantle()
 	end
 end
 
-function cfg.paymentDismantlePlayer()
+function cfg.paymentDismantlePlayer(VehPlateID,VehicleName)
 	local source = source
 	local user_id = vRP.getUserId(source)
 	if user_id then
 		vRP.generateItem(user_id,"dollars2",math.random(35000,50000),true)
+		exports["oxmysql"]:executeSync("UPDATE vrp_users_vehicles SET arrest = ? WHERE user_id = ? AND vehicle = ? ", { 1,VehPlateID,VehicleName } )
 	end
 end

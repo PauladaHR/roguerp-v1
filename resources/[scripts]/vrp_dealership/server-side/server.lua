@@ -8,8 +8,8 @@ vRPclient = Tunnel.getInterface("vRP")
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- CONEXÃO
 -----------------------------------------------------------------------------------------------------------------------------------------
-src = {}
-Tunnel.bindInterface("dealership",src)
+Hiro = {}
+Tunnel.bindInterface("dealership",Hiro)
 vCLIENT = Tunnel.getInterface("dealership")
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- VARIAVEIS
@@ -26,7 +26,7 @@ local beneModels = {
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- SYSTEM
 -----------------------------------------------------------------------------------------------------------------------------------------
-Citizen.CreateThread(function()
+CreateThread(function()
 	local Cars = {}
 	local Bikes = {}
 	local Import = {}
@@ -73,7 +73,7 @@ end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- GET VEHICLES
 -----------------------------------------------------------------------------------------------------------------------------------------
-function src.getVehicles(vehClass)
+function Hiro.getVehicles(vehClass)
 	local source = source
 	local user_id = vRP.getUserId(source)
 	if user_id then
@@ -97,8 +97,7 @@ function src.getVehicles(vehClass)
 			local possuidos = {}
 			local vehicle = vRP.query("vRP/get_vehicle",{ user_id = parseInt(user_id) })
 			for k,v in pairs(vehicle) do
-				if vRP.vehicleClass(tostring(v.vehicle)) == "cars" or vRP.vehicleClass(tostring(v.vehicle)) == "bikes" or vRP.vehicleClass(tostring(v.vehicle)) == "rental" then
-
+				if vRP.vehicleClass(tostring(v.vehicle)) == "cars" or vRP.vehicleClass(tostring(v.vehicle)) == "bikes" or  vRP.vehicleClass(tostring(v.vehicle)) == "work" or vRP.vehicleClass(tostring(v.vehicle)) == "rental" then
 					local taxas = taxTimers(parseInt(86400*0-(os.time()-v.tax)))
 					if parseInt(os.time()) >= parseInt(v.tax+24*10*60*60) then
 						taxas = "Taxa Atrasada"
@@ -124,7 +123,7 @@ local updateVehicle = {
 	["rental"] = "updateImport"
 }
 
-function src.buyDealer(vehName)
+function Hiro.buyDealer(vehName)
 	local source = source
 	if vCLIENT.checkConnection(source) then
 		local user_id = vRP.getUserId(source)
@@ -199,16 +198,16 @@ end
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- PAYMENT TAX
 -----------------------------------------------------------------------------------------------------------------------------------------
-function src.payTax(vehName)
+function Hiro.payTax(vehName)
 	local source = source
 	local user_id = vRP.getUserId(source)
 	if user_id then
-		local status = vRP.request(source,"Deseja efetuar o pagamento da taxa de <b>$"..vRP.format(parseInt(vRP.vehiclePrice(vehName)*0.10)).."</b> dólares?",60)
+		local status = vRP.request(source,"Deseja efetuar o pagamento da taxa de <b>$"..parseFormat(parseInt(vRP.vehiclePrice(vehName)*0.10)).."</b> dólares?",60)
 		if status then
 			if vRP.paymentBank(user_id,parseInt(vRP.vehiclePrice(vehName)*0.10)) then
-				vRP.execute("vRP/set_tax",{ user_id = parseInt(user_id), vehicle = vehName, tax = parseInt(os.time()) })
-				TriggerClientEvent("vrp_dealership:Update",source,"requestPossuidos")
-				TriggerClientEvent("Notify",source,"verde", "Pagamento do <b>Vehicle Tax</b> conclúido com sucesso.",5000)
+				vRP.execute("vehicles/updateVehiclesTax",{ user_id = parseInt(user_id), vehicle = vehName, tax = os.time() })
+				TriggerClientEvent("dealership:Update",source,"requestPossuidos")
+				TriggerClientEvent("Notify",source,"verde", "Pagamento conclúido.",5000)
 			else
 				TriggerClientEvent("Notify",source,"vermelho", "Dinheiro insuficiente.",5000)
 			end
@@ -218,7 +217,7 @@ end
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- SELLDEALER
 -----------------------------------------------------------------------------------------------------------------------------------------
-function src.sellDealer(vehName)
+function Hiro.sellDealer(vehName)
 	local source = source
 	if vCLIENT.checkConnection(source) then
 		local user_id = vRP.getUserId(source)
@@ -275,14 +274,14 @@ end
 function setVehicle(user_id,vehName,vehStock,vehClass)
 	exports["oxmysql"]:executeSync("UPDATE vrp_vehicles SET stock = ? WHERE spawn = ?", { vehStock, vehName })
 	vRP.execute("vRP/add_vehicle",{ user_id = parseInt(user_id), vehicle = vehName, plate = vRP.generatePlateNumber(), work = tostring(false) })
-	vRP.execute("vRP/set_tax",{ user_id = parseInt(user_id), vehicle = vehName, tax = parseInt(os.time()) })
+	vRP.execute("vehicles/updateVehiclesTax",{ user_id = parseInt(user_id), vehicle = vehName, tax = os.time() })
 end
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- STARTDRIVE
 -----------------------------------------------------------------------------------------------------------------------------------------
 local actived = {}
 local plateVehs = {}
-function src.startDrive()
+function Hiro.startDrive()
 	local source = source
 	local user_id = vRP.getUserId(source)
 	if user_id then
@@ -295,7 +294,9 @@ function src.startDrive()
 						plateVehs[user_id] = "PDMS"..(1000 + user_id)
 
 						TriggerEvent("setPlateEveryone",plateVehs[user_id])
-						TriggerEvent("vRP:Bucket",source,"Enter")
+						SetPlayerRoutingBucket(source,user_id)
+						Player(source)["state"]["Route"] = user_id
+
 						actived[user_id] = nil
 
 						return true,plateVehs[user_id]
@@ -314,12 +315,13 @@ end
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- REMOVEDRIVE
 -----------------------------------------------------------------------------------------------------------------------------------------
-function src.removeDrive()
+function Hiro.removeDrive()
 	local source = source
 	local user_id = vRP.getUserId(source)
 	if user_id then
 		TriggerEvent("plateReveryone",plateVehs[user_id])
-		TriggerEvent("vRP:Bucket",source,"Exit")
+		SetPlayerRoutingBucket(source,0)
+		Player(source)["state"]["Route"] = 0
 	end
 end
 -----------------------------------------------------------------------------------------------------------------------------------------

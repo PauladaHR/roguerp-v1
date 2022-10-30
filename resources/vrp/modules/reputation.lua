@@ -34,7 +34,7 @@ end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 AddEventHandler("vRP:playerLeave",function(user_id,source)
 	if reputationList[user_id] then
-		vRP.execute("vRP/set_userdata",{ user_id = parseInt(user_id), key = "Reputation", value = json.encode(reputationList[user_id]) })
+		vRP.execute("playerdata/setUserdata",{ user_id = parseInt(user_id), key = "Reputation", value = json.encode(reputationList[user_id]) })
 		reputationList[user_id] = nil
 	end
 end)

@@ -53,8 +53,7 @@ function src.paymentMethod(Vehicle,Plate)
 		cfg.paymentDismantle()
 
 		if VehPlateID then
-			exports["oxmysql"]:executeSync("UPDATE vrp_users_vehicles SET arrest = ? WHERE user_id = ? AND vehicle = ? ", { 1,VehPlateID,VehicleName } )
-			cfg.paymentDismantlePlayer()
+			cfg.paymentDismantlePlayer(VehPlateID,VehicleName)
 		end
 
 		local reputationValue = vRP.checkReputation(user_id,"Dismantle")
@@ -73,7 +72,7 @@ function src.checkVehicleList()
 		if vRP.hasPermission(user_id,cfg.permList) then
 			local getDismantle = vRP.query("vRP/get_vehicles",{ user_id = parseInt(VehPlateID), vehicle = vehName })
 			if getDismantle then
-				if getDismantle[1]["dismantle"] == 0 then
+				if getDismantle[1]["arrest"] == 0 then
 					if os.time() < dismantleCooldown then
 						TriggerClientEvent("Notify",source,"amarelo","Desmanche não autorizado.",5000)
 						return false

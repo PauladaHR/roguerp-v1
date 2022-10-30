@@ -20,9 +20,12 @@ AddEventHandler("chat:messageEntered",function(message)
 		local identity = vRP.getUserIdentity(user_id)
 		TriggerClientEvent("chatME",source,"^3OOC^9"..identity["name"].." "..identity["name2"].."^0"..message)
 
-		local ClosestPlayers = vRPC.nearestPlayers(source,10)
-		for _,v in pairs(ClosestPlayers) do
-			TriggerClientEvent("chatME",v[2],"^3OOC^9"..identity["name"].." "..identity["name2"].."^0"..message)
+
+		local players = vRPC.nearestPlayers(source,10)
+		for k,v in pairs(players) do
+			async(function()
+				TriggerClientEvent("chatME",k,"^3OOC^9"..identity["name"].." "..identity["name2"].."^0"..message)
+			end)
 		end
 	end
 end)
