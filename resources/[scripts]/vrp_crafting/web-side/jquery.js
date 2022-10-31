@@ -227,15 +227,15 @@ const requestCrafting = () => {
                 const newDurability = (maxDurability - v["durability"]) / maxDurability;
                 const actualPercent = newDurability * 100;
 
-                const item = `<div class="item populated" style="background-image: url('http://131.196.196.218/inventory/armas/${v["index"]}.png'),
-                url('http://131.196.196.218/inventory/comidas/${v["index"]}.png'),
-                url('http://131.196.196.218/inventory/geral/${v["index"]}.png'),
-                url('http://131.196.196.218/inventory/hospital/${v["index"]}.png'),
-                url('http://131.196.196.218/inventory/ilegal/${v["index"]}.png'),
-                url('http://131.196.196.218/inventory/mechanic/${v["index"]}.png'),
-                url('http://131.196.196.218/inventory/premium/${v["index"]}.png'),
-                url('http://131.196.196.218/inventory/veiculos/${v["index"]}.png'),
-                url('http://131.196.196.218/inventory/weapons/${v["index"]}.png'); background-position: center; background-repeat: no-repeat;" data-item-key="${v.key}" data-name-key="${v.name}" data-amount="${v.amount}" data-slot="${slot}">
+                const item = `<div class="item populated" style="background-image: url('http://189.127.164.77/inventory/armas/${v["index"]}.png'),
+                url('http://189.127.164.77/inventory/comidas/${v["index"]}.png'),
+                url('http://189.127.164.77/inventory/geral/${v["index"]}.png'),
+                url('http://189.127.164.77/inventory/hospital/${v["index"]}.png'),
+                url('http://189.127.164.77/inventory/ilegal/${v["index"]}.png'),
+                url('http://189.127.164.77/inventory/mechanic/${v["index"]}.png'),
+                url('http://189.127.164.77/inventory/premium/${v["index"]}.png'),
+                url('http://189.127.164.77/inventory/veiculos/${v["index"]}.png'),
+                url('http://189.127.164.77/inventory/weapons/${v["index"]}.png'); background-position: center; background-repeat: no-repeat;" data-item-key="${v.key}" data-name-key="${v.name}" data-amount="${v.amount}" data-slot="${slot}">
 					
 				
                     <div class="itemAmount">${formatarNumero(v.amount)}x</div>
@@ -261,15 +261,15 @@ const requestCrafting = () => {
                 }
 
                 list = list.substring(0, list.length - 2);
-                const item = `<div class="item populated" title="" style="background-image: url('http://131.196.196.218/inventory/armas/${v["index"]}.png'),
-                url('http://131.196.196.218/inventory/comidas/${v["index"]}.png'),
-                url('http://131.196.196.218/inventory/geral/${v["index"]}.png'),
-                url('http://131.196.196.218/inventory/hospital/${v["index"]}.png'),
-                url('http://131.196.196.218/inventory/ilegal/${v["index"]}.png'),
-                url('http://131.196.196.218/inventory/mechanic/${v["index"]}.png'),
-                url('http://131.196.196.218/inventory/premium/${v["index"]}.png'),
-                url('http://131.196.196.218/inventory/veiculos/${v["index"]}.png'),
-                url('http://131.196.196.218/inventory/weapons/${v["index"]}.png'); background-position: center; background-repeat: no-repeat;" data-item-key="${v.key}" data-name-key="${v.name}" data-list="${list}" data-slot="${slot}" data-description="${v["desc"]}">
+                const item = `<div class="item populated" title="" style="background-image: url('http://189.127.164.77/inventory/armas/${v["index"]}.png'),
+                url('http://189.127.164.77/inventory/comidas/${v["index"]}.png'),
+                url('http://189.127.164.77/inventory/geral/${v["index"]}.png'),
+                url('http://189.127.164.77/inventory/hospital/${v["index"]}.png'),
+                url('http://189.127.164.77/inventory/ilegal/${v["index"]}.png'),
+                url('http://189.127.164.77/inventory/mechanic/${v["index"]}.png'),
+                url('http://189.127.164.77/inventory/premium/${v["index"]}.png'),
+                url('http://189.127.164.77/inventory/veiculos/${v["index"]}.png'),
+                url('http://189.127.164.77/inventory/weapons/${v["index"]}.png'); background-position: center; background-repeat: no-repeat;" data-item-key="${v.key}" data-name-key="${v.name}" data-list="${list}" data-slot="${slot}" data-description="${v["desc"]}">
 					
 
                     <div class="itemAmount">${formatarNumero(v.amount)}x</div>

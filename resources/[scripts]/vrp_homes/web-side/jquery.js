@@ -297,15 +297,15 @@ const requestChest = () => {
 				const newDurability = (maxDurability - v["durability"]) / maxDurability;
 				const actualPercent = newDurability * 100;
 
-				const item = `<div class="item populated" title="" data-max="${v["max"]}" data-type="${v["type"]}" data-serial="${v["serial"]}" style="background-image: url('http://131.196.196.218/inventory/armas/${v["index"]}.png'),
-				url('http://131.196.196.218/inventory/comidas/${v["index"]}.png'),
-				url('http://131.196.196.218/inventory/geral/${v["index"]}.png'),
-				url('http://131.196.196.218/inventory/hospital/${v["index"]}.png'),
-				url('http://131.196.196.218/inventory/ilegal/${v["index"]}.png'),
-				url('http://131.196.196.218/inventory/mechanic/${v["index"]}.png'),
-				url('http://131.196.196.218/inventory/premium/${v["index"]}.png'),
-				url('http://131.196.196.218/inventory/veiculos/${v["index"]}.png'),
-				url('http://131.196.196.218/inventory/weapons/${v["index"]}.png'); background-position: center; background-repeat: no-repeat;" data-amount="${v.amount}" data-peso="${v.peso}" data-item-key="${v.key}" data-name-key="${v.name}" data-slot="${slot}" data-description="${v["desc"]}" data-economy="${v["economy"]}">
+				const item = `<div class="item populated" title="" data-max="${v["max"]}" data-type="${v["type"]}" data-serial="${v["serial"]}" style="background-image: url('http://189.127.164.77/inventory/armas/${v["index"]}.png'),
+				url('http://189.127.164.77/inventory/comidas/${v["index"]}.png'),
+				url('http://189.127.164.77/inventory/geral/${v["index"]}.png'),
+				url('http://189.127.164.77/inventory/hospital/${v["index"]}.png'),
+				url('http://189.127.164.77/inventory/ilegal/${v["index"]}.png'),
+				url('http://189.127.164.77/inventory/mechanic/${v["index"]}.png'),
+				url('http://189.127.164.77/inventory/premium/${v["index"]}.png'),
+				url('http://189.127.164.77/inventory/veiculos/${v["index"]}.png'),
+				url('http://189.127.164.77/inventory/weapons/${v["index"]}.png'); background-position: center; background-repeat: no-repeat;" data-amount="${v.amount}" data-peso="${v.peso}" data-item-key="${v.key}" data-name-key="${v.name}" data-slot="${slot}" data-description="${v["desc"]}" data-economy="${v["economy"]}">
 					
 				
 					<div class="itemAmount">${formatarNumero(v.amount)}x</div>
@@ -328,15 +328,15 @@ const requestChest = () => {
 				const newDurability = (maxDurability - v["durability"]) / maxDurability;
 				const actualPercent = newDurability * 100;
 
-				const item = `<div class="item populated" title="" data-max="${v["max"]}" data-type="${v["type"]}" data-serial="${v["serial"]}" style="background-image: url('http://131.196.196.218/inventory/armas/${v["index"]}.png'),
-				url('http://131.196.196.218/inventory/comidas/${v["index"]}.png'),
-				url('http://131.196.196.218/inventory/geral/${v["index"]}.png'),
-				url('http://131.196.196.218/inventory/hospital/${v["index"]}.png'),
-				url('http://131.196.196.218/inventory/ilegal/${v["index"]}.png'),
-				url('http://131.196.196.218/inventory/mechanic/${v["index"]}.png'),
-				url('http://131.196.196.218/inventory/premium/${v["index"]}.png'),
-				url('http://131.196.196.218/inventory/veiculos/${v["index"]}.png'),
-				url('http://131.196.196.218/inventory/weapons/${v["index"]}.png'); background-position: center; background-repeat: no-repeat;" data-amount="${v.amount}" data-peso="${v.peso}" data-item-key="${v.key}" data-name-key="${v.name}" data-slot="${slot}" data-description="${v["desc"]}" data-economy="${v["economy"]}">
+				const item = `<div class="item populated" title="" data-max="${v["max"]}" data-type="${v["type"]}" data-serial="${v["serial"]}" style="background-image: url('http://189.127.164.77/inventory/armas/${v["index"]}.png'),
+				url('http://189.127.164.77/inventory/comidas/${v["index"]}.png'),
+				url('http://189.127.164.77/inventory/geral/${v["index"]}.png'),
+				url('http://189.127.164.77/inventory/hospital/${v["index"]}.png'),
+				url('http://189.127.164.77/inventory/ilegal/${v["index"]}.png'),
+				url('http://189.127.164.77/inventory/mechanic/${v["index"]}.png'),
+				url('http://189.127.164.77/inventory/premium/${v["index"]}.png'),
+				url('http://189.127.164.77/inventory/veiculos/${v["index"]}.png'),
+				url('http://189.127.164.77/inventory/weapons/${v["index"]}.png'); background-position: center; background-repeat: no-repeat;" data-amount="${v.amount}" data-peso="${v.peso}" data-item-key="${v.key}" data-name-key="${v.name}" data-slot="${slot}" data-description="${v["desc"]}" data-economy="${v["economy"]}">
 				
 					<div class="itemAmount">${formatarNumero(v.amount)}x</div>
 				</div>`;
