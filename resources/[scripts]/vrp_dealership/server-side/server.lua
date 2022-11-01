@@ -16,7 +16,6 @@ vCLIENT = Tunnel.getInterface("dealership")
 -----------------------------------------------------------------------------------------------------------------------------------------
 GlobalState["Cars"] = {}
 GlobalState["Bikes"] = {}
-GlobalState["Import"] = {}
 GlobalState["Rental"] = {}
 local cooldown = {}
 local beneModels = {
@@ -29,7 +28,6 @@ local beneModels = {
 CreateThread(function()
 	local Cars = {}
 	local Bikes = {}
-	local Import = {}
 	local Rental = {}
 	local vehicles = vRP.vehicleGlobal()
 	for k,v in pairs(vehicles) do
@@ -42,10 +40,6 @@ CreateThread(function()
 			table.insert(Bikes,{ k = v["spawn"], nome = v["name"], price = parseInt(v["price"]), chest = parseInt(v["chestweight"]) or 50, stock = parseInt(v["stock"]), gems = parseInt(v["gems"]) })
 		end
 
-		if v["class"] == "import" then
-			table.insert(Import,{ k = v["spawn"], nome = v["name"], price = parseInt(v["price"]), chest = parseInt(v["chestweight"]) or 50, stock = parseInt(v["stock"]), gems = parseInt(v["gems"]) })
-		end
-
 		if v["class"] == "rental" then
 			table.insert(Rental,{ k = v["spawn"], nome = v["name"], price = parseInt(v["price"]), chest = parseInt(v["chestweight"]) or 50, stock = parseInt(v["stock"]), gems = parseInt(v["gems"])})
 		end
@@ -53,7 +47,6 @@ CreateThread(function()
 
 	GlobalState["Cars"] = Cars
 	GlobalState["Bikes"] = Bikes
-	GlobalState["Import"] = Import
 	GlobalState["Rental"] = Rental
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
@@ -67,7 +60,7 @@ end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 RegisterNetEvent("dealership:setVehicles")
 AddEventHandler("dealership:setVehicles",function(veh,slot)
-	beneModels[slot].model = veh
+	beneModels[slot]["model"] = veh
 	TriggerClientEvent("dealership:syncVehicles",-1,beneModels)
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
@@ -83,10 +76,6 @@ function Hiro.getVehicles(vehClass)
 
 		if vehClass == "Motos" then
 			return GlobalState["Bikes"]
-		end
-
-		if vehClass == "Import" then
-			return GlobalState["Import"]
 		end
 
 		if vehClass == "Aluguel" then
@@ -119,7 +108,6 @@ end
 local updateVehicle = {
 	["cars"] = "updateCarros",
 	["bikes"] = "updateMotos",
-	["import"] = "updateImports",
 	["rental"] = "updateImport"
 }
 

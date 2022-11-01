@@ -55,7 +55,6 @@ const benefactor = (mode) => {
 		<div id="benefactorBar">
 			<li id="benefactor" data-id="Carros" ${mode == "Carros" ? "class=active":""}>CARROS</li>
 			<li id="benefactor" data-id="Motos" ${mode == "Motos" ? "class=active":""}>MOTOS</li>
-			<li id="benefactor" data-id="Import" ${mode == "Import" ? "class=active":""}>IMPORTADOS</li>
 			<li id="benefactor" data-id="Aluguel" ${mode == "Aluguel" ? "class=active":""}>ALUGUEL</li>
 			<li id="benefactor" data-id="Possuidos" ${mode == "Possuidos" ? "class=active":""}>POSSUÍDOS</li>
 		</div>
