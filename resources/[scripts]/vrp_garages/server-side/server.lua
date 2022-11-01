@@ -687,16 +687,16 @@ AddEventHandler("vrp_garages:updateGarages",function(homeName,homeInfos)
 	garageLocates[homeName] = { ["name"] = homeName, ["payment"] = false }
 
 	-- CONFIG
-	local configFile = LoadResourceFile("logsystem","garageConfig.json")
+	local configFile = LoadResourceFile("logs","garageConfig.json")
 	local configTable = json.decode(configFile)
 	configTable[homeName] = { ["name"] = homeName, ["payment"] = false }
-	SaveResourceFile("logsystem","garageConfig.json",json.encode(configTable),-1)
+	SaveResourceFile("logs","garageConfig.json",json.encode(configTable),-1)
 
 	-- LOCATES
-	local locatesFile = LoadResourceFile("logsystem","garageLocates.json")
+	local locatesFile = LoadResourceFile("logs","garageLocates.json")
 	local locatesTable = json.decode(locatesFile)
 	locatesTable[homeName] = homeInfos
-	SaveResourceFile("logsystem","garageLocates.json",json.encode(locatesTable),-1)
+	SaveResourceFile("logs","garageLocates.json",json.encode(locatesTable),-1)
 
 	TriggerClientEvent("vrp_garages:updateLocs",-1,homeName,homeInfos)
 end)
@@ -708,18 +708,18 @@ AddEventHandler("vrp_garages:removeGarages",function(homeName)
 	if garageLocates[homeName] then
 		garageLocates[homeName] = nil
 
-		local configFile = LoadResourceFile("logsystem","garageConfig.json")
+		local configFile = LoadResourceFile("logs","garageConfig.json")
 		local configTable = json.decode(configFile)
 		if configTable[homeName] then
 			configTable[homeName] = nil
-			SaveResourceFile("logsystem","garageConfig.json",json.encode(configTable),-1)
+			SaveResourceFile("logs","garageConfig.json",json.encode(configTable),-1)
 		end
 
-		local locatesFile = LoadResourceFile("logsystem","garageLocates.json")
+		local locatesFile = LoadResourceFile("logs","garageLocates.json")
 		local locatesTable = json.decode(locatesFile)
 		if locatesTable[homeName] then
 			locatesTable[homeName] = nil
-			SaveResourceFile("logsystem","garageLocates.json",json.encode(locatesTable),-1)
+			SaveResourceFile("logs","garageLocates.json",json.encode(locatesTable),-1)
 		end
 
 		TriggerClientEvent("vrp_garages:updateRemove",-1,homeName)
@@ -729,7 +729,7 @@ end)
 -- ASYNCFUNCTION
 -----------------------------------------------------------------------------------------------------------------------------------------
 CreateThread(function()
-	local configFile = LoadResourceFile("logsystem","garageConfig.json")
+	local configFile = LoadResourceFile("logs","garageConfig.json")
 	local configTable = json.decode(configFile)
 
 	for k,v in pairs(configTable) do
@@ -742,7 +742,7 @@ end)
 AddEventHandler("vRP:playerSpawn",function(user_id,source)
 	TriggerClientEvent("vrp_garages:allPlates",source,vehPlates)
 
-	local locatesFile = LoadResourceFile("logsystem","garageLocates.json")
+	local locatesFile = LoadResourceFile("logs","garageLocates.json")
 	local locatesTable = json.decode(locatesFile)
 
 	TriggerClientEvent("vrp_garages:allLocs",source,locatesTable)

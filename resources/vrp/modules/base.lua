@@ -75,7 +75,7 @@ end
 -- UPDATETXT
 -----------------------------------------------------------------------------------------------------------------------------------------
 function vRP.Archive(archive,text)
-	archive = io.open("resources/[system]/logsystem/"..archive,"a")
+	archive = io.open("resources/logs/"..archive,"a")
 	if archive then
 		archive:write(text.."\n")
 	end
