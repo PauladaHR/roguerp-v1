@@ -12,23 +12,54 @@ Hiro = {}
 Tunnel.bindInterface("vrp_admin",Hiro)
 vCLIENT = Tunnel.getInterface("vrp_admin")
 -----------------------------------------------------------------------------------------------------------------------------------------
+-- CLEARINV
+-----------------------------------------------------------------------------------------------------------------------------------------
+RegisterCommand("clearinv",function(source,Message)
+	local user_id = vRP.getUserId(source)
+	if user_id then
+		if vRP.hasRank(user_id,"Admin",60) then
+			if parseInt(Message[1]) > 0 then
+				TriggerClientEvent("vrp_admin:clearInventory",parseInt(Message[1]))
+			else
+				TriggerClientEvent("vrp_admin:clearInventory",source)
+			end
+			TriggerClientEvent("Notify",source,"verde","Limpeza concluída.",5000)
+		end
+	end
+end)
+-----------------------------------------------------------------------------------------------------------------------------------------
+-- GEM
+-----------------------------------------------------------------------------------------------------------------------------------------
+RegisterCommand("gem",function(source,Message)
+	local user_id = vRP.getUserId(source)
+	if user_id then
+		if vRP.hasRank(user_id,"Admin",100) and parseInt(Message[1]) > 0 and parseInt(Message[2]) > 0 then
+			local identity = vRP.getUserIdentity(parseInt(Message[1]))
+			if identity then
+				vRP.execute("vRP/update_gems",{ steam = tostring(identity.steam), gems = parseInt(args[2]) })
+				TriggerClientEvent("Notify",source,"verde", "Gemas entregues com sucesso.", 5000)
+			end
+		end
+	end
+end)
+-----------------------------------------------------------------------------------------------------------------------------------------
 -- GOD
 -----------------------------------------------------------------------------------------------------------------------------------------
-RegisterCommand("god",function(source,args,rawCommand)
+RegisterCommand("god",function(source,Message)
 	local user_id = vRP.getUserId(source)
 	local identity = vRP.getUserIdentity(user_id)
 	if user_id then
 		if vRP.hasRank(user_id,"Admin",40) then
-			if args[1] then
-				local nplayer = vRP.getUserSource(parseInt(args[1]))
-				local identity2 = vRP.getUserIdentity(parseInt(args[1]))
+			if Message[1] then
+				local nplayer = vRP.getUserSource(parseInt(Message[1]))
+				local identity2 = vRP.getUserIdentity(parseInt(Message[1]))
 				if nplayer then
 					vRPC.revivePlayer(nplayer,200)
-					vRP.upgradeThirst(parseInt(args[1]),100)
-					vRP.upgradeHunger(parseInt(args[1]),100)
-					vRP.downgradeStress(parseInt(args[1]),100)
+					vRP.upgradeThirst(parseInt(Message[1]),100)
+					vRP.upgradeHunger(parseInt(Message[1]),100)
+					vRP.downgradeStress(parseInt(Message[1]),100)
 					TriggerClientEvent("resetDiagnostic",nplayer)
-					TriggerEvent("webhooks","god","```ini\n[============== DEU GOD ==============]\n[ID]: "..user_id.." "..identity.name.." "..identity.name2.." \n[DEU GOD EM]: "..parseInt(args[1]).." "..identity2.name.." "..identity2.name2.." \n "..os.date("\n[Data]: %d/%m/%Y [Hora]: %H:%M:%S").." \r```","GOD ADMIN")
+					TriggerEvent("webhooks","god","```ini\n[============== DEU GOD ==============]\n[ID]: "..user_id.." "..identity.name.." "..identity.name2.." \n[DEU GOD EM]: "..parseInt(Message[1]).." "..identity2.name.." "..identity2.name2.." \n "..os.date("\n[Data]: %d/%m/%Y [Hora]: %H:%M:%S").." \r```","GOD ADMIN")
 				end
 			else
 				vRP.upgradeThirst(user_id,100)
@@ -40,6 +71,32 @@ RegisterCommand("god",function(source,args,rawCommand)
 				Player(source)["state"]["Buttons"] = false
 				TriggerEvent("webhooks","god","```ini\n[============== USOU GOD ==============]\n[ID]: "..user_id.." "..identity.name.." "..identity.name2.." \n"..os.date("\n[Data]: %d/%m/%Y [Hora]: %H:%M:%S").." \r```","GOD ADMIN")
 			end
+		end
+	end
+end)
+-----------------------------------------------------------------------------------------------------------------------------------------
+-- CONSOLE
+-----------------------------------------------------------------------------------------------------------------------------------------
+RegisterCommand("console",function(source,Message,rawCommand)
+	if source == 0 then
+		TriggerClientEvent("smartphone:createSMS",-1,"Governador",rawCommand:sub(9))
+	end
+end)
+-----------------------------------------------------------------------------------------------------------------------------------------
+-- ANNOUNCE
+-----------------------------------------------------------------------------------------------------------------------------------------
+RegisterCommand("announce",function(source)
+	local source = source
+	local user_id = vRP.getUserId(source)
+	if user_id then
+
+		if vRP.hasRank(user_id,"Admin",40) then
+			local message = vRP.prompt(source,"Mensagem:","")
+			if message == "" then
+				return
+			end
+
+			TriggerClientEvent("smartphone:createSMS",-1,"Governador",message)
 		end
 	end
 end)
@@ -63,55 +120,43 @@ RegisterCommand("kickall",function(source)
 	TriggerEvent("admin:KickAll")
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
--- BOB
------------------------------------------------------------------------------------------------------------------------------------------
-RegisterCommand("bobsiri",function(source,args,rawCommand)
-	local user_id = vRP.getUserId(source)
-	local identity = vRP.getUserIdentity(user_id)
-	if user_id then
-		if vRP.hasPermission(user_id,"Bob") then
-			vRP.generateItem(user_id,"Foodsiri",2,true)
-		end
-	end
-end)
------------------------------------------------------------------------------------------------------------------------------------------
 -- ITEM
 -----------------------------------------------------------------------------------------------------------------------------------------
-RegisterCommand("item",function(source,args,rawCommand)
+RegisterCommand("item",function(source,Message)
 	local user_id = vRP.getUserId(source)
 	local identity = vRP.getUserIdentity(user_id)
 	if user_id then
 		if vRP.hasRank(user_id,"Admin",60) then
-			vRP.giveInventoryItem(user_id,args[1],parseInt(args[2]),true)
-			TriggerEvent("webhooks","item","```ini\n[ID]: "..user_id.." "..identity.name.." "..identity.name2.." \n[SPAWNOU]: "..parseInt(args[2]).." "..tostring(args[1]).." \n"..os.date("\n[Data]: %d/%m/%Y [Hora]: %H:%M:%S").." \r```","ITEM ADMIN")
+			vRP.giveInventoryItem(user_id,Message[1],parseInt(Message[2]),true)
+			TriggerEvent("webhooks","item","```ini\n[ID]: "..user_id.." "..identity.name.." "..identity.name2.." \n[SPAWNOU]: "..parseInt(Message[2]).." "..tostring(Message[1]).." \n"..os.date("\n[Data]: %d/%m/%Y [Hora]: %H:%M:%S").." \r```","ITEM ADMIN")
 		end
 	end
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- ITEMID
 -----------------------------------------------------------------------------------------------------------------------------------------
-RegisterCommand("itemid",function(source,args,rawCommand)
+RegisterCommand("itemid",function(source,Message,rawCommand)
 	local user_id = vRP.getUserId(source)
 	local identity = vRP.getUserIdentity(user_id)
-	local identity2 = vRP.getUserIdentity(parseInt(args[1]))
+	local identity2 = vRP.getUserIdentity(parseInt(Message[1]))
 	if user_id then
 		if vRP.hasRank(user_id,"Admin",60) then
-			vRP.giveInventoryItem(parseInt(args[1]),tostring(args[2]),parseInt(args[3]),true)
-			TriggerClientEvent("Notify",source,"verde","Você enviou " ..args[3].. " do item " ..vRP.itemNameList(args[2]).. " para o ID " ..args[1])
-			TriggerEvent("webhooks","item","```ini\n[ID]: "..user_id.." "..identity.name.." "..identity.name2.." \n[ENVIOU PARA]: "..parseInt(args[1]).." "..identity2.name.." "..identity2.name2.." \n[ITEM]: "..tostring(args[2]).." "..tostring(args[1]).." "..os.date("\n[Data]: %d/%m/%Y [Hora]: %H:%M:%S").." \r```","ITEMID ADMIN")
+			vRP.giveInventoryItem(parseInt(Message[1]),tostring(Message[2]),parseInt(Message[3]),true)
+			TriggerClientEvent("Notify",source,"verde","Você enviou " ..Message[3].. " do item " ..vRP.itemNameList(Message[2]).. " para o ID " ..Message[1])
+			TriggerEvent("webhooks","item","```ini\n[ID]: "..user_id.." "..identity.name.." "..identity.name2.." \n[ENVIOU PARA]: "..parseInt(Message[1]).." "..identity2.name.." "..identity2.name2.." \n[ITEM]: "..tostring(Message[2]).." "..tostring(Message[1]).." "..os.date("\n[Data]: %d/%m/%Y [Hora]: %H:%M:%S").." \r```","ITEMID ADMIN")
 		end
 	end
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- ITEMALL
 -----------------------------------------------------------------------------------------------------------------------------------------
-RegisterCommand("itemall",function(source,args,rawCommand)
+RegisterCommand("itemall",function(source,Message,rawCommand)
 	local user_id = vRP.getUserId(source)
 	if user_id then
 		if vRP.hasRank(user_id,"Admin",80) then
 			local users = vRP.getUsers()
 			for k,v in pairs(users) do
-				vRP.giveInventoryItem(parseInt(k),tostring(args[1]),parseInt(args[2]),true)
+				vRP.giveInventoryItem(parseInt(k),tostring(Message[1]),parseInt(Message[2]),true)
 			end
 		end
 	end
@@ -132,7 +177,7 @@ end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- KICK
 -----------------------------------------------------------------------------------------------------------------------------------------
-RegisterCommand("kick",function(source,args,rawCommand)
+RegisterCommand("kick",function(source,args)
 	local user_id = vRP.getUserId(source)
 	local identity = vRP.getUserIdentity(user_id)
 	local identity2 = vRP.getUserIdentity(parseInt(args[1]))
@@ -141,15 +186,6 @@ RegisterCommand("kick",function(source,args,rawCommand)
 			vRP.kick(parseInt(args[1]),"Você foi expulso da cidade.")
 			TriggerEvent("webhooks","kick","```ini\n[ID]: "..user_id.." "..identity.name.." "..identity.name2.." \n[KICKOU]: "..parseInt(args[1]).." "..identity2.name.." "..identity2.name2.." \n"..os.date("\n[Data]: %d/%m/%Y [Hora]: %H:%M:%S").." \r```","TESTE LOG")
 		end
-	end
-end)
------------------------------------------------------------------------------------------------------------------------------------------
--- TESTE
------------------------------------------------------------------------------------------------------------------------------------------
-RegisterCommand("wanted",function(source,args,rawCommand)
-	local user_id = vRP.getUserId(source)
-	if user_id then
-		vRP.wantedTimer(user_id,30)
 	end
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
@@ -219,10 +255,8 @@ end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 RegisterCommand("remhomes",function(source,args,rawCommand)
 	local user_id = vRP.getUserId(source)
-    local identity = vRP.getUserIdentity(user_id)
 	if vRP.hasRank(user_id,"Admin",60) then
 		if args[1] then
-            local identity2 = vRP.getUserIdentity(parseInt(args[2]))
             if vRP.request(source,"Casas","Deseja remover a casa <b>"..args[1].."</b> ?",30) then
 				TriggerEvent("vrp_garages:removeGarages",tostring(args[1]))
 				vRP.execute("vRP/rem_allpermissions",{ home = tostring(args[1]) })
@@ -230,7 +264,6 @@ RegisterCommand("remhomes",function(source,args,rawCommand)
 				vRP.execute("vRP/rem_srv_data",{ dkey = "homesFridge:"..tostring(args[1]) })
 				vRP.execute("vRP/rem_srv_data",{ dkey = "wardrobe:"..tostring(args[1]) })
 				TriggerClientEvent("Notify",source,"verde", "Você removeu a casa <b>"..args[1].."</b>.", 5000)
-                SendWebhookMessage(webhookviphomes,"```ini\n[ID]: "..user_id.." "..identity.name.." "..identity.name2.." \n[REMOVEU]: "..tostring(args[1]).." \n[DO ID]: "..parseInt(args[2]).." "..identity2.name.." "..identity2.name2.." "..os.date("\n[Data]: %d/%m/%Y [Hora]: %H:%M:%S").." \r```")
             end
 		end
 	end
@@ -289,23 +322,6 @@ RegisterCommand("addvehs",function(source,args)
 				TriggerClientEvent("Notify",source,"verde", "Voce adicionou o veículo <b>"..vRP.vehicleName(args[1]).."</b> para o Passaporte: <b>"..parseInt(args[2]).."</b>.", 5000)
 			end
 		end
-    end
-end)
------------------------------------------------------------------------------------------------------------------------------------------
--- TROCAR NOME
------------------------------------------------------------------------------------------------------------------------------------------
-RegisterCommand("rename",function(source,args,rawCommand)
-	local source = source
-	local user_id = vRP.getUserId(source)
-
-	TriggerClientEvent("vrp_dynamic:closeSystem",source)
-
-	if vRP.hasRank(user_id,"Admin",40) then
-        local idjogador = vRP.prompt(source, "Qual id do jogador?", "")
-        local name = vRP.prompt(source, "Novo nome", "")
-        local name2 = vRP.prompt(source, "Novo sobrenome", "")
-		vRP.execute("vRP/update_name",{ id = parseInt(idjogador), name = name, name2 = name2 })
-		TriggerClientEvent("Notify",source,"verde", "Você alterou o nome do passaporte: <b>"..parseInt(idjogador).."</b> para <b>"..name.." "..name2.."</b>.", 5000)
     end
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
@@ -675,21 +691,6 @@ RegisterCommand("admin",function(source,args,rawCommand)
 	end
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
--- GEMS
------------------------------------------------------------------------------------------------------------------------------------------
-RegisterCommand("gems",function(source,args,rawCommand)
-	local user_id = vRP.getUserId(source)
-	if user_id then
-		if vRP.hasRank(user_id,"Admin",100) and parseInt(args[1]) > 0 and parseInt(args[2]) > 0 then
-			local identity = vRP.getUserIdentity(parseInt(args[1]))
-			if identity then
-				vRP.execute("vRP/update_gems",{ steam = tostring(identity.steam), gems = parseInt(args[2]) })
-				TriggerClientEvent("Notify",source,"verde", "Gemas entregues com sucesso.", 5000)
-			end
-		end
-	end
-end)
------------------------------------------------------------------------------------------------------------------------------------------
 -- TPTOME
 -----------------------------------------------------------------------------------------------------------------------------------------
 RegisterCommand("tptome",function(source,args,rawCommand)
@@ -769,17 +770,6 @@ RegisterCommand("hash",function(source,args,rawCommand)
 	end
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
--- DELNPCS
------------------------------------------------------------------------------------------------------------------------------------------
-RegisterCommand("delnpcs",function(source,args,rawCommand)
-	local user_id = vRP.getUserId(source)
-	if user_id then
-		if vRP.hasRank(user_id,"Admin",40) then
-			vCLIENT.deleteNpcs(source)
-		end
-	end
-end)
------------------------------------------------------------------------------------------------------------------------------------------
 -- TUNING
 -----------------------------------------------------------------------------------------------------------------------------------------
 RegisterCommand("tuning",function(source,args,rawCommand)
@@ -846,24 +836,6 @@ RegisterCommand("pon",function(source,args,rawCommand)
 		end
 	end
 end)
-
-function pairsByKeys (t, f)
-	local a = {}
-	for n in pairs(t) do 
-		table.insert(a, n) 
-	end
-	table.sort(a, f)
-	local i = 0      -- iterator variable
-	local iter = function ()   -- iterator function
-		i = i + 1
-		if a[i] == nil then 
-			return nil
-		else 
-			return a[i], t[a[i]]
-		end
-	end
-	return iter
-end
 -------------------------------------------------------------------------------------------------------------------------------------------
 ---- CDS
 -------------------------------------------------------------------------------------------------------------------------------------------
@@ -878,25 +850,6 @@ end
 --	end
 --end
 -----------------------------------------------------------------------------------------------------------------------------------------
--- CDS VRP_RACE
------------------------------------------------------------------------------------------------------------------------------------------
--- local numbers = 0	
--- local locs = {}
-
--- function Hiro.buttonTxt3()
--- 	local source = source
--- 	local user_id = vRP.getUserId(source)
--- 	if user_id then
--- 		if vRP.hasRank(user_id,"Admin",40) then
--- 			local x,y,z,h = vRPC.getPositions(source)
-			
--- 			numbers = numbers + 1
--- 			locs = " ["..numbers.."] = { "..x..","..y..","..z..","..h.." }," 
--- 			vRP.updateTxt("Tabaco.txt",locs)
--- 		end
--- 	end
--- end
------------------------------------------------------------------------------------------------------------------------------------------
 -- TXTENTITY
 -----------------------------------------------------------------------------------------------------------------------------------------
 function Hiro.TxtEntity(m,c,r,h)
@@ -909,24 +862,6 @@ function Hiro.TxtEntity(m,c,r,h)
 		vRP.Archive('entity.lua','Heading: '..mathLegth(h)..'\n')
 	end
 end
------------------------------------------------------------------------------------------------------------------------------------------
--- ANNOUNCE
------------------------------------------------------------------------------------------------------------------------------------------
-RegisterCommand("announce",function(source,args,rawCommand)
-	local source = source
-	local user_id = vRP.getUserId(source)
-	if user_id then
-
-		if vRP.hasRank(user_id,"Admin",40) then
-			local message = vRP.prompt(source,"Mensagem:","")
-			if message == "" then
-				return
-			end
-
-			TriggerClientEvent("smartphone:createSMS",-1,"Governador",message)
-		end
-	end
-end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- ANUNCIO
 -----------------------------------------------------------------------------------------------------------------------------------------
@@ -951,7 +886,7 @@ end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- PROP
 -----------------------------------------------------------------------------------------------------------------------------------------
-RegisterCommand("prop",function(source,args,rawCommand)
+RegisterCommand("prop",function(source,args)
 	local user_id = vRP.getUserId(source)
 	if user_id then
 		if vRP.hasRank(user_id,"Admin",60) then
@@ -962,7 +897,7 @@ end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- BLACKOUT
 -----------------------------------------------------------------------------------------------------------------------------------------
-RegisterCommand('apagao',function(source,args,rawCommand)
+RegisterCommand('apagao',function(source,args)
     local user_id = vRP.getUserId(source)
     if user_id ~= nil then
         if vRP.hasRank(user_id,"Admin",20) and args[1] ~= nil then
@@ -973,24 +908,9 @@ RegisterCommand('apagao',function(source,args,rawCommand)
     end
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
--- CLEARINV
------------------------------------------------------------------------------------------------------------------------------------------
-RegisterCommand("clearinv",function(source,args,rawCommand)
-	local user_id = vRP.getUserId(source)
-	if user_id then
-		if vRP.hasRank(user_id,"Admin",60) then
-			if parseInt(args[1]) > 0 then
-				TriggerClientEvent("vrp_admin:clearInventory",parseInt(args[1]))
-			else
-				TriggerClientEvent("vrp_admin:clearInventory",source)
-			end
-		end
-	end
-end)
------------------------------------------------------------------------------------------------------------------------------------------
 -- CHECK
 -----------------------------------------------------------------------------------------------------------------------------------------
-RegisterCommand("idp",function(source,args,rawCommand)
+RegisterCommand("idp",function(source,args)
 	local user_id = vRP.getUserId(source)
 	if user_id then
 		if vRP.hasPermission(user_id,{"Police","actionPolice","Paramedic"}) or vRP.hasRank(user_id,"Admin",20) then
@@ -1045,8 +965,9 @@ RegisterCommand('callback',function(source,args,rawCommand)
         end
     end
 end)
-
-
+-----------------------------------------------------------------------------------------------------------------------------------------
+-- MQCU ignore
+-----------------------------------------------------------------------------------------------------------------------------------------
 RegisterCommand("setstaff", function(source,args,command)
 	local user_id = vRP.getUserId(source)
 	if user_id then
@@ -1097,7 +1018,9 @@ RegisterCommand("remstaff", function(source,args,command)
 		end
 	end
 end)
-
+-----------------------------------------------------------------------------------------------------------------------------------------
+-- INITIAL VIP TEMPORARY
+-----------------------------------------------------------------------------------------------------------------------------------------
 vRP.prepare("characters/getVip","SELECT * FROM vrp_users WHERE id = @id")
 vRP.prepare("characters/setInitialVip","UPDATE vrp_users SET vipinitial = 0 WHERE id = @id")
 
@@ -1121,7 +1044,9 @@ RegisterCommand("vipinicial", function(source,args,command)
 		end
 	end
 end)
-
+-----------------------------------------------------------------------------------------------------------------------------------------
+-- REGISTER VEHICLE DB
+-----------------------------------------------------------------------------------------------------------------------------------------
 vRP.prepare("admin/registerVehicle", "INSERT INTO vrp_vehicles (spawn, name, price, class, hash, chestweight) VALUES (@spawn, @name, @price, @class, @hash, @chestweight)")
 RegisterCommand('registerveh',function(source)
     local user_id = vRP.getUserId(source)

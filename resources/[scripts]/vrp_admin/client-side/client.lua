@@ -75,24 +75,6 @@ function Hiro.teleportLimbo()
 	SetEntityCoordsNoOffset(ped,x2,y2,z2+5,0,0,1)
 end
 -----------------------------------------------------------------------------------------------------------------------------------------
--- DELETENPCS
------------------------------------------------------------------------------------------------------------------------------------------
-function Hiro.deleteNpcs()
-	local handle,ped = FindFirstPed()
-	local finished = false
-	repeat
-		local coords = GetEntityCoords(ped)
-		local coordsPed = GetEntityCoords(PlayerPedId())
-		local distance = #(coords - coordsPed)
-		if IsPedDeadOrDying(ped) and not IsPedAPlayer(ped) and distance < 3 then
-			TriggerServerEvent("tryDeleteEntity",PedToNet(ped))
-			finished = true
-		end
-		finished,ped = FindNextPed(handle)
-	until not finished
-	EndFindPed(handle)
-end
------------------------------------------------------------------------------------------------------------------------------------------
 -- VEHICLETUNING
 -----------------------------------------------------------------------------------------------------------------------------------------
 RegisterNetEvent("vrp_admin:vehicleTuning")
