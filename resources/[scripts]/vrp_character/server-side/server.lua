@@ -42,10 +42,7 @@ AddEventHandler("character:finishedCharacter",function(currentCharacterMode,stat
 			TriggerClientEvent("character:Apply",source,currentCharacterMode,true)
 		end
 		
-		local PlayerTattoos = vRP.userData(user_id,"Tattoos")
-		if PlayerTattoos then 
-			TriggerClientEvent("tattoos:Apply",source,PlayerTattoos)
-		end
+		TriggerClientEvent("tattoos:Apply",source,vRP.userData(user_id,"Tattoos"))
 	end
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
@@ -57,8 +54,8 @@ AddEventHandler("character:Debug",function()
 	local user_id = vRP.getUserId(source)
 	if user_id then
 		TriggerClientEvent("character:Apply",source,vRP.userData(user_id,"Character"),false)
-		TriggerClientEvent("skinshop:apply",source,vRP.userData(user_id,"Clothings"))
-		TriggerClientEvent("tattoos:apply",source,vRP.userData(user_id,"Tattoos"))
+		TriggerClientEvent("skinshop:Apply",source,vRP.userData(user_id,"Clothings"))
+		TriggerClientEvent("tattoos:Apply",source,vRP.userData(user_id,"Tattoos"))
 		TriggerClientEvent("target:resetDebug",source)
 
 		local ped = GetPlayerPed(source)

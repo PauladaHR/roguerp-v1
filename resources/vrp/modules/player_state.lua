@@ -64,7 +64,7 @@ AddEventHandler("vRP:playerSpawn",function(user_id,source)
 				TriggerClientEvent("character:Apply",source,PlayerAppearence,false)
 				TriggerClientEvent("vrp_spawn:justSpawn",source,true)
 			end
-			TriggerClientEvent("skinshop:apply",source,vRP.userData(user_id,"Clothings"))
+			TriggerClientEvent("skinshop:Apply",source,vRP.userData(user_id,"Clothings"))
 		else
 			TriggerClientEvent("character:createCharacter",source)
 		end

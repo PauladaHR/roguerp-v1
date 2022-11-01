@@ -40,8 +40,8 @@ local skinData = {
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- SKINSHOP:APPLY
 -----------------------------------------------------------------------------------------------------------------------------------------
-RegisterNetEvent("skinshop:apply")
-AddEventHandler("skinshop:apply",function(status)
+RegisterNetEvent("skinshop:Apply")
+AddEventHandler("skinshop:Apply",function(status)
 	if status["pants"] ~= nil then
 		skinData = status
 	end

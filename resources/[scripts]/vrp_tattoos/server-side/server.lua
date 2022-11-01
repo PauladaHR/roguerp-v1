@@ -30,10 +30,7 @@ function Hiro.getTattoo()
 	local source = source
 	local user_id = vRP.getUserId(source)
 	if user_id then
-		local PlayerTattoos = vRP.userData(user_id,"Tattoos")
-		if PlayerTattoos then
-			TriggerClientEvent("tattoos:Apply",source,PlayerTattoos)
-		end
+		TriggerClientEvent("tattoos:Apply",source,vRP.userData(user_id,"Tattoos"))
 	end
 end
 -----------------------------------------------------------------------------------------------------------------------------------------
