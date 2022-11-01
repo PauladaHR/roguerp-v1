@@ -393,8 +393,7 @@ RegisterServerEvent("baseModule:idLoaded")
 AddEventHandler("baseModule:idLoaded",function(source,user_id,model)
 	local source = source
 	if vRP.rusers[user_id] == nil then
-		local playerData = vRP.getUData(parseInt(user_id),"Datatable")
-		local resultData = json.decode(playerData) or {}
+		local resultData = vRP.userData(parseInt(user_id),"Datatable")
 
 		vRP.user_tables[user_id] = resultData
 		vRP.user_sources[user_id] = source
@@ -428,5 +427,5 @@ end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 CreateThread(function()
 	SetGameType("Rogue")
-	SetMapName("www.bahamascity.com.br")
+	SetMapName("www.roguerp.com.br")
 end)
