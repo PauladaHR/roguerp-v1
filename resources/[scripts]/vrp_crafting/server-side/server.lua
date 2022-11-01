@@ -743,6 +743,14 @@ local craftList = {
 					["aluminum"] = 15
 				}
 			},
+			["hood"] = {
+				["amount"] = 1,
+				["destroy"] = true,
+				["require"] = {
+					["rubber"] = 20,
+					["plastic"] = 20,
+				}
+			},
 			["raceticket"] = {
 				["amount"] = 1,
 				["destroy"] = true,
