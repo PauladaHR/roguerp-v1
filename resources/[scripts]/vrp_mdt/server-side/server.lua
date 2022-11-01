@@ -85,9 +85,8 @@ end
 -- GETFEMININO
 -----------------------------------------------------------------------------------------------------------------------------------------
 function hiro.getGenero(user_id)
-    local dataTable = vRP.getUData(user_id, "Datatable")
-	local result = json.decode(dataTable) or {}
-    return (result["skin"] and result["skin"] == -1667301416) and "Feminino" or "Masculino"
+    local DataTable = vRP.userData(user_id, "Datatable")
+    return (DataTable["skin"] and DataTable["skin"] == -1667301416) and "Feminino" or "Masculino"
 end
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- CHECK PERMISSION
@@ -547,7 +546,7 @@ function hiro.reducePrison()
 			vRPC.teleport(source,1849.24,2586.12,45.68)
 			vRP.execute("playerdata/setUserdata",{ user_id = parseInt(user_id), key = "prison:administrative", value = "" })
 		else
-			local udata = vRP.getUData(user_id, "prison:administrative")
+			local udata = vRP.userData(user_id, "prison:administrative")
 			local administrative = false
 			if udata and udata ~= "" then
 				administrative = true
@@ -616,7 +615,7 @@ function checkForPrison(player)
 	local user_id = vRP.getUserId(player)
 	local consult = vRP.getInformation(user_id)
 	if parseInt(consult[1].prison) > 0 then
-		local udata = vRP.getUData(user_id, "prison:administrative")
+		local udata = vRP.userData(user_id, "prison:administrative")
 		local administrative = false
 		if udata and udata ~= "" then
 			administrative = true

@@ -1375,17 +1375,15 @@ AddEventHandler("player:jobOutfitFunctions",function(jobOutift)
 			return
 		end
 
-		if jobOutift == jobsOutfit then
-			local model = vRPC.ModelPlayer(source)
+		-- if jobOutift == jobOutift then
+			local model = vRP.ModelPlayer(source)
 			if model == "mp_m_freemode_01" then
 				TriggerClientEvent("updateRoupas",source,jobsOutfit[jobOutift]["homem"])
 			elseif model == "mp_f_freemode_01" then
 				TriggerClientEvent("updateRoupas",source,jobsOutfit[jobOutift]["mulher"])
 			end
 			TriggerClientEvent("Notify",source,"verde","Roupas Aplicadas.",5000)
-		else
-			return
-		end
+		-- end
 	end
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------

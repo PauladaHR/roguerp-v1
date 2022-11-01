@@ -676,12 +676,11 @@ end
 -- GETFEMININO
 -----------------------------------------------------------------------------------------------------------------------------------------
 function cRP.getGenero(user_id)
-	local playerData = vRP.getUData(parseInt(user_id),"Datatable")
-	local resultData = json.decode(playerData) or {}
-	if resultData then
-		if resultData["skin"] == 1885233650 then
+	local DataTable = vRP.userData(parseInt(user_id),"Datatable")
+	if DataTable then
+		if DataTable["skin"] == 1885233650 then
 			return "Masculino"
-		elseif resultData["skin"] == -1667301416 then
+		elseif DataTable["skin"] == -1667301416 then
 			return "Feminino"
 		else
 			return "Indefinido"

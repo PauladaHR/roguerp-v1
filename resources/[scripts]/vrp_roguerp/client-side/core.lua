@@ -440,81 +440,30 @@ CreateThread(function()
 	end
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
--- RECOIL
+-- SHAKESHOTTING
 -----------------------------------------------------------------------------------------------------------------------------------------
 CreateThread(function()
 	while true do
 		local timeDistance = 999
 		local ped = PlayerPedId()
-
-		if IsPedArmed(ped,6) then
+		if IsPedInAnyVehicle(ped) and IsPedArmed(ped,6) then
 			timeDistance = 1
-		end
 
-		if IsPedShooting(ped) then
-			local cam = GetFollowPedCamViewMode()
-			local veh = IsPedInAnyVehicle(ped)
-			
-			local speed = math.ceil(GetEntitySpeed(ped))
-			if speed > 70 then
-				speed = 70
+			local selectWeapon = GetSelectedPedWeapon(ped)
+			if (selectWeapon == GetHashKey("WEAPON_MACHINEPISTOL") or selectWeapon == GetHashKey("WEAPON_MICROSMG") or selectWeapon == GetHashKey("WEAPON_MINISMG") or selectWeapon == GetHashKey("WEAPON_APPISTOL")) then
+				DisablePlayerFiring(ped,true)
+				DisableControlAction(1,24,true)
+				DisableControlAction(1,25,true)
+				DisableControlAction(1,68,true)
+				DisableControlAction(1,69,true)
+				DisableControlAction(1,70,true)
+				DisableControlAction(1,91,true)
+				DisableControlAction(1,257,true)
 			end
 
-			local _,wep = GetCurrentPedWeapon(ped)
-			local class = GetWeapontypeGroup(wep)
-			local p = GetGameplayCamRelativePitch()
-			local camDist = #(GetGameplayCamCoord() - GetEntityCoords(ped))
-
-			local recoil = math.random(110,120+(math.ceil(speed*0.5)))/100
-			local rifle = false
-
-			if class == 970310034 or class == 1159398588 then
-				rifle = true
+			if IsPedShooting(ped) then
+				ShakeGameplayCam("SMALL_EXPLOSION_SHAKE",0.10)
 			end
-
-			if camDist < 5.3 then
-				camDist = 1.5
-			else
-				if camDist < 8.0 then
-					camDist = 4.0
-				else
-					camDist =  7.0
-				end
-			end
-
-			if veh then
-				recoil = recoil + (recoil * camDist)
-			else
-				recoil = recoil * 0.1
-			end
-
-			if cam == 4 then
-				recoil = recoil * 0.6
-				if rifle then
-					recoil = recoil * 0.1
-				end
-			end
-
-			if rifle then
-				recoil = recoil * 0.6
-			end
-
-			local spread = math.random(4)
-			local h = GetGameplayCamRelativeHeading()
-			local hf = math.random(10,40+speed) / 100
-
-			if veh then
-				hf = hf * 2.0
-			end
-
-			if spread == 1 then
-				SetGameplayCamRelativeHeading(h+hf)
-			elseif spread == 2 then
-				SetGameplayCamRelativeHeading(h-hf)
-			end
-
-			local set = p + recoil
-			SetGameplayCamRelativePitch(set,0.8)
 		end
 
 		Wait(timeDistance)

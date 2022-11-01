@@ -32,7 +32,8 @@ AddEventHandler("character:finishedCharacter",function(currentCharacterMode,stat
 	if user_id then
 		vRP.execute("vRP/set_appearence",{ id = parseInt(user_id) })
 
-		vRP.query("playerdata/setUserdata",{ user_id = parseInt(user_id), key = "Character", dalue = json.encode(currentCharacterMode) })
+		vRP.execute("playerdata/setUserdata",{ user_id = parseInt(user_id), key = "Character", value = json.encode(currentCharacterMode) })
+		
 		if status then
 			TriggerClientEvent("character:Apply",source,currentCharacterMode,false)
 			

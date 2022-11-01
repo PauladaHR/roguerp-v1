@@ -96,18 +96,12 @@ end
 -- GETPLAYERCHARACTERS
 -----------------------------------------------------------------------------------------------------------------------------------------
 function Hiro.getCustomization(user_id)
-    local data = vRP.getUData(user_id,"Datatable")
-    local dataTable = json.decode(data) or nil
-	if data then
-        local value = vRP.getUData(user_id,"Character")
-        local custom = json.decode(value) or nil
+    local DataTable = vRP.userData(user_id,"Datatable")
+	if DataTable then
+        local PlayerCharacter = vRP.userData(user_id,"Character")
+        local PlayerClothings = vRP.userData(user_id,"Clothings")
+        local PlayerTattoss = vRP.userData(user_id,"Tattoos")
 
-        local playerData = vRP.getUData(user_id,"Clothings")
-        local resultClothings = json.decode(playerData) or nil
-
-        local tattooData = vRP.getUData(user_id,"Tattoos")
-        local resultTattoo = json.decode(tattooData) or nil
-
-        return dataTable.skin,custom,resultClothings,resultTattoo
+        return DataTable["skin"],PlayerCharacter,PlayerClothings,PlayerTattoss
     end
 end
