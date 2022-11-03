@@ -695,7 +695,7 @@ local robberys = {
 		["timer"] = 900,
 		["cops"] = 8,
 		["payment"] = {
-			{ "dollars2",350000,400000 }
+			{ "dollars2",1555555,1777777 }
 		}
 	}
 }
@@ -831,7 +831,7 @@ AddEventHandler("vrp_robberys:jewelry",function(entity)
 					vRP.upgradeStress(user_id,10)
 					vRP.wantedTimer(user_id,60)
 					TriggerClientEvent("vRP:Cancel",source,false)
-					vRP.generateItem(user_id,"watch",math.random(20,30),true)
+					vRP.generateItem(user_id,"watch",math.random(10,20),true)
 				end)
 			else
 				TriggerClientEvent("Notify",source,"vermelho","Vitrine vazia.",3000)
