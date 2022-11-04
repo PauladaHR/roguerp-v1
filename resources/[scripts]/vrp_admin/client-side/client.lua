@@ -64,17 +64,6 @@ function Hiro.teleportWay()
 	SetEntityCoordsNoOffset(Ped,x,y,z,false,false,false)
 end
 -----------------------------------------------------------------------------------------------------------------------------------------
--- TELEPORTWAY
------------------------------------------------------------------------------------------------------------------------------------------
-function Hiro.teleportLimbo()
-	local ped = PlayerPedId()
-	local x,y,z = table.unpack(GetEntityCoords(ped))
-	local _,vector = GetNthClosestVehicleNode(x,y,z,math.random(5,10),0,0,0)
-	local x2,y2,z2 = table.unpack(vector)
-
-	SetEntityCoordsNoOffset(ped,x2,y2,z2+5,0,0,1)
-end
------------------------------------------------------------------------------------------------------------------------------------------
 -- VEHICLETUNING
 -----------------------------------------------------------------------------------------------------------------------------------------
 RegisterNetEvent("vrp_admin:vehicleTuning")

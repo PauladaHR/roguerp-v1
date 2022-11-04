@@ -723,7 +723,7 @@ AddEventHandler("homes:invokeInvade",function()
 	local source = source
 	local user_id = vRP.getUserId(source)
 	if user_id then
-		if vRP.hasPermission(user_id,{"Police","actionPolice"}) then
+		if vRP.hasPermission(user_id,"PolMaster") then
 			local homeName = getNearestHomes(source)
 			if homeName then
 				if homeName == homeCheck[user_id] then
