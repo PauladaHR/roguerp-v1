@@ -179,12 +179,12 @@ vRP.prepare("vRP/get_top_working_by_user_id","SELECT * FROM vrp_worktime WHERE u
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- CLEARTABLES
 -----------------------------------------------------------------------------------------------------------------------------------------
-vRP.prepare("vRP/playerdata","DELETE FROM vrp_users_data WHERE dvalue = '[]' OR dvalue = '{}'")
-vRP.prepare("vRP/entitydata","DELETE FROM vrp_srv_data WHERE dvalue = '[]' OR dvalue = '{}'")
+vRP.prepare("hiro/ClearPlayerData","DELETE FROM vrp_users_data WHERE dvalue = '[]' OR dvalue = '{}'")
+vRP.prepare("hiro/ClearEntityData","DELETE FROM vrp_srv_data WHERE dvalue = '[]' OR dvalue = '{}'")
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- THREADCLEANERS
 -----------------------------------------------------------------------------------------------------------------------------------------
 CreateThread(function()
-	vRP.execute("vRP/playerdata")
-	vRP.execute("vRP/entitydata")
+	vRP.execute("vRP/ClearPlayerData")
+	vRP.execute("hiro/ClearEntityData")
 end)
