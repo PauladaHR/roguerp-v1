@@ -1,11 +1,9 @@
-shared_script "@vrp/lib/lib.lua" --Para remover esta pendencia de todos scripts, execute no console o comando "uninstall"
-
 fx_version 'cerulean'
 game 'common'
 
 name 'oxmysql'
 description 'Database wrapper for FXServer utilising node-mysql2 offering improved performance and security.'
-version '2.5.1'
+version '2.5.2'
 url 'https://github.com/overextended/oxmysql'
 author 'overextended'
 
@@ -33,4 +31,3 @@ convar_category 'OxMySQL' {
 		{ 'Debug', 'mysql_debug', 'CV_BOOL', 'false' }
 	}
 }
-              
