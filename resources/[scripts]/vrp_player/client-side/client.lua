@@ -856,7 +856,6 @@ AddEventHandler("vrp_player:EnterTrunk",function()
 							trunkPlate = vehPlate
 							SetCarBootOpen(vehicle)
 							SetEntityVisible(ped,false,false)
-							LocalPlayer["state"]["Invisible"] = true
 							Wait(750)
 							AttachEntityToEntity(ped,vehicle,-1,0.0,-2.2,0.5,0.0,0.0,0.0,false,false,false,false,20,true)
 							Wait(500)
@@ -885,7 +884,6 @@ AddEventHandler("vrp_player:CheckTrunk",function()
 			LocalPlayer["state"]["Commands"] = false
 			DetachEntity(ped,false,false)
 			SetEntityVisible(ped,true,false)
-			LocalPlayer["state"]["Invisible"] = false
 			SetEntityCoords(ped,GetOffsetFromEntityInWorldCoords(ped,0.0,-1.5,-0.25),1,0,0,0)
 			Wait(500)
 			SetVehicleDoorShut(vehicle,5)
@@ -908,7 +906,6 @@ CreateThread(function()
 				DisablePlayerFiring(ped,true)
 
 				if IsEntityVisible(ped) then
-					LocalPlayer["state"]["Invisible"] = true
 					SetEntityVisible(ped,false,false)
 				end
 
@@ -917,7 +914,6 @@ CreateThread(function()
 					DetachEntity(ped,false,false)
 					SetEntityVisible(ped,true,false)
 					LocalPlayer["state"]["Commands"] = false
-					LocalPlayer["state"]["Invisible"] = false
 					SetEntityCoords(ped,GetOffsetFromEntityInWorldCoords(ped,0.0,-1.25,-0.25),1,0,0,0)
 				end
 			else
@@ -925,7 +921,6 @@ CreateThread(function()
 				DetachEntity(ped,false,false)
 				SetEntityVisible(ped,true,false)
 				LocalPlayer["state"]["Commands"] = false
-				LocalPlayer["state"]["Invisible"] = false
 				SetEntityCoords(ped,GetOffsetFromEntityInWorldCoords(ped,0.0,-1.25,-0.25),1,0,0,0)
 			end
 		end
@@ -1069,7 +1064,6 @@ RegisterNetEvent("player:enterTrash")
 AddEventHandler("player:enterTrash",function(entity)
 	if not inTrash then
 		LocalPlayer["state"]["Commands"] = true
-		LocalPlayer["state"]["Invisible"] = true
 
 		local ped = PlayerPedId()
 		FreezeEntityPosition(ped,true)
@@ -1086,7 +1080,6 @@ AddEventHandler("player:enterTrash",function(entity)
 				SetEntityVisible(ped,true,false)
 				SetEntityCoords(ped,inTrash,1,0,0,0)
 				LocalPlayer["state"]["Commands"] = false
-				LocalPlayer["state"]["Invisible"] = false
 
 				inTrash = false
 			end
@@ -1104,7 +1097,6 @@ AddEventHandler("player:checkTrash",function()
 		SetEntityVisible(ped,true,false)
 		SetEntityCoords(ped,inTrash,1,0,0,0)
 		LocalPlayer["state"]["Commands"] = false
-		LocalPlayer["state"]["Invisible"] = false
 
 		inTrash = false
 	end

@@ -1,14 +1,14 @@
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- VARIABLES
 -----------------------------------------------------------------------------------------------------------------------------------------
-local noclip = false
+local Noclip = false
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- NOCLIP
 -----------------------------------------------------------------------------------------------------------------------------------------
 function tvRP.noClip()
-	noclip = not noclip
+	Noclip = not Noclip
 	local ped = PlayerPedId()
-	if noclip then
+	if Noclip then
 		LocalPlayer["state"]["Invisible"] = true
 		SetEntityVisible(ped,false,false)
 		SetEntityCollision(ped,false,false)
@@ -24,7 +24,7 @@ end
 CreateThread(function()
 	while true do
 		local TimeDistance = 999
-		if noclip then
+		if Noclip then
 			TimeDistance = 1
 			local ped = PlayerPedId()
 			local x,y,z = table.unpack(GetEntityCoords(ped))

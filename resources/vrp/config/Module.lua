@@ -2,10 +2,10 @@
 -- SMARTPHONE:SERVERREQUEST
 -----------------------------------------------------------------------------------------------------------------------------------------
 RegisterNetEvent("smartphone:service_request")
-AddEventHandler("smartphone:service_request",function(data)
+AddEventHandler("smartphone:service_request",function(Data)
     local Answered = false
-    local source = vRP.getUserSource(data['user_id'])
-    local Services = vRP.numPermission(data.service['permission'])
+    local source = vRP.getUserSource(Data['user_id'])
+    local Services = vRP.numPermission(Data.service['permission'])
     
 	TriggerClientEvent("Notify",source,"verde", "Chamado efetuado com sucesso, aguarde no local.", 10000)
 
@@ -14,8 +14,8 @@ AddEventHandler("smartphone:service_request",function(data)
         local OtherIdentity = vRP.getUserIdentity(OtherUser)
         if Players and Players ~= source then
             async(function()
-                TriggerClientEvent("NotifyPush",Players,{ code = 20, title = "Chamado de "..data['name'], x = data['location'][1], y = data['location'][2], z = data['location'][3], time = "Recebido às "..os.date("%H:%M"), text = data['content'], phone = data['phone'] })
-                local Request = vRP.request(Players,"Chamado","Aceitar o chamado de <b>"..data['name'].."</b>?",30)
+                TriggerClientEvent("NotifyPush",Players,{ code = 20, title = "Chamado de "..Data['name'], x = Data['location'][1], y = Data['location'][2], z = Data['location'][3], time = "Recebido às "..os.date("%H:%M"), text = Data['content'], phone = Data['phone'] })
+                local Request = vRP.request(Players,"Chamado","Aceitar o chamado de <b>"..Data['name'].."</b>?",30)
                 if Request then
                     if not Answered then
                         Answered = true
@@ -29,4 +29,10 @@ AddEventHandler("smartphone:service_request",function(data)
             end)
         end
     end
+
+    SetTimeout(30000,function()
+        if not Answered then
+            TriggerClientEvent("smartphone:pusher",Data["source"],"SERVICE_REJECT",{})
+        end
+    end)
 end)

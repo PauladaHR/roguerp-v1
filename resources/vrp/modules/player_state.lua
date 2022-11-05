@@ -312,23 +312,6 @@ function vRP.ModelPlayer(source)
 	end
 end
 -----------------------------------------------------------------------------------------------------------------------------------------
--- VRP:BUCKET
------------------------------------------------------------------------------------------------------------------------------------------
-RegisterServerEvent("vRP:Bucket")
-AddEventHandler("vRP:Bucket",function(Mode)
-	local source = source
-	local user_id = vRP.getUserId(source)
-	if user_id then
-		if Mode == "Enter" then
-			Player(source)["state"]["Route"] = user_id
-			SetPlayerRoutingBucket(source,user_id)
-		elseif Mode == "Exit" then
-			Player(source)["state"]["Route"] = 0
-			SetPlayerRoutingBucket(source,0)
-		end
-	end
-end)
------------------------------------------------------------------------------------------------------------------------------------------
 -- GETGRIDZONE
 -----------------------------------------------------------------------------------------------------------------------------------------
 RegisterCommand("gg",function(source)
