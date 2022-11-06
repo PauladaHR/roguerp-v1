@@ -4,11 +4,13 @@
 local Tunnel = module("vrp","lib/Tunnel")
 local Proxy = module("vrp","lib/Proxy")
 vRP = Proxy.getInterface("vRP")
+vRPC = Tunnel.getInterface("vRP")
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- CONNECTION
 -----------------------------------------------------------------------------------------------------------------------------------------
 Hiro = {}
 Tunnel.bindInterface("vrp_works",Hiro)
+vCLIENT = Tunnel.getInterface("vrp_works")
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- VARIABLES
 -----------------------------------------------------------------------------------------------------------------------------------------
@@ -992,4 +994,8 @@ end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 AddEventHandler("vRP:playerSpawn",function(user_id,source)
 	TriggerClientEvent("works:Table",source,works)
+end)
+
+RegisterCommand("ensureworks", function()
+	TriggerClientEvent("works:Table",-1,works)
 end)
