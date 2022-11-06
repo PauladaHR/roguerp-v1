@@ -4,18 +4,16 @@
 local Tunnel = module("vrp","lib/Tunnel")
 local Proxy = module("vrp","lib/Proxy")
 vRP = Proxy.getInterface("vRP")
-vRPC = Tunnel.getInterface("vRP")
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- CONNECTION
 -----------------------------------------------------------------------------------------------------------------------------------------
-cRP = {}
-Tunnel.bindInterface("vrp_works",cRP)
-vCLIENT = Tunnel.getInterface("vrp_works")
+Hiro = {}
+Tunnel.bindInterface("vrp_works",Hiro)
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- VARIABLES
 -----------------------------------------------------------------------------------------------------------------------------------------
-local collect = {}
 local amount = {}
+local NewspaperID = {}
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- WORKS
 -----------------------------------------------------------------------------------------------------------------------------------------
@@ -893,7 +891,7 @@ end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- AMOUNTSERVICE
 -----------------------------------------------------------------------------------------------------------------------------------------
-function cRP.amountService(service)
+function Hiro.amountService(service)
 	local source = source
 	if amount[source] == nil then
 		amount[source] = math.random(works[service]["amountDelivery"][1],works[service]["amountDelivery"][2])
@@ -902,7 +900,7 @@ end
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- collectConsume
 -----------------------------------------------------------------------------------------------------------------------------------------
-function cRP.collectConsume(service)
+function Hiro.collectConsume(service)
 	local source = source
 	local user_id = vRP.getUserId(source)
 	if user_id then
@@ -923,7 +921,7 @@ end
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- CHECKPERM
 -----------------------------------------------------------------------------------------------------------------------------------------
-function cRP.checkPermission(Service)
+function Hiro.checkPermission(Service)
 	local source = source
 	local user_id = vRP.getUserId(source)
 	if user_id then
@@ -941,8 +939,8 @@ end
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- deliveryConsume
 -----------------------------------------------------------------------------------------------------------------------------------------
-function cRP.deliveryConsume(service)
-	cRP.amountService(service)
+function Hiro.deliveryConsume(service)
+	Hiro.amountService(service)
 
 	local source = source 
 	local user_id = vRP.getUserId(source)
@@ -972,17 +970,20 @@ end
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- WORKS:NEWSPAPER
 -----------------------------------------------------------------------------------------------------------------------------------------
-local NewspaperID = {}
 RegisterServerEvent("newspaper:GetNewsPapers")
 AddEventHandler("newspaper:GetNewsPapers",function()
 	local source = source
 	local user_id = vRP.getUserId(source)
 	if user_id then
-		if not NewspaperID[NewspaperID] and GlobalState["Hours"] >= 07 and GlobalState["Hours"] < 09 then
-			vRP.GenerateItem(user_id,"newspaper",25,true)
-			NewspaperID[user_id] = true
+		if GlobalState["Hours"] >= 07 and GlobalState["Hours"] < 09 then
+			if not NewspaperID[NewspaperID] then
+				vRP.generateItem(user_id,"newspaper",50,true)
+				NewspaperID[user_id] = true
+			else
+				TriggerClientEvent("Notify",source,"vermelho","Já trabalhou por hoje.",3000)
+			end
 		else
-			TriggerClientEvent("Notify",source,"amarelo","Limite atingido.",3000)
+			TriggerClientEvent("Notify",source,"amarelo","Sem jornais no momento.",3000)
 		end
 	end
 end)
@@ -990,14 +991,5 @@ end)
 -- PLAYERSPAWN
 -----------------------------------------------------------------------------------------------------------------------------------------
 AddEventHandler("vRP:playerSpawn",function(user_id,source)
-	vCLIENT.updateWorks(source,works)
-end)
------------------------------------------------------------------------------------------------------------------------------------------
--- DEBUG
------------------------------------------------------------------------------------------------------------------------------------------
-Citizen.CreateThread(function()
-	while true do
-		Citizen.Wait(1000)
-		vCLIENT.updateWorks(-1,works)
-  end
+	TriggerClientEvent("works:Table",source,works)
 end)

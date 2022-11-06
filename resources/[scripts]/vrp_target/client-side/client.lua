@@ -351,7 +351,7 @@ Citizen.CreateThread(function()
 		distance = 1.0,
 		options = {
 			{
-				event = "works:newspaper",
+				event = "newspaper:GetNewsPapers",
 				label = "Receber Jornais",
 				tunnel = "client"
 			}

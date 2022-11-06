@@ -1,14 +1,11 @@
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- VRP
 -----------------------------------------------------------------------------------------------------------------------------------------
-local Tunnel = module("vrp","lib/Tunnel")
 local Proxy = module("vrp","lib/Proxy")
 vRP = Proxy.getInterface("vRP")
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- CONNECTION
 -----------------------------------------------------------------------------------------------------------------------------------------
-cRP = {}
-Tunnel.bindInterface("vrp_works",cRP)
 vSERVER = Tunnel.getInterface("vrp_works")
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- VARIABLES
@@ -26,7 +23,7 @@ local works = {}
 -----------------------------------------------------------------------------------------------------------------------------------------
 CreateThread(function()
 	while true do
-		local timeDistance = 999
+		local TimeDistance = 999
 		local ped = PlayerPedId()
 		if not IsPedInAnyVehicle(ped) then
 			local coords = GetEntityCoords(ped)
@@ -34,7 +31,7 @@ CreateThread(function()
 			for k,v in pairs(works) do
 				local distance = #(coords - vector3(v["coords"][1],v["coords"][2],v["coords"][3]))
 				if distance <= 2 then
-					timeDistance = 4
+					TimeDistance = 1
 					
 					if not inService then
 						DrawText3D(v["coords"][1],v["coords"][2],v["coords"][3],"~g~E~w~   "..string.upper(k))
@@ -104,7 +101,7 @@ CreateThread(function()
 				end
 			end
 		end
-		Wait(timeDistance)
+		Wait(TimeDistance)
 	end
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
@@ -112,7 +109,7 @@ end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 CreateThread(function()
 	while true do
-		local timeDistance = 999
+		local TimeDistance = 999
 		if inService then
 			local ped = PlayerPedId()
 			if (works[inService]["usingVehicle"] and IsPedInAnyVehicle(ped)) or (not works[inService]["usingVehicle"] and not IsPedInAnyVehicle(ped)) then
@@ -121,7 +118,7 @@ CreateThread(function()
 				if works[inService]["collectCoords"] ~= nil then
 					local distance = #(coords - vector3(works[inService]["collectCoords"][inCollect][1],works[inService]["collectCoords"][inCollect][2],works[inService]["collectCoords"][inCollect][3]))
 					if distance <= works[inService]["collectShowDistance"] then
-						timeDistance = 4
+						TimeDistance = 1
 						
 
 						if works[inService]["routeCollect"] then
@@ -217,7 +214,7 @@ CreateThread(function()
 				if works[inService]["deliveryCoords"] ~= nil then
 					local distance = #(coords - vector3(works[inService]["deliveryCoords"][inDelivery][1],works[inService]["deliveryCoords"][inDelivery][2],works[inService]["deliveryCoords"][inDelivery][3]))
 					if distance <= 30 then
-						timeDistance = 4
+						TimeDistance = 1
 
 						if works[inService]["routeDelivery"] then
 							DrawText3D(works[inService]["deliveryCoords"][inDelivery][1],works[inService]["deliveryCoords"][inDelivery][2],works[inService]["deliveryCoords"][inDelivery][3],"~g~E~w~   CONTINUAR")
@@ -304,15 +301,16 @@ CreateThread(function()
 				end
 			end
 		end
-		Wait(timeDistance)
+		Wait(TimeDistance)
 	end
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- THREADSECONDS
 -----------------------------------------------------------------------------------------------------------------------------------------
-function cRP.updateWorks(status)
-	works = status
-end
+RegisterNetEvent("works:Table")
+AddEventHandler("works:Table", function(Table)
+	works = Table
+end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- GET SELECT WEAPON
 -----------------------------------------------------------------------------------------------------------------------------------------
