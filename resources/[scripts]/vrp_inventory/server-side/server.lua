@@ -2134,11 +2134,6 @@ AddEventHandler("vrp_inventory:useItem",function(slot,rAmount)
 							if identity then
 								
 								if class ~= "Booster" or class ~= "Silver" then
-									local checkExist = vRP.query("vRP/instagram_verified", { user_id = identity["id"] })
-									if checkExist[1] then
-										vRP.execute("vRP/update_verified",{ user_id = identity["id"], verified = 1 })
-									end
-
 									if class == "Diamond" then
 										vRP.execute("vRP/set_premium",{ steam = identity["steam"], premium = 1, predays = 2147483647, priority = parseInt(priority) })
 									else
@@ -2420,26 +2415,6 @@ end)
 -- PLAYERLEAVE
 -----------------------------------------------------------------------------------------------------------------------------------------
 AddEventHandler("vRP:playerLeave",function(user_id,source)
-	if not vRP.userPremium(user_id) then
-		local identity = vRP.getUserIdentity(user_id)
-		if identity then
-			vRP.execute("vRP/update_priority",{ steam = identity.steam })
-			if vRP.hasClass(user_id,"Gold") then
-				vRP.execute("vRP/set_class",{ steam = identity.steam, class = nil})
-			end
-			if vRP.hasClass(user_id,"Silver") then
-				vRP.execute("vRP/set_class",{ steam = identity.steam, class = nil})
-			end
-			if vRP.hasClass(user_id,"Bronze") then
-				vRP.execute("vRP/set_class",{ steam = identity.steam, class = nil})
-			end
-			local checkExist = vRP.query("vRP/instagram_verified", { user_id = parseInt(user_id) })
-			if checkExist[1] then
-				vRP.execute("vRP/update_verified",{ user_id = parseInt(user_id), verified = 0 })
-			end
-		end
-	end
-
 	if active[user_id] then
 		active[user_id] = nil
 	end
@@ -2453,24 +2428,6 @@ end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 AddEventHandler("vRP:playerSpawn",function(user_id,source)
 	TriggerClientEvent("vrp_inventory:dropUpdates",source,dropList)
-		-- Checa o tempo do Veículo
-	local rows2 = vRP.query("vRP/get_rental_time",{ user_id = user_id })
-	if #rows2 then 
-		for k,v in pairs(rows2) do
-			if v["rental_time"] ~= 0 and v["rental"] == 1 then
-				if parseInt(os.time()) >= parseInt(v["rental_time"]+3*24*60*60) then
-					-- Remover Carro
-					TriggerClientEvent("Notify",source,"amarelo","<b>"..vRP.vehicleName(v["vehicle"]).."</b> removido por falta de renovação.",20000)
-					vRP.execute("vRP/rem_vehicle",{ user_id = parseInt(user_id), vehicle = v["vehicle"] })
-					return
-				end
-				if parseInt(os.time()) >= v["rental_time"] then
-					TriggerClientEvent("Notify",source,"amarelo","<b>"..vRP.vehicleName(v["vehicle"]).."</b> vencido, efetue a renovação para não perde-lo.",30000)
-				end
-
-			end
-		end
-	end
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- VRP_INVENTORY:CANCEL

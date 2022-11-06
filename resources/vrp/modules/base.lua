@@ -122,7 +122,7 @@ end
 -- USERDATA
 -----------------------------------------------------------------------------------------------------------------------------------------
 function vRP.userData(user_id,key)
-	local consult = vRP.query("vRP/get_userdata",{ user_id = user_id, key = key })
+	local consult = vRP.query("playerdata/getUserdata",{ user_id = user_id, key = key })
 	if consult[1] then
 		return json.decode(consult[1]["dvalue"])
 	else

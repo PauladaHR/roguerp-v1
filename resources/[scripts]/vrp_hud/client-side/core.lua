@@ -393,32 +393,6 @@ CreateThread(function()
 	end
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
--- THREADMOVE
------------------------------------------------------------------------------------------------------------------------------------------
-CreateThread(function()
-	while true do
-		local TimeDistance = 999
-		local ped = PlayerPedId()
-		local health = GetEntityHealth(ped)
-
-		if health > 101 and health <= 120 then
-			TimeDistance = 1
-			knockPlayer = true
-			DisableControlAction(0,21,true)
-			DisableControlAction(0,22,true)
-			RequestAnimSet("move_m@injured")
-			SetPedMovementClipset(ped,"move_m@injured",true)
-		elseif knockPlayer and health >= 120 then
-			TimeDistance = 999
-			knockPlayer = false
-			DisableControlAction(0,21,false)
-			DisableControlAction(0,22,false)
-			ResetPedMovementClipset(ped)
-		end
-		Wait(TimeDistance)
-	end
-end)
------------------------------------------------------------------------------------------------------------------------------------------
 -- THREADGPS
 -----------------------------------------------------------------------------------------------------------------------------------------
 CreateThread(function()

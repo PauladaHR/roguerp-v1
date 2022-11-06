@@ -6,12 +6,6 @@ local Proxy = module("vrp","lib/Proxy")
 vRP = Proxy.getInterface("vRP")
 vRPC = Tunnel.getInterface("vRP")
 -----------------------------------------------------------------------------------------------------------------------------------------
--- CONNECTION
------------------------------------------------------------------------------------------------------------------------------------------
-Hiro = {}
-Tunnel.bindInterface("vrp_paramedic",Hiro)
-vCLIENT = Tunnel.getInterface("vrp_paramedic")
------------------------------------------------------------------------------------------------------------------------------------------
 -- PARAMEDIC:REPOSE
 -----------------------------------------------------------------------------------------------------------------------------------------
 RegisterServerEvent("paramedic:Repose")
@@ -50,7 +44,7 @@ AddEventHandler("paramedic:diagnostic",function()
 		local nplayer = vRPC.nearestPlayer(source,5)
 		if nplayer then
 			local hurt = false
-			local diagnostic = vCLIENT.getDiagnostic(nplayer)
+			local diagnostic = exports["vrp_paramedic"]:Diagnostic(nplayer)
 			if diagnostic then
 				local damaged = {}
 				for k,v in pairs(diagnostic) do
@@ -65,23 +59,23 @@ AddEventHandler("paramedic:diagnostic",function()
 
 			local text = ""
 
-			if diagnostic.taser then
+			if diagnostic["taser"] then
 				text = text .. "- <b>Marca de Taser</b><br>"
 			end
 
-			if diagnostic.vehicle then
+			if diagnostic["vehicle"] then
 				text = text .. "- <b>Marca de acidente de veículo</b><br>"
 			end
 
-			if diagnostic.pistol then
+			if diagnostic["pistol"] then
 				text = text .. "- <b>Dano de Pistola</b><br>"
 			end
 
-			if diagnostic.fuzil then
+			if diagnostic["fuzil"] then
 				text = text .. "- <b>Dano de Fuzil</b><br>"
 			end
 
-			if diagnostic.branca then
+			if diagnostic["branca"] then
 				text = text .. "- <b>Dano de Corpo a Corpo</b><br>"
 			end
 
@@ -94,10 +88,10 @@ AddEventHandler("paramedic:diagnostic",function()
 	end
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
--- /PULSO
+-- PULSE
 -----------------------------------------------------------------------------------------------------------------------------------------
-local pulso = {}
-local pulseLog = {
+local Pulse = {}
+local PulseReturn = {
 	[1] = "morto",
 	[2] = "vivo"
 }
@@ -112,61 +106,61 @@ AddEventHandler("paramedic:pulse",function()
 			local nuser_id = vRP.getUserId(nplayer)
 			local nidentity = vRP.getUserIdentity(nuser_id)
 			if vRP.checkDeath(nplayer) then
-				local diagnostic = vCLIENT.getDiagnostic(nplayer)
-				if pulso[nuser_id] == nil then
+				local diagnostic = exports["vrp_paramedic"]:Diagnostic(nplayer)
+				if Pulse[nuser_id] == nil then
 					if diagnostic["fuzil"] then
 						local chanceAlive = math.random(100)
 						if chanceAlive <= 70 then
-							pulso[nuser_id] = pulseLog[1]
+							Pulse[nuser_id] = PulseReturn[1]
 						else
-							pulso[nuser_id] = pulseLog[2]
+							Pulse[nuser_id] = PulseReturn[2]
 						end
 						text = "<b>Fuzil Damage</b>"
 					elseif diagnostic["pistol"] then
 						local chanceAlive = math.random(100)
 						if chanceAlive <= 60 then
-							pulso[nuser_id] = pulseLog[1]
+							Pulse[nuser_id] = PulseReturn[1]
 						else
-							pulso[nuser_id] = pulseLog[2]
+							Pulse[nuser_id] = PulseReturn[2]
 						end
 						text = "<b>Pistol Damage</b>"
 					elseif diagnostic["branca"] then
 						local chanceAlive = math.random(100)
 						if chanceAlive <= 50 then
-							pulso[nuser_id] = pulseLog[1]
+							Pulse[nuser_id] = PulseReturn[1]
 						else
-							pulso[nuser_id] = pulseLog[2]
+							Pulse[nuser_id] = PulseReturn[2]
 						end
 						text = "<b>Meele Damage</b>"
 					elseif diagnostic["vehicle"] then
 						local chanceAlive = math.random(100)
 						if chanceAlive <= 30 then
-							pulso[nuser_id] = pulseLog[1]
+							Pulse[nuser_id] = PulseReturn[1]
 						else
-							pulso[nuser_id] = pulseLog[2]
+							Pulse[nuser_id] = PulseReturn[2]
 						end
 						text = "<b>Vehicle Damage</b>"
 					elseif diagnostic["taser"] then
 						local chanceAlive = math.random(100)
 						if chanceAlive <= 20 then
-							pulso[nuser_id] = pulseLog[1]
+							Pulse[nuser_id] = PulseReturn[1]
 						else
-							pulso[nuser_id] = pulseLog[2]
+							Pulse[nuser_id] = PulseReturn[2]
 						end
 						text = "<b>Taser Damage</b>"
 					else
 						local chanceAlive = math.random(100)
 						if chanceAlive <= 50 then
-							pulso[nuser_id] = pulseLog[1]
+							Pulse[nuser_id] = PulseReturn[1]
 						else
-							pulso[nuser_id] = pulseLog[2]
+							Pulse[nuser_id] = PulseReturn[2]
 						end
 						text = "<b>Undefined Damage</b>"
 					end
 				end
-				TriggerClientEvent("Notify",source,"amarelo", "O indivíduo recebeu "..text.." e se encontra <b>"..pulso[nuser_id].."</b>!", 5000)
-				TriggerClientEvent("Notify",nplayer,"amarelo", "Você recebeu "..text.." e se encontra <b>"..pulso[nuser_id].."</b>!", 5000)
-				TriggerEvent("webhooks","pulso","```ini\n[ID]: "..user_id.." "..identity.name.." "..identity.name2.." \n[VERIFICOU PULSO]: "..nuser_id.." "..nidentity["name"].." "..nidentity["name2"].."\n[RESULTADO]: "..pulso[nuser_id].." "..os.date("\n[Data]: %d/%m/%Y [Hora]: %H:%M:%S").." \r```","Checagem Pulso")
+				TriggerClientEvent("Notify",source,"amarelo", "O indivíduo recebeu "..text.." e se encontra <b>"..Pulse[nuser_id].."</b>!", 5000)
+				TriggerClientEvent("Notify",nplayer,"amarelo", "Você recebeu "..text.." e se encontra <b>"..Pulse[nuser_id].."</b>!", 5000)
+				TriggerEvent("webhooks","Pulse","```ini\n[ID]: "..user_id.." "..identity.name.." "..identity.name2.." \n[VERIFICOU Pulse]: "..nuser_id.." "..nidentity["name"].." "..nidentity["name2"].."\n[RESULTADO]: "..Pulse[nuser_id].." "..os.date("\n[Data]: %d/%m/%Y [Hora]: %H:%M:%S").." \r```","Checagem Pulse")
 			end
 		end
 	end
@@ -179,6 +173,6 @@ AddEventHandler("resetPulse",function()
 	local source = source
 	local user_id = vRP.getUserId(source)
 	if user_id then
-		pulso[user_id] = nil
+		Pulse[user_id] = nil
 	end
 end)

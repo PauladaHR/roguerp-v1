@@ -16,7 +16,7 @@ vRP.prepare("vRP/set_bank","UPDATE vrp_users SET bank = @bank WHERE id = @id")
 vRP.prepare("vRP/add_bank","UPDATE vrp_users SET bank = bank + @bank WHERE id = @id")
 vRP.prepare("vRP/del_bank","UPDATE vrp_users SET bank = bank - @bank WHERE id = @id")
 -----------------------------------------------------------------------------------------------------------------------------------------
--- PREPARE ACCOUNTS
+-- ACCOUNTS
 -----------------------------------------------------------------------------------------------------------------------------------------
 vRP.prepare("vRP/get_vrp_infos","SELECT * FROM vrp_infos WHERE steam = @steam")
 vRP.prepare("vRP/create_user","INSERT INTO vrp_infos(steam,discord) VALUES(@steam,@discord)")
@@ -26,11 +26,8 @@ vRP.prepare("vRP/set_banned","UPDATE vrp_infos SET banned = @banned WHERE steam 
 vRP.prepare("vRP/set_whitelist","UPDATE vrp_infos SET whitelist = @whitelist WHERE steam = @steam")
 vRP.prepare("vRP/update_gems","UPDATE vrp_infos SET gems = gems + @gems WHERE steam = @steam")
 -----------------------------------------------------------------------------------------------------------------------------------------
--- PREPARE VRP_USERS_DATA
+-- PLAYERDATA
 -----------------------------------------------------------------------------------------------------------------------------------------
-vRP.prepare("vRP/set_userdata","REPLACE INTO vrp_users_data(user_id,dkey,dvalue) VALUES(@user_id,@key,@value)")
-vRP.prepare("vRP/get_userdata","SELECT dvalue FROM vrp_users_data WHERE user_id = @user_id AND dkey = @key")
-
 vRP.prepare("playerdata/getUserdata","SELECT dvalue FROM vrp_users_data WHERE user_id = @user_id AND dkey = @key")
 vRP.prepare("playerdata/setUserdata","REPLACE INTO vrp_users_data(user_id,dkey,dvalue) VALUES(@user_id,@key,@value)")
 vRP.prepare("playerdata/remUserdata","DELETE FROM vrp_users_data WHERE dkey = @dkey AND user_id = @user_id")
@@ -54,8 +51,6 @@ vRP.prepare("vRP/set_priority","UPDATE vrp_infos SET priority = @priority WHERE 
 vRP.prepare("vRP/update_premium","UPDATE vrp_infos SET predays = predays + @predays WHERE steam = @steam")
 vRP.prepare("vRP/update_document","UPDATE vrp_users SET registration = @registration WHERE id = @id")
 vRP.prepare("vRP/update_number","UPDATE vrp_users SET phone = @phone WHERE id = @id")
-vRP.prepare("vRP/instagram_verified", "SELECT * FROM smartphone_instagram WHERE user_id = @user_id")
-vRP.prepare("vRP/update_verified","UPDATE smartphone_instagram SET verified = @verified WHERE user_id = @user_id")
 vRP.prepare("vRP/set_rank","UPDATE vrp_infos SET rank = @rank, level = @level WHERE steam = @steam")
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- PREPARE VRP_HOMES
@@ -185,6 +180,6 @@ vRP.prepare("hiro/ClearEntityData","DELETE FROM vrp_srv_data WHERE dvalue = '[]'
 -- THREADCLEANERS
 -----------------------------------------------------------------------------------------------------------------------------------------
 CreateThread(function()
-	vRP.execute("vRP/ClearPlayerData")
+	vRP.execute("hiro/ClearPlayerData")
 	vRP.execute("hiro/ClearEntityData")
 end)

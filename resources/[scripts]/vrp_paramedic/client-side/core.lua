@@ -1,15 +1,4 @@
 -----------------------------------------------------------------------------------------------------------------------------------------
--- VRP
------------------------------------------------------------------------------------------------------------------------------------------
-local Tunnel = module("vrp","lib/Tunnel")
-local Proxy = module("vrp","lib/Proxy")
-vRP = Proxy.getInterface("vRP")
------------------------------------------------------------------------------------------------------------------------------------------
--- CONNECTION
------------------------------------------------------------------------------------------------------------------------------------------
-Hiro = {}
-Tunnel.bindInterface("vrp_paramedic",Hiro)
------------------------------------------------------------------------------------------------------------------------------------------
 -- VARIABLES
 -----------------------------------------------------------------------------------------------------------------------------------------
 local damaged = {}
@@ -79,14 +68,12 @@ CreateThread(function()
 			if not damaged.vehicle and HasEntityBeenDamagedByAnyVehicle(ped) then
 				ClearEntityLastDamageEntity(ped)
 				damaged.vehicle = true
-				TriggerServerEvent("vrp_evidence:GenerateEvidence","dna",nil,80,190,40)
 			end
 
 			for k,v in pairs(pistol) do
 				if HasPedBeenDamagedByWeapon(ped,GetHashKey(v),0) then
 					ClearEntityLastDamageEntity(ped)
 					damaged.pistol = true
-					TriggerServerEvent("vrp_evidence:GenerateEvidence","dna",nil,252, 3, 11)
 				end
 			end
 
@@ -94,7 +81,6 @@ CreateThread(function()
 				if HasPedBeenDamagedByWeapon(ped,GetHashKey(v),0) then
 					ClearEntityLastDamageEntity(ped)
 					damaged.fuzil = true
-					TriggerServerEvent("vrp_evidence:GenerateEvidence","dna",nil,252, 3, 11)
 				end
 			end
 
@@ -102,7 +88,6 @@ CreateThread(function()
 				if HasPedBeenDamagedByWeapon(ped,GetHashKey(v),0) then
 					ClearEntityLastDamageEntity(ped)
 					damaged.branca = true
-					TriggerServerEvent("vrp_evidence:GenerateEvidence","dna",nil,252, 3, 11)
 				end
 			end
 
@@ -202,8 +187,34 @@ AddEventHandler("drawInjuries",function(ped,injuries)
 	end)
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
+-- THREADMOVE
+-----------------------------------------------------------------------------------------------------------------------------------------
+CreateThread(function()
+	while true do
+		local TimeDistance = 999
+		local ped = PlayerPedId()
+		local health = GetEntityHealth(ped)
+
+		if health > 101 and health <= 120 then
+			TimeDistance = 1
+			knockPlayer = true
+			DisableControlAction(0,21,true)
+			DisableControlAction(0,22,true)
+			RequestAnimSet("move_m@injured")
+			SetPedMovementClipset(ped,"move_m@injured",true)
+		elseif knockPlayer and health >= 120 then
+			TimeDistance = 999
+			knockPlayer = false
+			DisableControlAction(0,21,false)
+			DisableControlAction(0,22,false)
+			ResetPedMovementClipset(ped)
+		end
+		Wait(TimeDistance)
+	end
+end)
+-----------------------------------------------------------------------------------------------------------------------------------------
 -- GETDIAGNOSTIC
 -----------------------------------------------------------------------------------------------------------------------------------------
-function Hiro.getDiagnostic()
+exports("Diagnostic",function()
 	return damaged
-end
+end)
