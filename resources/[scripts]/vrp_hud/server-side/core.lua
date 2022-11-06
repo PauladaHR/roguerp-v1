@@ -35,6 +35,10 @@ CreateThread(function()
 			end
 		end
 
+		if GlobalState["Hours"] == 07 then
+			TriggerEvent("Notify",-1,"verde", "Jornais Disponiveis!", 5000)
+		end
+
 		Wait(10000)
 	end
 end)

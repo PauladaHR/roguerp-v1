@@ -972,18 +972,20 @@ end
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- WORKS:NEWSPAPER
 -----------------------------------------------------------------------------------------------------------------------------------------
-function cRP.newsPayment()
+local NewspaperID = {}
+RegisterServerEvent("newspaper:GetNewsPapers")
+AddEventHandler("newspaper:GetNewsPapers",function()
 	local source = source
 	local user_id = vRP.getUserId(source)
 	if user_id then
-		if vRP.getInventoryItemMax(user_id,"newspaper",1) then	
-			vRP.giveInventoryItem(user_id,"newspaper",25,true)
-			return
+		if not NewspaperID[NewspaperID] and GlobalState["Hours"] >= 07 and GlobalState["Hours"] < 09 then
+			vRP.GenerateItem(user_id,"newspaper",25,true)
+			NewspaperID[user_id] = true
 		else
-		TriggerClientEvent("Notify",source,"amarelo","Limite atingido.",3000)
+			TriggerClientEvent("Notify",source,"amarelo","Limite atingido.",3000)
 		end
 	end
-end
+end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- PLAYERSPAWN
 -----------------------------------------------------------------------------------------------------------------------------------------

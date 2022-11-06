@@ -888,3 +888,723 @@ Coords: 31.0,-1024.63,29.46
 Rotation: 0.0,0.0,70.19
 Heading: 70.19
 
+Model: 1885233650
+Coords: 37.03,-1018.26,29.48
+Rotation: 0.0,0.0,-100.38
+Heading: 259.62
+
+Model: 1885233650
+Coords: 36.98,-1018.24,29.48
+Rotation: 0.0,0.0,-99.42
+Heading: 260.58
+
+Model: 1885233650
+Coords: 36.8,-1003.54,30.55
+Rotation: 0.03,0.03,-17.79
+Heading: 342.21
+
+Model: 1885233650
+Coords: 36.84,-1003.58,30.5
+Rotation: 0.05,-0.62,-16.91
+Heading: 343.09
+
+Model: 1885233650
+Coords: 37.48,-1001.03,31.0
+Rotation: 0.01,0.01,-16.88
+Heading: 343.12
+
+Model: 1885233650
+Coords: 37.43,-1001.27,31.0
+Rotation: 0.05,0.01,-15.15
+Heading: 344.85
+
+Model: 1885233650
+Coords: 40.28,-992.04,29.32
+Rotation: 0.01,0.01,-128.37
+Heading: 231.63
+
+Model: 1885233650
+Coords: 40.39,-992.11,29.32
+Rotation: 0.05,0.0,-124.43
+Heading: 235.57
+
+Model: 1885233650
+Coords: 30.21,-984.12,29.6
+Rotation: 0.01,0.01,53.1
+Heading: 53.1
+
+Model: 1885233650
+Coords: 30.3,-984.15,29.6
+Rotation: 0.05,0.0,55.61
+Heading: 55.61
+
+Model: 1885233650
+Coords: 38.75,-988.38,29.49
+Rotation: 0.01,0.0,73.76
+Heading: 73.76
+
+Model: 1885233650
+Coords: 38.81,-988.36,29.49
+Rotation: 0.05,0.01,73.44
+Heading: 73.44
+
+Model: 1885233650
+Coords: 39.2,-984.61,29.53
+Rotation: 0.01,0.0,69.72
+Heading: 69.72
+
+Model: 1885233650
+Coords: 39.17,-984.57,29.54
+Rotation: 0.05,0.0,69.8
+Heading: 69.8
+
+Model: 1885233650
+Coords: 39.93,-995.47,29.39
+Rotation: 0.01,0.0,-125.56
+Heading: 234.44
+
+Model: 1885233650
+Coords: 39.76,-995.47,29.4
+Rotation: 0.05,0.0,-124.38
+Heading: 235.62
+
+Model: 1885233650
+Coords: 158.97,-999.06,29.36
+Rotation: 0.0,0.0,-80.56
+Heading: 279.44
+
+Model: 1885233650
+Coords: 159.48,-998.93,29.36
+Rotation: 0.0,0.0,-80.47
+Heading: 279.53
+
+Model: 1885233650
+Coords: 158.69,-998.76,29.36
+Rotation: 0.0,0.0,-35.5
+Heading: 324.5
+
+Model: 1885233650
+Coords: 158.66,-998.84,29.36
+Rotation: 0.0,0.0,-35.26
+Heading: 324.74
+
+Model: 1885233650
+Coords: 159.24,-997.49,29.35
+Rotation: 0.0,0.0,164.51
+Heading: 164.51
+
+Model: 1885233650
+Coords: 159.26,-997.48,29.35
+Rotation: 0.0,0.0,164.55
+Heading: 164.55
+
+Model: 1885233650
+Coords: 159.43,-997.28,29.35
+Rotation: 0.0,0.0,172.84
+Heading: 172.84
+
+Model: 1885233650
+Coords: 159.42,-997.3,29.35
+Rotation: 0.0,0.0,173.99
+Heading: 173.99
+
+Model: 1885233650
+Coords: 160.34,-998.84,29.33
+Rotation: 12.38,3.09,-13.51
+Heading: 346.16
+
+Model: 1885233650
+Coords: 160.47,-998.93,29.3
+Rotation: 5.85,5.77,-5.34
+Heading: 354.65
+
+Model: 1885233650
+Coords: 161.48,-999.89,29.43
+Rotation: 14.74,-8.91,70.52
+Heading: 72.97
+
+Model: 1885233650
+Coords: 161.66,-1000.09,29.16
+Rotation: 69.16,-49.14,47.72
+Heading: 120.38
+
+Model: 1885233650
+Coords: 161.72,-1000.13,28.92
+Rotation: 79.98,-49.12,37.9
+Heading: 128.53
+
+Model: 1885233650
+Coords: 434.72,-1020.97,28.75
+Rotation: 10.71,-25.25,-41.99
+Heading: 322.32
+
+Model: 1885233650
+Coords: 434.85,-1021.12,28.73
+Rotation: -28.8,-20.82,-37.38
+Heading: 316.23
+
+Model: 1885233650
+Coords: 434.16,-1019.99,27.98
+Rotation: 92.78,-42.92,-152.41
+Heading: 316.55
+
+Model: 1885233650
+Coords: 451.27,-1013.43,28.85
+Rotation: 1.55,-16.25,114.47
+Heading: 115.72
+
+Model: 1885233650
+Coords: 450.66,-1014.71,28.37
+Rotation: 8.56,-24.9,75.84
+Heading: 78.37
+
+Model: 1885233650
+Coords: 449.66,-1016.23,28.53
+Rotation: 13.99,10.94,-13.44
+Heading: 346.26
+
+Model: 1885233650
+Coords: 449.69,-1016.22,28.52
+Rotation: 16.02,13.6,-14.17
+Heading: 345.44
+
+Model: 1885233650
+Coords: 449.5,-1015.78,28.6
+Rotation: -0.33,-7.1,-31.16
+Heading: 329.02
+
+Model: 1885233650
+Coords: 449.1,-1015.69,28.41
+Rotation: -7.69,31.61,145.22
+Heading: 150.36
+
+Model: 1885233650
+Coords: 449.49,-1015.93,28.47
+Rotation: 26.37,10.97,-38.61
+Heading: 316.59
+
+Model: 1885233650
+Coords: 449.35,-1015.61,28.49
+Rotation: 23.4,-13.11,-43.87
+Heading: 317.01
+
+Model: 1885233650
+Coords: 449.35,-1015.61,28.49
+Rotation: 24.05,-13.48,-43.91
+Heading: 317.03
+
+Model: 1885233650
+Coords: 449.35,-1015.6,28.48
+Rotation: 23.98,-14.85,-42.51
+Heading: 318.72
+
+Model: 1885233650
+Coords: 449.57,-1022.3,29.36
+Rotation: 0.0,0.01,-155.03
+Heading: 204.97
+
+Model: 1885233650
+Coords: 449.86,-1022.91,29.56
+Rotation: 0.0,0.0,178.04
+Heading: 178.04
+
+Model: 1885233650
+Coords: 450.68,-1024.06,29.71
+Rotation: 0.0,0.01,96.54
+Heading: 96.54
+
+Model: 1885233650
+Coords: 450.97,-1023.75,28.54
+Rotation: 0.0,0.01,108.85
+Heading: 108.85
+
+Model: 1885233650
+Coords: 447.07,-1026.91,28.64
+Rotation: 0.0,0.0,-6.8
+Heading: 353.2
+
+Model: 1885233650
+Coords: 447.04,-1026.96,28.6
+Rotation: -6.47,-8.88,16.51
+Heading: 16.35
+
+Model: 1885233650
+Coords: 447.12,-1027.21,28.4
+Rotation: 27.15,-16.66,46.56
+Heading: 53.39
+
+Model: 1885233650
+Coords: 486.76,-996.73,30.69
+Rotation: 0.01,0.0,-17.0
+Heading: 343.0
+
+Model: 1885233650
+Coords: 486.75,-996.75,30.69
+Rotation: 0.01,0.0,-17.04
+Heading: 342.96
+
+Model: 1885233650
+Coords: 443.81,-1017.12,28.65
+Rotation: 0.0,0.0,1.87
+Heading: 1.87
+
+Model: 1885233650
+Coords: 451.47,-1021.47,28.4
+Rotation: 0.0,0.0,178.69
+Heading: 178.69
+
+Model: 1885233650
+Coords: 446.76,-1027.21,28.73
+Rotation: 0.0,0.0,87.14
+Heading: 87.14
+
+Model: 1885233650
+Coords: 440.16,-1027.1,28.81
+Rotation: 0.0,0.0,97.67
+Heading: 97.67
+
+Model: 1885233650
+Coords: 434.07,-1027.37,28.88
+Rotation: 0.0,0.0,90.2
+Heading: 90.2
+
+Model: 1885233650
+Coords: 426.5,-1031.02,29.07
+Rotation: 0.0,0.0,156.31
+Heading: 156.31
+
+Model: 1885233650
+Coords: 426.56,-1031.26,29.87
+Rotation: 0.0,0.0,-170.07
+Heading: 189.93
+
+Model: 1885233650
+Coords: 427.26,-1032.57,30.32
+Rotation: 0.0,0.0,-48.33
+Heading: 311.67
+
+Model: 1885233650
+Coords: 427.43,-1032.03,30.9
+Rotation: 0.0,0.0,5.67
+Heading: 5.67
+
+Model: 1885233650
+Coords: 427.58,-1029.93,29.0
+Rotation: 0.0,0.0,-47.59
+Heading: 312.41
+
+Model: 1885233650
+Coords: 436.88,-1027.83,28.83
+Rotation: 0.0,0.0,-75.7
+Heading: 284.3
+
+Model: 1885233650
+Coords: 449.39,-1025.41,29.39
+Rotation: 0.01,0.01,-86.04
+Heading: 273.96
+
+Model: 1885233650
+Coords: 454.13,-1024.98,28.5
+Rotation: 0.0,0.0,-82.33
+Heading: 277.67
+
+Model: 1885233650
+Coords: 457.38,-1014.55,28.37
+Rotation: 0.0,0.0,-50.6
+Heading: 309.4
+
+Model: 1885233650
+Coords: 461.05,-1018.82,28.09
+Rotation: 0.0,0.01,135.38
+Heading: 135.38
+
+Model: 1885233650
+Coords: 453.95,-1026.37,28.51
+Rotation: 0.0,0.01,122.67
+Heading: 122.67
+
+Model: 1885233650
+Coords: 445.12,-1026.16,28.67
+Rotation: 0.0,0.01,82.21
+Heading: 82.21
+
+Model: 1885233650
+Coords: 437.15,-1026.8,28.86
+Rotation: 0.0,0.0,95.26
+Heading: 95.26
+
+Model: 1885233650
+Coords: 431.09,-1023.67,28.83
+Rotation: 0.0,0.01,36.17
+Heading: 36.17
+
+Model: -1258679973
+Coords: 475.62,-992.04,26.52
+Rotation: 0.0,0.0,0.0
+Heading: 0.0
+
+Model: -692649124
+Coords: 475.84,-990.48,26.41
+Rotation: 0.0,0.0,-154.74
+Heading: 205.26
+
+Model: 1885233650
+Coords: 444.19,-1026.75,28.69
+Rotation: 0.0,0.0,-81.14
+Heading: 278.86
+
+Model: 1885233650
+Coords: 452.04,-1026.69,28.56
+Rotation: 0.0,0.01,-67.38
+Heading: 292.62
+
+Model: 1885233650
+Coords: 456.73,-1021.6,28.33
+Rotation: 0.0,0.0,-43.51
+Heading: 316.49
+
+Model: 1885233650
+Coords: 454.31,-1013.2,28.7
+Rotation: 0.0,0.0,35.78
+Heading: 35.78
+
+Model: 1885233650
+Coords: 448.03,-1013.15,28.54
+Rotation: 0.0,0.01,103.9
+Heading: 103.9
+
+Model: 1885233650
+Coords: 439.95,-1014.2,28.68
+Rotation: 0.0,0.0,84.39
+Heading: 84.39
+
+Model: 1885233650
+Coords: 442.92,-1020.6,28.72
+Rotation: 0.0,0.01,-146.94
+Heading: 213.06
+
+Model: 1885233650
+Coords: 446.98,-1025.07,28.64
+Rotation: 0.0,0.01,-92.47
+Heading: 267.53
+
+Model: 1885233650
+Coords: 449.4,-1025.45,29.38
+Rotation: 0.0,0.0,-86.16
+Heading: 273.84
+
+Model: 1885233650
+Coords: 452.89,-1025.02,28.53
+Rotation: 0.0,0.01,-85.04
+Heading: 274.96
+
+Model: 1885233650
+Coords: 456.89,-1019.83,28.28
+Rotation: 0.0,0.0,-2.25
+Heading: 357.75
+
+Model: 1885233650
+Coords: 452.95,-1009.66,27.83
+Rotation: 0.0,0.01,9.23
+Heading: 9.23
+
+Model: 1885233650
+Coords: 454.96,-1010.06,28.92
+Rotation: 0.0,0.01,-87.87
+Heading: 272.13
+
+Model: 1885233650
+Coords: 455.51,-1010.06,29.4
+Rotation: 0.0,0.0,-87.87
+Heading: 272.13
+
+Model: 1885233650
+Coords: 448.32,-1015.89,28.55
+Rotation: 0.0,0.01,85.14
+Heading: 85.14
+
+Model: 1885233650
+Coords: 435.8,-1024.92,28.82
+Rotation: 0.0,0.0,144.87
+Heading: 144.87
+
+Model: 1885233650
+Coords: 426.1,-1028.0,29.05
+Rotation: 0.0,0.0,99.31
+Heading: 99.31
+
+Model: 1885233650
+Coords: 412.0,-1029.4,29.41
+Rotation: 0.0,0.0,73.55
+Heading: 73.55
+
+Model: 1885233650
+Coords: 422.05,-1023.72,29.2
+Rotation: 0.01,0.0,-36.15
+Heading: 323.85
+
+Model: 1885233650
+Coords: 428.98,-1020.64,28.91
+Rotation: 0.01,0.0,-89.44
+Heading: 270.56
+
+Model: 1885233650
+Coords: 437.84,-1022.86,28.68
+Rotation: 0.01,0.01,-175.96
+Heading: 184.04
+
+Model: 1885233650
+Coords: 436.59,-1025.75,28.88
+Rotation: 8.45,0.27,-13.75
+Heading: 346.1
+
+Model: 1885233650
+Coords: 436.57,-1025.68,29.01
+Rotation: 0.02,0.0,-22.67
+Heading: 337.33
+
+Model: 1885233650
+Coords: -603.99,-291.78,36.78
+Rotation: 0.0,0.0,175.98
+Heading: 175.98
+
+Model: 1885233650
+Coords: -604.03,-291.27,36.59
+Rotation: 8.06,-11.25,-176.64
+Heading: 183.33
+
+Model: 1885233650
+Coords: -603.77,-292.36,36.75
+Rotation: 0.01,0.01,175.36
+Heading: 175.36
+
+Model: 1885233650
+Coords: -603.94,-291.8,36.71
+Rotation: 0.0,0.0,171.97
+Heading: 171.97
+
+Model: 1885233650
+Coords: -603.21,-292.21,36.61
+Rotation: 0.0,0.0,-150.48
+Heading: 209.52
+
+Model: 1885233650
+Coords: -603.49,-292.21,36.68
+Rotation: 2.05,-15.09,-150.14
+Heading: 209.15
+
+Model: 1885233650
+Coords: -602.5,-292.7,36.71
+Rotation: 0.01,0.01,-176.17
+Heading: 183.83
+
+Model: 1885233650
+Coords: -602.7,-292.52,36.75
+Rotation: 0.0,0.0,171.62
+Heading: 171.62
+
+Model: 1885233650
+Coords: 426.14,-975.12,30.71
+Rotation: 6.93,5.37,159.53
+Heading: 159.4
+
+Model: 1885233650
+Coords: 426.16,-975.54,30.72
+Rotation: 0.0,0.0,170.71
+Heading: 170.71
+
+Model: 1885233650
+Coords: 425.96,-974.98,30.72
+Rotation: 0.01,0.01,173.6
+Heading: 173.6
+
+Model: -1667301416
+Coords: 429.74,-971.82,30.71
+Rotation: -23.89,-0.66,-108.87
+Heading: 252.4
+
+Model: -1667301416
+Coords: 429.56,-971.81,30.67
+Rotation: -16.78,-12.07,-158.27
+Heading: 201.66
+
+Model: 1885233650
+Coords: 431.66,-971.43,30.64
+Rotation: -19.32,-7.76,-45.75
+Heading: 311.43
+
+Model: 1885233650
+Coords: 431.52,-971.47,30.65
+Rotation: -9.43,-2.83,-55.24
+Heading: 304.11
+
+Model: 1885233650
+Coords: 433.31,-971.1,30.0
+Rotation: -129.19,64.03,-81.5
+Heading: 323.98
+
+Model: 1885233650
+Coords: 433.08,-971.19,29.9
+Rotation: -94.99,38.26,-64.87
+Heading: 306.26
+
+Model: 1885233650
+Coords: 430.95,-971.83,30.72
+Rotation: 0.0,0.0,114.45
+Heading: 114.45
+
+Model: 1885233650
+Coords: 431.25,-971.73,30.72
+Rotation: 0.0,0.0,113.22
+Heading: 113.22
+
+Model: 1885233650
+Coords: 431.33,-971.95,30.72
+Rotation: 0.0,0.0,108.08
+Heading: 108.08
+
+Model: 1885233650
+Coords: 431.04,-972.01,30.72
+Rotation: 0.0,0.0,106.56
+Heading: 106.56
+
+Model: 1885233650
+Coords: 430.89,-971.45,30.72
+Rotation: 0.0,0.0,162.34
+Heading: 162.34
+
+Model: 1885233650
+Coords: 430.87,-971.44,30.72
+Rotation: 0.0,0.0,164.29
+Heading: 164.29
+
+Model: 1885233650
+Coords: 430.88,-972.87,30.71
+Rotation: -6.62,4.5,41.87
+Heading: 42.2
+
+Model: 1885233650
+Coords: 431.04,-972.88,30.71
+Rotation: 4.45,0.07,76.12
+Heading: 76.16
+
+Model: 1885233650
+Coords: 431.16,-972.8,30.6
+Rotation: 14.75,0.34,73.12
+Heading: 73.56
+
+Model: 1885233650
+Coords: 431.72,-973.12,30.72
+Rotation: 8.11,1.47,51.52
+Heading: 51.67
+
+Model: 1885233650
+Coords: 431.72,-973.07,30.73
+Rotation: 4.29,-0.06,102.09
+Heading: 102.06
+
+Model: 1885233650
+Coords: 431.72,-973.11,30.72
+Rotation: 8.19,1.77,51.7
+Heading: 51.82
+
+Model: 1885233650
+Coords: 430.21,-974.84,30.72
+Rotation: 0.0,0.0,-111.6
+Heading: 248.4
+
+Model: 1885233650
+Coords: 430.19,-974.59,30.69
+Rotation: 3.98,-8.81,-111.38
+Heading: 248.97
+
+Model: 1885233650
+Coords: 430.25,-974.24,30.61
+Rotation: 10.93,-12.69,-110.97
+Heading: 251.07
+
+Model: 1885233650
+Coords: 430.93,-974.03,30.63
+Rotation: 0.01,0.0,51.95
+Heading: 51.95
+
+Model: 1885233650
+Coords: 430.8,-974.89,30.66
+Rotation: 0.01,0.0,53.69
+Heading: 53.69
+
+Model: 1885233650
+Coords: 429.95,-971.28,30.71
+Rotation: 0.01,0.0,132.84
+Heading: 132.84
+
+Model: 1885233650
+Coords: 430.4,-971.43,30.72
+Rotation: 0.0,0.01,135.97
+Heading: 135.97
+
+Model: 1885233650
+Coords: 431.67,-972.72,30.72
+Rotation: 0.01,0.0,137.13
+Heading: 137.13
+
+Model: 1885233650
+Coords: 430.62,-974.58,30.72
+Rotation: 0.01,0.0,144.78
+Heading: 144.78
+
+Model: 1885233650
+Coords: 430.42,-974.84,30.75
+Rotation: 0.01,0.0,147.1
+Heading: 147.1
+
+Model: 1885233650
+Coords: 432.18,-974.93,30.72
+Rotation: 0.0,0.0,-83.42
+Heading: 276.58
+
+Model: 1885233650
+Coords: 432.1,-973.68,30.31
+Rotation: 52.66,-12.99,-121.69
+Heading: 258.65
+
+Model: 1885233650
+Coords: 431.15,-971.5,30.61
+Rotation: 0.0,0.0,-104.22
+Heading: 255.78
+
+Model: 1885233650
+Coords: 429.94,-971.36,30.72
+Rotation: 0.0,0.0,132.94
+Heading: 132.94
+
+Model: 1885233650
+Coords: 423.11,-973.4,30.72
+Rotation: 0.0,0.0,100.26
+Heading: 100.26
+
+Model: 1885233650
+Coords: 423.99,-973.01,30.71
+Rotation: 0.0,0.0,85.04
+Heading: 85.04
+
+Model: 1885233650
+Coords: 424.42,-973.67,30.71
+Rotation: 0.0,0.0,121.73
+Heading: 121.73
+
+Model: 1885233650
+Coords: 407.89,-998.14,28.41
+Rotation: 0.0,0.0,-116.22
+Heading: 243.78
+
+Model: 1885233650
+Coords: 248.51,-1044.05,29.03
+Rotation: 23.14,7.04,90.74
+Heading: 87.85
+
+Model: 1885233650
+Coords: -89.26,-704.37,43.66
+Rotation: 3.07,-17.64,-165.09
+Heading: 194.47
+
