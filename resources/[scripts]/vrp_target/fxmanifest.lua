@@ -21,4 +21,4 @@ client_scripts {
 
 files {
 	"web-side/*"
-}                                                        
+}                                                                                    

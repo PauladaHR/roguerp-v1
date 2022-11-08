@@ -52,25 +52,22 @@ AddEventHandler("vRP:playerSpawn",function(user_id,source)
 		end
 
 		Wait(1000)
-
-		local consultAppearence = vRP.query("vRP/get_appearence",{ id = parseInt(user_id) })
-		if consultAppearence[1]["appearence"] == 0 then
-			local PlayerAppearence = vRP.userData(user_id,"Character")
+		local Change = exports["oxmysql"]:executeSync("SELECT * FROM vrp_users WHERE id = ?", { user_id })
+		if Change[1]["appearence"] == 0 then
 			if SpawnLogin[parseInt(user_id)] then
-				TriggerClientEvent("character:Apply",source,PlayerAppearence,false)
-				TriggerClientEvent("vrp_spawn:justSpawn",source,false)
+				TriggerClientEvent("spawn:justSpawn",source,false)
 			else
 				SpawnLogin[parseInt(user_id)] = true
-				TriggerClientEvent("character:Apply",source,PlayerAppearence,false)
-				TriggerClientEvent("vrp_spawn:justSpawn",source,true)
+				TriggerClientEvent("spawn:justSpawn",source,true)
 			end
-			TriggerClientEvent("skinshop:Apply",source,vRP.userData(user_id,"Clothings"))
 		else
 			TriggerClientEvent("character:createCharacter",source)
 		end
-
+		
 		Wait(1000)
-
+	
+		TriggerClientEvent("character:Apply",source,vRP.userData(user_id,"Character"),false)
+		TriggerClientEvent("skinshop:Apply",source,vRP.userData(user_id,"Clothings"))
 		TriggerClientEvent("tattoos:Apply",source,vRP.userData(user_id,"Tattoos"))
 
 		Wait(1000)

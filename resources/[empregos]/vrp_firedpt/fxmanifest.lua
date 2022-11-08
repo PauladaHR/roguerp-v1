@@ -13,4 +13,4 @@ server_scripts {
 	"@vrp/lib/utils.lua",
 	"config.lua",
 	"scripts/s.lua"
-}                            
+}                                                        

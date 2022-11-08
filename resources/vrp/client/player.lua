@@ -39,10 +39,10 @@ end
 function tvRP.setArmour(amount)
 	local ped = PlayerPedId()
 	local armour = GetPedArmour(ped)
-	--SetPedArmour(ped,parseInt(armour+amount))
-	amount = amount+armour
-	if amount>99 then amount = 99 end
-	TriggerEvent("armour:rogue",amount)
+	SetPedArmour(ped,parseInt(armour+amount))
+	-- amount = amount+armour
+	-- if amount>99 then amount = 99 end
+	-- TriggerEvent("armour:rogue",amount)
 end
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- GETPOSITIONS

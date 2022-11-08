@@ -1,0 +1,183 @@
+body {
+    padding: 0;
+    margin: 0;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+::-webkit-scrollbar {
+    height: 10px;
+}
+
+::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, .1);
+}
+
+::-webkit-scrollbar-thumb {
+    background:  rgba(255, 255, 255, .1);
+}
+
+#garage {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 590px;
+    color: #fff;
+    font-family: "Jura", sans-serif;
+    letter-spacing: 2px;
+    text-shadow: 2px 2px 0px rgba(0, 0, 0, .2);
+    background: rgba(19, 20, 24, .8);
+    box-shadow: 2px 2px 10px rgba(0, 0, 0, .2);
+}
+
+.list {
+    white-space: nowrap;
+    position: relative;
+    overflow-x: scroll;
+    overflow-y: hidden;
+    -webkit-overflow-scrolling: touch;
+    padding: 10px 10px 0px 10px;
+    height: 100px;
+    max-height: 100px;
+    margin-bottom: 10px;
+}
+
+.list-item {
+    width: 150px;
+    height: 80px;
+    background-position: center;
+    background-size: cover;
+    display: inline-block;
+    margin-right: 15px;
+    box-shadow: 2px 2px 10px rgba(0, 0, 0, .3);
+    cursor: pointer;
+    opacity: .5;
+    transition: all .2s ease-out;
+}
+
+.list-item:hover, .list-item.active {
+    opacity: 1;
+}
+
+.list-item:last-child {
+    margin-right: 0px;
+}
+
+.list-item-label {
+    font-size: 10px;
+    text-transform: uppercase;
+    background: rgba(19, 20, 24, .8);
+    padding: 5px 0px;
+    text-align: center;
+    margin-top: 58px;
+    box-shadow: 0px -2px 10px rgba(0, 0, 0, .3);
+    overflow: hidden;
+}
+
+.vehicle-image {
+    height: 290px;
+    background-position: center;
+    background-size: cover;
+}
+
+.vehicle-name {
+    font-size: 25px;
+    text-align: center;
+    padding: 10px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+.progress-bar {
+    font-size: 10px;
+    color: rgba(255, 255, 255, .5);
+    text-transform: uppercase;
+    padding: 15px;
+    overflow: auto;
+}
+
+.border {
+    height: .5px;
+    background: rgba(255, 255, 255, .2);
+}
+
+.progress-bar-icon {
+    width: 35px;
+    height: 35px;
+    float: left;
+    image-rendering: -webkit-optimize-contrast;
+    opacity: .3;
+}
+
+.progress-bar-icon.body {
+    background-image: url(images/door.png);
+    background-size: cover;
+}
+
+.progress-bar-icon.engine {
+    background-image: url(images/engine.png);
+    background-size: cover;
+}
+
+.progress-bar-icon.fuel {
+    background-image: url(images/gasoline.png);
+    background-size: cover;
+}
+
+.progress-bar-content {
+    width: calc(100% - 50px);
+    float: right;
+}
+
+.progress-bar-trail {
+    background: rgba(45, 47, 52, .6);
+    overflow: hidden;
+}
+
+.progress-bar-label {
+    text-align: left;
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+.progress-bar-value {
+    text-align: right;
+    float: right;
+    font-size: 12px;
+}
+
+.progress-bar-filler {
+    height: 6px;
+    background: #910000;
+    transition: all .2s ease-out;
+}
+
+.button {
+    width: calc(50% - 20px);
+    float: left;
+    padding: 15px 10px;
+    text-align: center;
+    text-transform: uppercase;
+    cursor: pointer;
+    letter-spacing: 3px;
+    color: rgba(255, 255, 255, .5);
+    transition: all .2s ease-out;
+}
+
+.button:hover {
+    color: #fff;
+}
+
+.return-vehicle {
+    background: rgba(45, 47, 52, .6);
+}
+
+.get-vehicle {
+    background: #910000;
+}

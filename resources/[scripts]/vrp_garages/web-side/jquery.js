@@ -1,90 +1,87 @@
-$(document).ready(function(){
-	window.addEventListener('message',function(event){
-		switch(event.data.action){
-			case "openNUI":
-				updateGarages();
-				$("#actionmenu").fadeIn(100);
-			break;
+var activeVehicle = null
 
-			case "closeNUI":
-				$("#actionmenu").fadeOut(100);
-			break;
-		}
-	});
-
-	document.onkeyup = function(data){
-		if (data.which == 27){
-			$.post("http://vrp_garages/close");
-		}
-	};
+window.addEventListener('message',function(event) {
+    switch(event.data.action){
+        case 'openNUI':
+            activeVehicle = null;
+            GarageUI.getVehicles();
+            $("#garage").fadeIn();
+            break;
+        case 'closeNUI':
+            $("#garage").fadeOut();
+            break;
+        case 'updateGarages':
+            GarageUI.getVehicles();
+            break;
+    }
 });
-/* --------------------------------------------------- */
-const updateGarages = () => {
-	$.post('http://vrp_garages/myVehicles',JSON.stringify({}),(data) => {
-		const nameList = data.vehicles.sort((a,b) => (a.name2 > b.name2) ? 1: -1);
-		$('#garagem').html(`
-			<div id="buttons">
-				<div class="spawn"><b>SPAWN</b><br>Veículo selecionado.</div>
-				<div class="store"><b>GUARDAR</b><br>Veículo próximo.</div>
-			</div>
-			
-		<div id="vehList">
-			${nameList.map((item) => (`
-				<div class="vehicle" data-name="${item.name}">
-					<div id="vehicleName">${item.name2}</div>
-					
-							<div id="vehicleLegend"><b>Motor</b></div>
-							<div id="vehicleBack">
-								<div id="vehicleProgress" style="width: ${item.engine}%;"></div>
-							</div>
 
-							<div id="vehicleLegend"><b>Chassi</b></div>
-							<div id="vehicleBack">
-								<div id="vehicleProgress" style="width: ${item.body}%;"></div>
-							</div>
+document.onkeyup = function(data){
+    if (data.which == 27){
+        $.post("http://vrp_garages/close");
+    }
+};
 
-							<div id="vehicleLegend"><b>Gasolina</b></div>
-							<div id="vehicleBack">
-								<div id="vehicleProgress" style="width: ${item.fuel}%;"></div>
-							</div>
-						</div>
-			`)).join('')}
-		</div>
-		`);
-	});
-}
-/* --------------------------------------------------- */
-$(document).on('click','.vehicle',function(){
-	let $el = $(this);
-	let isActive = $el.hasClass('active');
-	$('.vehicle').removeClass('active');
-	if(!isActive) $el.addClass('active');
-});
-/* --------------------------------------------------- */
-$(document).on('click','.spawn',debounce(function(){
-	let $el = $('.vehicle.active').attr('data-name');
-	if($el){
-		$.post('http://vrp_garages/spawnVehicles',JSON.stringify({
-			name: $el
-		}));
-	}
-}));
-/* --------------------------------------------------- */
-$(document).on('click','.store',debounce(function(){
-	$.post('http://vrp_garages/deleteVehicles');
-}));
-/* ----------DEBOUNCE---------- */
-function debounce(func,immediate){
-	var timeout
-	return function(){
-		var context = this,args = arguments
-		var later = function(){
-			timeout = null
-			if (!immediate) func.apply(context,args)
-		}
-		var callNow = immediate && !timeout
-		clearTimeout(timeout)
-		timeout = setTimeout(later,500)
-		if (callNow) func.apply(context,args)
-	}
-}
+const GarageUI = {
+    vehicles: {},
+    thumbnailPrefix: "http://189.127.164.77/carros/",
+    getVehicles: function() {
+        $.get('http://vrp_garages/myVehicles', (data) => {
+            let vehicles = data.vehicles.sort((a,b) => (a.name2 > b.name2) ? 1: -1);
+            GarageUI.vehicles = vehicles;
+
+            $(".list").html("");
+            $.each(vehicles, function(index, item) {
+                $(".list").append(`<div class="list-item" data-name="${item.name}" style="background-image: url(${GarageUI.thumbnailPrefix + item.name}.png)">
+                    <div class="list-item-label">${item.name2}</div>
+                </div>`);
+            });
+
+            GarageUI.getVehicle(vehicles[0].name);
+            GarageUI.registerListeners();
+        });
+    },
+    getVehicle: function(vehicleName) {
+        let vehicle = GarageUI.vehicles.filter((v) => { return v.name == vehicleName; })[0];
+        activeVehicle = vehicle;
+
+        $(".list-item").removeClass("active");
+        $(`.list-item[data-name='${vehicleName}']`).addClass("active");
+        $(".vehicle-image").css("background-image", `url(${GarageUI.thumbnailPrefix + vehicleName}.png)`);
+        $(".vehicle-name").html(vehicle.name2);
+
+        $("#progress-bar-body .progress-bar-value").html(`${vehicle.body}%`);
+        $("#progress-bar-body .progress-bar-filler").css("max-width", `${vehicle.body}%`);
+
+        $("#progress-bar-engine .progress-bar-value").html(`${vehicle.engine}%`);
+        $("#progress-bar-engine .progress-bar-filler").css("max-width", `${vehicle.engine}%`);
+
+        $("#progress-bar-fuel .progress-bar-value").html(`${vehicle.fuel}%`);
+        $("#progress-bar-fuel .progress-bar-filler").css("max-width", `${vehicle.fuel}%`);
+    },
+    spawnVehicle: function(vehicleName) {
+        if(vehicleName == null) return false;
+
+        $.post('http://vrp_garages/spawnVehicles', JSON.stringify({
+            name: vehicleName
+        }));
+        activeVehicle = null;
+    },
+    pickVehicle: function() {
+        $.post('http://vrp_garages/deleteVehicles');
+    },
+    registerListeners: function() {
+        $(".list-item").on("click", function() {
+            GarageUI.getVehicle($(this).attr("data-name"));
+        });
+
+        $(".get-vehicle").on("click", function() {
+            if(activeVehicle == null) return false;
+            GarageUI.spawnVehicle(activeVehicle.name);
+        });
+
+        $(".return-vehicle").on("click", function() {
+            GarageUI.pickVehicle();
+        });
+    }
+};

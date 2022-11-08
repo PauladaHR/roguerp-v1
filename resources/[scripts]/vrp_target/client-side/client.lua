@@ -353,7 +353,7 @@ Citizen.CreateThread(function()
 			{
 				event = "newspaper:GetNewsPapers",
 				label = "Receber Jornais",
-				tunnel = "client"
+				tunnel = "server"
 			}
 		}
 	})

@@ -26,18 +26,18 @@ end
 -- CHARACTER:FINISHEDCHARACTER
 -----------------------------------------------------------------------------------------------------------------------------------------
 RegisterServerEvent("character:finishedCharacter")
-AddEventHandler("character:finishedCharacter",function(currentCharacterMode,status)
+AddEventHandler("character:finishedCharacter",function(currentCharacterMode,Create)
 	local source = source
 	local user_id = vRP.getUserId(source)
 	if user_id then
-		vRP.execute("vRP/set_appearence",{ id = parseInt(user_id) })
+		exports["oxmysql"]:executeSync("UPDATE vrp_users SET appearence = 0 WHERE id = ?", { user_id })
 
 		vRP.execute("playerdata/setUserdata",{ user_id = parseInt(user_id), key = "Character", value = json.encode(currentCharacterMode) })
 		
-		if status then
+		if Create then
 			TriggerClientEvent("character:Apply",source,currentCharacterMode,false)
 			
-			TriggerClientEvent("vrp_spawn:justSpawn",source,true)
+			TriggerClientEvent("spawn:createChar",source,{},false)
 		else
 			TriggerClientEvent("character:Apply",source,currentCharacterMode,true)
 		end

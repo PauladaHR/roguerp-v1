@@ -21,7 +21,6 @@ GlobalState["Doors"] = {
 	[6] = { x = 457.53, y = -972.09, z = 30.7, hash = -1547307588, lock = true, text = true, distance = 5, press = 2, perm = "Police", other = 5 },
 	[7] = { x = 469.02, y = -1014.76, z = 26.4, hash = -692649124, lock = true, text = true, distance = 5, press = 2, perm = "Police", other = 8 },
 	[8] = { x = 468.08, y = -1014.35, z = 26.42, hash = -692649124, lock = true, text = true, distance = 5, press = 2, perm = "Police", other = 7 },
-	[9] = { x = 476.4, y = -1008.1, z = 26.27, hash = -53345114, lock = true, text = true, distance = 5, press = 2, perm = "Police" },
 	[10] = { x = 481.8, y = -1003.97, z = 26.32, hash = -53345114, lock = true, text = true, distance = 5, press = 2, perm = "Police" },
 	[11] = { x = 477.0, y = -1012.15, z = 26.32, hash = -53345114, lock = true, text = true, distance = 5, press = 2, perm = "Police" },
 	[12] = { x = 480.07, y = -1012.1, z = 26.32, hash = -53345114, lock = true, text = true, distance = 5, press = 2, perm = "Police" },

@@ -20,4 +20,4 @@ server_scripts {
 files {
 	"web-side/*",
 	"web-side/**/*"
-}                                                        
+}                                                                                    
