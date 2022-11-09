@@ -416,8 +416,8 @@ stressBall{
 
 watermark {
   position: absolute;
-  right: 50px;
-  top: 50px;
+  right: 850px;
+  top: 0px;
   color: #fff;
   display: flex;
   font-size: 16px;

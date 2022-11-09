@@ -1,8 +1,13 @@
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- VRP
 -----------------------------------------------------------------------------------------------------------------------------------------
+local Tunnel = module("vrp","lib/Tunnel")
 local Proxy = module("vrp","lib/Proxy")
 vRP = Proxy.getInterface("vRP")
+-----------------------------------------------------------------------------------------------------------------------------------------
+-- CONNECTION
+-----------------------------------------------------------------------------------------------------------------------------------------
+vSERVER = Tunnel.getInterface("target")
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- VARIABLES
 -----------------------------------------------------------------------------------------------------------------------------------------
@@ -10,7 +15,7 @@ local Zones = {}
 local Models = {}
 local innerEntity = {}
 local sucessTarget = false
-local targetActive = false
+LocalPlayer["state"]["target"] = false
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- TYRELIST
 -----------------------------------------------------------------------------------------------------------------------------------------
@@ -25,7 +30,7 @@ local tyreList = {
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- THREADSYSTEM
 -----------------------------------------------------------------------------------------------------------------------------------------
-Citizen.CreateThread(function()
+CreateThread(function()
 	RegisterCommand("+entityTarget",playerTargetEnable)
 	RegisterCommand("-entityTarget",playerTargetDisable)
 	RegisterKeyMapping("+entityTarget","Interação auricular.","keyboard","LMENU")
@@ -344,6 +349,92 @@ Citizen.CreateThread(function()
 		}
 	})
 
+	AddTargetModel({ 1631638868,2117668672,-1498379115,-1519439119,-289946279 },{
+		options = {
+			{
+				event = "target:animDeitar",
+				label = "Deitar",
+				tunnel = "client"
+			}
+		},
+		distance = 1.00
+	})
+
+	AddCircleZone("treatment01",vec3(-253.92,6331.07,32.42),0.75,{
+		name = "treatment01",
+		heading = 3374176
+	},{
+		shop = "Paleto",
+		distance = 1.0,
+		options = {
+			{
+				event = "checkin:initCheck",
+				label = "Tratamento",
+				tunnel = "shop"
+			}
+		}
+	})
+
+	AddCircleZone("treatment02",vec3(-811.91,-1236.33,7.34),0.75,{
+		name = "treatment02",
+		heading = 3374176
+	},{
+		shop = "Santos",
+		distance = 1.0,
+		options = {
+			{
+				event = "checkin:initCheck",
+				label = "Tratamento",
+				tunnel = "shop"
+			}
+		}
+	})
+
+	AddCircleZone("treatment03",vec3(350.92,-587.68,28.8),0.75,{
+		name = "treatment03",
+		heading = 3374176
+	},{
+		shop = "Santos",
+		distance = 1.0,
+		options = {
+			{
+				event = "checkin:initCheck",
+				label = "Tratamento",
+				tunnel = "shop"
+			}
+		}
+	})
+
+	AddCircleZone("treatment04",vec3(1768.67,2570.59,45.73),0.75,{
+		name = "treatment04",
+		heading = 3374176
+	},{
+		shop = "Bolingbroke",
+		distance = 1.0,
+		options = {
+			{
+				event = "checkin:initCheck",
+				label = "Tratamento",
+				tunnel = "shop"
+			}
+		}
+	})
+
+	AddCircleZone("treatment05",vec3(-469.26,6289.48,13.61),0.75,{
+		name = "treatment05",
+		heading = 3374176
+	},{
+		shop = "Clandestine",
+		distance = 1.0,
+		options = {
+			{
+				event = "checkin:initCheck",
+				label = "Tratamento",
+				tunnel = "shop"
+			}
+		}
+	})
+
 	AddCircleZone("worksNews",vector3(-599.58,-933.61,23.87),0.75,{
 		name = "worksNews",
 		heading = 0.0
@@ -596,20 +687,45 @@ local stockadeVeh = {
 	}
 }
 -----------------------------------------------------------------------------------------------------------------------------------------
+-- TARGET:ANIMDEITAR
+-----------------------------------------------------------------------------------------------------------------------------------------
+local beds = {
+	[1631638868] = { 0.0,0.0 },
+	[2117668672] = { 0.0,0.0 },
+	[-1498379115] = { 1.0,90.0 },
+	[-1519439119] = { 1.0,0.0 },
+	[-289946279] = { 1.0,0.0 }
+}
+
+RegisterNetEvent("target:animDeitar")
+AddEventHandler("target:animDeitar",function()
+	if not LocalPlayer["state"]["Commands"] and not LocalPlayer["state"]["Handcuff"] then
+		local ped = PlayerPedId()
+		if GetEntityHealth(ped) > 101 then
+			local objCoords = GetEntityCoords(innerEntity[1])
+
+			SetEntityCoords(ped,objCoords["x"],objCoords["y"],objCoords["z"] + beds[innerEntity[2]][1],1,0,0,0)
+			SetEntityHeading(ped,GetEntityHeading(innerEntity[1]) + beds[innerEntity[2]][2] - 180.0)
+
+			vRP.playAnim(false,{"anim@gangops@morgue@table@","body_search"},true)
+		end
+	end
+end)
+-----------------------------------------------------------------------------------------------------------------------------------------
 -- PLAYERTARGETENABLE
 -----------------------------------------------------------------------------------------------------------------------------------------
 function playerTargetEnable()
 	if LocalPlayer["state"]["Active"] then
 		local ped = PlayerPedId()
 
-		if sucessTarget or IsPedArmed(ped,6) or IsPedInAnyVehicle(ped) or not MumbleIsConnected() or LocalPlayer["state"]["Buttons"] then
+		if sucessTarget or IsPedArmed(ped,6) or IsPedInAnyVehicle(ped) or not MumbleIsConnected() then
 			return
 		end
 
 		SendNUIMessage({ response = "openTarget" })
 
-		targetActive = true
-		while targetActive do
+		LocalPlayer["state"]["target"] = true
+		while LocalPlayer["state"]["target"] do
 			local coords = GetEntityCoords(ped)
 			local hit,entCoords,entity = RayCastGamePlayCamera(10.0)
 
@@ -724,7 +840,7 @@ function playerTargetEnable()
 							end
 
 							sucessTarget = true
-							while sucessTarget and targetActive do
+							while sucessTarget and LocalPlayer["state"]["target"] do
 								local ped = PlayerPedId()
 								local coords = GetEntityCoords(ped)
 								local _,entCoords,entity = RayCastGamePlayCamera(10.0)
@@ -740,7 +856,7 @@ function playerTargetEnable()
 									sucessTarget = false
 								end
 
-								Citizen.Wait(1)
+								Wait(1)
 							end
 
 							SendNUIMessage({ response = "leftTarget" })
@@ -761,7 +877,7 @@ function playerTargetEnable()
 							end
 
 							sucessTarget = true
-							while sucessTarget and targetActive do
+							while sucessTarget and LocalPlayer["state"]["target"] do
 								local ped = PlayerPedId()
 								local coords = GetEntityCoords(ped)
 								local _,entCoords,entity = RayCastGamePlayCamera(10.0)
@@ -777,7 +893,7 @@ function playerTargetEnable()
 									sucessTarget = false
 								end
 
-								Citizen.Wait(1)
+								Wait(1)
 							end
 
 							SendNUIMessage({ response = "leftTarget" })
@@ -797,7 +913,7 @@ function playerTargetEnable()
 										SendNUIMessage({ response = "validTarget", data = Models[k]["options"] })
 
 										sucessTarget = true
-										while sucessTarget and targetActive do
+										while sucessTarget and LocalPlayer["state"]["target"] do
 											local ped = PlayerPedId()
 											local coords = GetEntityCoords(ped)
 											local _,entCoords,entity = RayCastGamePlayCamera(10.0)
@@ -813,7 +929,7 @@ function playerTargetEnable()
 												sucessTarget = false
 											end
 
-											Citizen.Wait(1)
+											Wait(1)
 										end
 
 										SendNUIMessage({ response = "leftTarget" })
@@ -834,7 +950,7 @@ function playerTargetEnable()
 							end
 
 							sucessTarget = true
-							while sucessTarget and targetActive do
+							while sucessTarget and LocalPlayer["state"]["target"] do
 								local ped = PlayerPedId()
 								local coords = GetEntityCoords(ped)
 								local _,entCoords = RayCastGamePlayCamera(10.0)
@@ -850,7 +966,7 @@ function playerTargetEnable()
 									sucessTarget = false
 								end
 
-								Citizen.Wait(1)
+								Wait(1)
 							end
 
 							SendNUIMessage({ response = "leftTarget" })
@@ -859,7 +975,7 @@ function playerTargetEnable()
 				end
 			end
 
-			Citizen.Wait(250)
+			Wait(250)
 		end
 	end
 end
@@ -926,11 +1042,11 @@ end)
 -- PLAYERTARGETDISABLE
 -----------------------------------------------------------------------------------------------------------------------------------------
 function playerTargetDisable()
-	if sucessTarget or not targetActive then
+	if sucessTarget or not LocalPlayer["state"]["target"] then
 		return
 	end
 
-	targetActive = false
+	LocalPlayer["state"]["target"] = false
 	SendNUIMessage({ response = "closeTarget" })
 end
 -----------------------------------------------------------------------------------------------------------------------------------------
@@ -938,7 +1054,7 @@ end
 -----------------------------------------------------------------------------------------------------------------------------------------
 RegisterNUICallback("selectTarget",function(data)
 	sucessTarget = false
-	targetActive = false
+	LocalPlayer["state"]["target"] = false
 	SetNuiFocus(false,false)
 	SendNUIMessage({ response = "closeTarget" })
 
@@ -965,7 +1081,7 @@ end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 RegisterNUICallback("closeTarget",function()
 	sucessTarget = false
-	targetActive = false
+	LocalPlayer["state"]["target"] = false
 	SetNuiFocus(false,false)
 	SendNUIMessage({ response = "closeTarget" })
 end)
@@ -975,7 +1091,7 @@ end)
 RegisterNetEvent("target:resetDebug")
 AddEventHandler("target:resetDebug",function()
 	sucessTarget = false
-	targetActive = false
+	LocalPlayer["state"]["target"] = false
 	SetNuiFocus(false,false)
 	SendNUIMessage({ response = "closeTarget" })
 end)
