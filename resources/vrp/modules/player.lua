@@ -52,16 +52,17 @@ AddEventHandler("vRP:playerSpawn",function(user_id,source)
 		end
 
 		Wait(1000)
+		
 		local Change = exports["oxmysql"]:executeSync("SELECT * FROM vrp_users WHERE id = ?", { user_id })
-		if Change[1]["appearence"] == 0 then
+		if Change[1]["appearence"] == 1 then
+			TriggerClientEvent("character:createCharacter",source)
+		else
 			if SpawnLogin[parseInt(user_id)] then
 				TriggerClientEvent("spawn:justSpawn",source,false)
 			else
 				SpawnLogin[parseInt(user_id)] = true
 				TriggerClientEvent("spawn:justSpawn",source,true)
 			end
-		else
-			TriggerClientEvent("character:createCharacter",source)
 		end
 		
 		Wait(1000)

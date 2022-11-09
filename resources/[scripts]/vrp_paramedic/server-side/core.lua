@@ -5,6 +5,7 @@ local Tunnel = module("vrp","lib/Tunnel")
 local Proxy = module("vrp","lib/Proxy")
 vRP = Proxy.getInterface("vRP")
 vRPC = Tunnel.getInterface("vRP")
+vCLIENT = Tunnel.getInterface("paramedic")
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- PARAMEDIC:REPOSE
 -----------------------------------------------------------------------------------------------------------------------------------------
@@ -44,7 +45,7 @@ AddEventHandler("paramedic:diagnostic",function()
 		local nplayer = vRPC.nearestPlayer(source,5)
 		if nplayer then
 			local hurt = false
-			local diagnostic = exports["vrp_paramedic"]:Diagnostic(nplayer)
+			local diagnostic = vCLIENT.Diagnostic(nplayer)
 			if diagnostic then
 				local damaged = {}
 				for k,v in pairs(diagnostic) do
@@ -106,7 +107,7 @@ AddEventHandler("paramedic:pulse",function()
 			local nuser_id = vRP.getUserId(nplayer)
 			local nidentity = vRP.getUserIdentity(nuser_id)
 			if vRP.checkDeath(nplayer) then
-				local diagnostic = exports["vrp_paramedic"]:Diagnostic(nplayer)
+				local diagnostic = vCLIENT.Diagnostic(nplayer)
 				if Pulse[nuser_id] == nil then
 					if diagnostic["fuzil"] then
 						local chanceAlive = math.random(100)
