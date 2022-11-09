@@ -1,5 +1,52 @@
 local PremiumType = {
-	["Diamond"] = { ["Name"] = "Diamond", ["Days"] = 999, ["Salary"] = 900, ["Prority"] = 80, ["Garage"] = 10, ["Item"] = { "carpass","vehiclesound,","keyplate","housekey","numberchange","rgchange","discount" } }
+	["Diamond"] = { ["Name"] = "Diamond", ["Days"] = 999, ["Salary"] = 1000, ["Priority"] = 80, ["Garage"] = 10, 
+		["Item"] = {
+			[1] = { ["ItemName"] = "carpass", ["ItemAmount"] = 2, },
+			[2] = { ["ItemName"] = "vehiclesound", ["ItemAmount"] = 2, },
+			[3] = { ["ItemName"] = "vehiclesound", ["ItemAmount"] = 2, },
+			[4] = { ["ItemName"] = "keyplate", ["ItemAmount"] = 2, },
+			[5] = { ["ItemName"] = "housekey", ["ItemAmount"] = 2, },
+			[6] = { ["ItemName"] = "numberchange", ["ItemAmount"] = 2, },
+			[7] = { ["ItemName"] = "rgchange", ["ItemAmount"] = 2, },
+			[8] = { ["ItemName"] = "discount", ["ItemAmount"] = 2, },
+		}
+	},
+	["Platinum"] = { ["Name"] = "Platinum", ["Days"] = 30, ["Salary"] = 750, ["Priority"] = 50, ["Garage"] = 5, 
+		["Item"] = {
+			[1] = { ["ItemName"] = "carpass", ["ItemAmount"] = 1, },
+			[2] = { ["ItemName"] = "vehiclesound", ["ItemAmount"] = 1, },
+			[3] = { ["ItemName"] = "vehiclesound", ["ItemAmount"] = 1, },
+			[4] = { ["ItemName"] = "keyplate", ["ItemAmount"] = 1, },
+			[5] = { ["ItemName"] = "housekey", ["ItemAmount"] = 1, },
+			[6] = { ["ItemName"] = "numberchange", ["ItemAmount"] = 1, },
+			[7] = { ["ItemName"] = "rgchange", ["ItemAmount"] = 1, },
+			[8] = { ["ItemName"] = "discount", ["ItemAmount"] = 1, },
+		}
+	},
+	["Gold"] = { ["Name"] = "Gold", ["Days"] = 30, ["Salary"] = 500, ["Priority"] = 50, ["Garage"] = 3, 
+		["Item"] = {
+			[1] = { ["ItemName"] = "carpass", ["ItemAmount"] = 1, },
+			[2] = { ["ItemName"] = "vehiclesound", ["ItemAmount"] = 1, },
+			[3] = { ["ItemName"] = "vehiclesound", ["ItemAmount"] = 1, },
+			[4] = { ["ItemName"] = "keyplate", ["ItemAmount"] = 1, },
+			[5] = { ["ItemName"] = "housekey", ["ItemAmount"] = 1, },
+			[6] = { ["ItemName"] = "numberchange", ["ItemAmount"] = 1, },
+			[7] = { ["ItemName"] = "rgchange", ["ItemAmount"] = 1, },
+			[8] = { ["ItemName"] = "discount", ["ItemAmount"] = 1, },
+		}
+	},
+	["Silver"] = { ["Name"] = "Silver", ["Days"] = 30, ["Salary"] = 250, ["Priority"] = 50, ["Garage"] = 2, 
+		["Item"] = {
+			[1] = { ["ItemName"] = "carpass", ["ItemAmount"] = 1, },
+			[2] = { ["ItemName"] = "vehiclesound", ["ItemAmount"] = 1, },
+			[3] = { ["ItemName"] = "vehiclesound", ["ItemAmount"] = 1, },
+			[4] = { ["ItemName"] = "keyplate", ["ItemAmount"] = 1, },
+			[5] = { ["ItemName"] = "housekey", ["ItemAmount"] = 1, },
+			[6] = { ["ItemName"] = "numberchange", ["ItemAmount"] = 1, },
+			[7] = { ["ItemName"] = "rgchange", ["ItemAmount"] = 1, },
+			[8] = { ["ItemName"] = "discount", ["ItemAmount"] = 1, },
+		}
+	}
 }
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- PREMIUMTYPE
@@ -41,17 +88,6 @@ function vRP.userPremium(user_id)
 	end
 end
 -----------------------------------------------------------------------------------------------------------------------------------------
--- HASPERMISSION
------------------------------------------------------------------------------------------------------------------------------------------
-function vRP.hasClass(user_id,class)
-	local ConsultClass = vRP.query("vRP/get_class",{ id = user_id, class = tostring(class) })
-	if ConsultClass[1] then
-		return true
-	else
-		return false
-	end
-end
------------------------------------------------------------------------------------------------------------------------------------------
 -- CONNECT
 -----------------------------------------------------------------------------------------------------------------------------------------
 AddEventHandler("vRP:playerSpawn",function(user_id,source)
@@ -79,16 +115,6 @@ AddEventHandler("vRP:playerLeave",function(user_id,source)
 	if not vRP.userPremium(user_id) then
 		local identity = vRP.getUserIdentity(user_id)
 		if identity then
-			vRP.execute("vRP/update_priority",{ steam = identity.steam })
-			if vRP.hasClass(user_id,"Gold") then
-				vRP.execute("vRP/set_class",{ steam = identity.steam, class = nil})
-			end
-			if vRP.hasClass(user_id,"Silver") then
-				vRP.execute("vRP/set_class",{ steam = identity.steam, class = nil})
-			end
-			if vRP.hasClass(user_id,"Bronze") then
-				vRP.execute("vRP/set_class",{ steam = identity.steam, class = nil})
-			end
 		end
 	end
 end)

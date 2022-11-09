@@ -119,6 +119,8 @@ function Hiro.CreateCharacter(name,name2,sex)
 			Player(source)["state"]["Route"] = 0
 			TriggerEvent("baseModule:idLoaded",source,consult[1]["id"],sex)
 			vCLIENT.closeNew(source)
+			Wait(1000)
+
 			TriggerClientEvent("character:createCharacter",source)
 		end
 
