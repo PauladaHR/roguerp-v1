@@ -275,150 +275,77 @@ RegisterNUICallback("spawnChosen",function(data)
 	end
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
+-- DATASET
+-----------------------------------------------------------------------------------------------------------------------------------------
+local Dataset = {
+	["pants"] = { item = 0, texture = 0 },
+	["arms"] = { item = 0, texture = 0 },
+	["tshirt"] = { item = 1, texture = 0 },
+	["torso"] = { item = 0, texture = 0 },
+	["vest"] = { item = 0, texture = 0 },
+	["shoes"] = { item = 0, texture = 0 },
+	["mask"] = { item = 0, texture = 0 },
+	["backpack"] = { item = 0, texture = 0 },
+	["hat"] = { item = -1, texture = 0 },
+	["glass"] = { item = 0, texture = 0 },
+	["ear"] = { item = -1, texture = 0 },
+	["watch"] = { item = -1, texture = 0 },
+	["bracelet"] = { item = -1, texture = 0 },
+	["accessory"] = { item = 0, texture = 0 },
+	["decals"] = { item = 0, texture = 0 }
+}
+-----------------------------------------------------------------------------------------------------------------------------------------
 -- CLOTHES
 -----------------------------------------------------------------------------------------------------------------------------------------
-function Clothes(ped,data)
-    if data["backpack"] == nil then
-        data["backpack"] = {}
-        data["backpack"]["item"] = 0
-        data["backpack"]["texture"] = 0
-    end
-	
-    if data["pants"] == nil then
-        data["pants"] = {}
-        data["pants"]["item"] = 0
-        data["pants"]["texture"] = 0
-    end
-	
-    if data["arms"] == nil then
-        data["arms"] = {}
-        data["arms"]["arms"] = 0
-        data["arms"]["arms"] = 0
-    end
-	
-    if data["tshirt"] == nil then
-        data["tshirt"] = {}
-        data["tshirt"]["item"] = 0
-        data["tshirt"]["texture"] = 0
-    end
-	
-    if data["vest"] == nil then
-        data["vest"] = {}
-        data["vest"]["item"] = 0
-        data["vest"]["texture"] = 0
-    end
-	
-    if data["torso"] == nil then
-        data["torso"] = {}
-        data["torso"]["item"] = 0
-        data["torso"]["texture"] = 0
-    end
-	
-    if data["shoes"] == nil then
-        data["shoes"] = {}
-        data["shoes"]["item"] = 0
-        data["shoes"]["texture"] = 0
-    end
-	
-    if data["torso"] == nil then
-        data["torso"] = {}
-        data["torso"]["item"] = 0
-        data["torso"]["texture"] = 0
-    end
-	
-    if data["mask"] == nil then
-        data["mask"] = {}
-        data["mask"]["item"] = 0
-        data["mask"]["texture"] = 0
-    end
-	
-    if data["decals"] == nil then
-        data["decals"] = {}
-        data["decals"]["item"] = 0
-        data["decals"]["texture"] = 0
-    end
-	
-    if data["accessory"] == nil then
-        data["accessory"] = {}
-        data["accessory"]["item"] = 0
-        data["accessory"]["texture"] = 0
-    end
-	
-    if data["accessory"] == nil then
-        data["accessory"] = {}
-        data["accessory"]["item"] = 0
-        data["accessory"]["texture"] = 0
-    end
-	
-    if data["hat"] == nil then
-        data["hat"] = {}
-        data["hat"]["item"] = 0
-        data["hat"]["texture"] = 0
-    end
-	
-    if data["glass"] == nil then
-        data["glass"] = {}
-        data["glass"]["item"] = 0
-        data["glass"]["texture"] = 0
-    end
-	
-    if data["ear"] == nil then
-        data["ear"] = {}
-        data["ear"]["item"] = 0
-        data["ear"]["texture"] = 0
-    end
-	
-    if data["watch"] == nil then
-        data["watch"] = {}
-        data["watch"]["item"] = 0
-        data["watch"]["texture"] = 0
-    end
-	
-    if data["bracelet"] == nil then
-        data["bracelet"] = {}
-        data["bracelet"]["item"] = 0
-        data["bracelet"]["texture"] = 0
-    end
-
-	SetPedComponentVariation(ped,4,data["pants"]["item"] or 0,data["pants"]["texture"] or 0,1)
-	SetPedComponentVariation(ped,3,data["arms"]["item"] or 0,data["arms"]["texture"] or 0,1)
-	SetPedComponentVariation(ped,5,data["backpack"]["item"] or 0,data["backpack"]["texture"] or 0,1)
-	SetPedComponentVariation(ped,8,data["tshirt"]["item"] or 0,data["tshirt"]["texture"] or 0,1)
-	SetPedComponentVariation(ped,9,data["vest"]["item"] or 0,data["vest"]["texture"] or 0,1)
-	SetPedComponentVariation(ped,11,data["torso"]["item"] or 0,data["torso"]["texture"] or 0,1)
-	SetPedComponentVariation(ped,6,data["shoes"]["item"] or 0,data["shoes"]["texture"] or 0,1)
-	SetPedComponentVariation(ped,1,data["mask"]["item"] or 0,data["mask"]["texture"] or 0,1)
-	SetPedComponentVariation(ped,10,data["decals"]["item"] or 0,data["decals"]["texture"] or 0,1)
-	SetPedComponentVariation(ped,7,data["accessory"]["item"] or 0,data["accessory"]["texture"] or 0,1)
-
-	if data["hat"]["item"] ~= -1 and data["hat"]["item"] ~= 0 then
-		SetPedPropIndex(ped,0,data["hat"]["item"],data["hat"]["texture"],1)
-	else
-		ClearPedProp(ped,0)
+function Clothes(Ped,Data)
+	for Index,v in pairs(Dataset) do
+		if not Data[Index] then
+			Data[Index] = {
+				["item"] = v["item"],
+				["texture"] = v["texture"]
+			}
+		end
 	end
 
-	if data["glass"]["item"] ~= -1 and data["glass"]["item"] ~= 0 then
-		SetPedPropIndex(ped,1,data["glass"]["item"],data["glass"]["texture"],1)
+	SetPedComponentVariation(Ped,4,Data["pants"]["item"],Data["pants"]["texture"],1)
+	SetPedComponentVariation(Ped,3,Data["arms"]["item"],Data["arms"]["texture"],1)
+	SetPedComponentVariation(Ped,5,Data["backpack"]["item"],Data["backpack"]["texture"],1)
+	SetPedComponentVariation(Ped,8,Data["tshirt"]["item"],Data["tshirt"]["texture"],1)
+	SetPedComponentVariation(Ped,9,Data["vest"]["item"],Data["vest"]["texture"],1)
+	SetPedComponentVariation(Ped,11,Data["torso"]["item"],Data["torso"]["texture"],1)
+	SetPedComponentVariation(Ped,6,Data["shoes"]["item"],Data["shoes"]["texture"],1)
+	SetPedComponentVariation(Ped,1,Data["mask"]["item"],Data["mask"]["texture"],1)
+	SetPedComponentVariation(Ped,10,Data["decals"]["item"],Data["decals"]["texture"],1)
+	SetPedComponentVariation(Ped,7,Data["accessory"]["item"],Data["accessory"]["texture"],1)
+
+	if Data["hat"]["item"] ~= -1 and Data["hat"]["item"] ~= 0 then
+		SetPedPropIndex(Ped,0,Data["hat"]["item"],Data["hat"]["texture"],1)
 	else
-		ClearPedProp(ped,1)
+		ClearPedProp(Ped,0)
 	end
 
-	if data["ear"]["item"] ~= -1 and data["ear"]["item"] ~= 0 then
-		SetPedPropIndex(ped,2,data["ear"]["item"],data["ear"]["texture"],1)
+	if Data["glass"]["item"] ~= -1 and Data["glass"]["item"] ~= 0 then
+		SetPedPropIndex(Ped,1,Data["glass"]["item"],Data["glass"]["texture"],1)
 	else
-		ClearPedProp(ped,2)
+		ClearPedProp(Ped,1)
 	end
 
-	if data["watch"]["item"] ~= -1 and data["watch"]["item"] ~= 0 then
-		SetPedPropIndex(ped,6,data["watch"]["item"],data["watch"]["texture"],1)
+	if Data["ear"]["item"] ~= -1 and Data["ear"]["item"] ~= 0 then
+		SetPedPropIndex(Ped,2,Data["ear"]["item"],Data["ear"]["texture"],1)
 	else
-		ClearPedProp(ped,6)
+		ClearPedProp(Ped,2)
 	end
 
-	if data["bracelet"]["item"] ~= -1 and data["bracelet"]["item"] ~= 0 then
-		SetPedPropIndex(ped,7,data["bracelet"]["item"],data["bracelet"]["texture"],1)
+	if Data["watch"]["item"] ~= -1 and Data["watch"]["item"] ~= 0 then
+		SetPedPropIndex(Ped,6,Data["watch"]["item"],Data["watch"]["texture"],1)
 	else
-		ClearPedProp(ped,7)
+		ClearPedProp(Ped,6)
+	end
+
+	if Data["bracelet"]["item"] ~= -1 and Data["bracelet"]["item"] ~= 0 then
+		SetPedPropIndex(Ped,7,Data["bracelet"]["item"],Data["bracelet"]["texture"],1)
+	else
+		ClearPedProp(Ped,7)
 	end
 end
 -----------------------------------------------------------------------------------------------------------------------------------------

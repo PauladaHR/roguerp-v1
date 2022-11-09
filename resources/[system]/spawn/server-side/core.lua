@@ -117,11 +117,8 @@ function Hiro.CreateCharacter(name,name2,sex)
 		if consult[1] then
 			SetPlayerRoutingBucket(source,0)
 			Player(source)["state"]["Route"] = 0
-
-			exports["oxmysql"]:executeSync("UPDATE vrp_users SET appearence = 1 WHERE id = ?", { consult[1]["id"] })
 			TriggerEvent("baseModule:idLoaded",source,consult[1]["id"],sex)
 			vCLIENT.closeNew(source)
-			Wait(1000)
 			TriggerClientEvent("character:createCharacter",source)
 		end
 

@@ -164,6 +164,7 @@ RegisterNUICallback("Save",function(data,cb)
 		SetNuiFocus(false,false)
 		SendNUIMessage({ CharacterMode = false })
 
+		FreezeEntityPosition(PlayerPedId(),false)
 		SetEntityCoordsNoOffset(PlayerPedId(),-542.35,-209.98,37.65,true,true,true)
 		
 		fadeOutNetwork = false
