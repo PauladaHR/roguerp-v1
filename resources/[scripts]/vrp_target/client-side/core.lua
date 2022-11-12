@@ -15,7 +15,7 @@ local Zones = {}
 local Models = {}
 local innerEntity = {}
 local sucessTarget = false
-LocalPlayer["state"]["target"] = false
+LocalPlayer["state"]["Target"] = false
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- TYRELIST
 -----------------------------------------------------------------------------------------------------------------------------------------
@@ -724,8 +724,8 @@ function playerTargetEnable()
 
 		SendNUIMessage({ response = "openTarget" })
 
-		LocalPlayer["state"]["target"] = true
-		while LocalPlayer["state"]["target"] do
+		LocalPlayer["state"]["Target"] = true
+		while LocalPlayer["state"]["Target"] do
 			local coords = GetEntityCoords(ped)
 			local hit,entCoords,entity = RayCastGamePlayCamera(10.0)
 
@@ -840,7 +840,7 @@ function playerTargetEnable()
 							end
 
 							sucessTarget = true
-							while sucessTarget and LocalPlayer["state"]["target"] do
+							while sucessTarget and LocalPlayer["state"]["Target"] do
 								local ped = PlayerPedId()
 								local coords = GetEntityCoords(ped)
 								local _,entCoords,entity = RayCastGamePlayCamera(10.0)
@@ -877,7 +877,7 @@ function playerTargetEnable()
 							end
 
 							sucessTarget = true
-							while sucessTarget and LocalPlayer["state"]["target"] do
+							while sucessTarget and LocalPlayer["state"]["Target"] do
 								local ped = PlayerPedId()
 								local coords = GetEntityCoords(ped)
 								local _,entCoords,entity = RayCastGamePlayCamera(10.0)
@@ -913,7 +913,7 @@ function playerTargetEnable()
 										SendNUIMessage({ response = "validTarget", data = Models[k]["options"] })
 
 										sucessTarget = true
-										while sucessTarget and LocalPlayer["state"]["target"] do
+										while sucessTarget and LocalPlayer["state"]["Target"] do
 											local ped = PlayerPedId()
 											local coords = GetEntityCoords(ped)
 											local _,entCoords,entity = RayCastGamePlayCamera(10.0)
@@ -950,7 +950,7 @@ function playerTargetEnable()
 							end
 
 							sucessTarget = true
-							while sucessTarget and LocalPlayer["state"]["target"] do
+							while sucessTarget and LocalPlayer["state"]["Target"] do
 								local ped = PlayerPedId()
 								local coords = GetEntityCoords(ped)
 								local _,entCoords = RayCastGamePlayCamera(10.0)
@@ -1042,11 +1042,11 @@ end)
 -- PLAYERTARGETDISABLE
 -----------------------------------------------------------------------------------------------------------------------------------------
 function playerTargetDisable()
-	if sucessTarget or not LocalPlayer["state"]["target"] then
+	if sucessTarget or not LocalPlayer["state"]["Target"] then
 		return
 	end
 
-	LocalPlayer["state"]["target"] = false
+	LocalPlayer["state"]["Target"] = false
 	SendNUIMessage({ response = "closeTarget" })
 end
 -----------------------------------------------------------------------------------------------------------------------------------------
@@ -1054,7 +1054,7 @@ end
 -----------------------------------------------------------------------------------------------------------------------------------------
 RegisterNUICallback("selectTarget",function(data)
 	sucessTarget = false
-	LocalPlayer["state"]["target"] = false
+	LocalPlayer["state"]["Target"] = false
 	SetNuiFocus(false,false)
 	SendNUIMessage({ response = "closeTarget" })
 
@@ -1081,7 +1081,7 @@ end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 RegisterNUICallback("closeTarget",function()
 	sucessTarget = false
-	LocalPlayer["state"]["target"] = false
+	LocalPlayer["state"]["Target"] = false
 	SetNuiFocus(false,false)
 	SendNUIMessage({ response = "closeTarget" })
 end)
@@ -1091,7 +1091,7 @@ end)
 RegisterNetEvent("target:resetDebug")
 AddEventHandler("target:resetDebug",function()
 	sucessTarget = false
-	LocalPlayer["state"]["target"] = false
+	LocalPlayer["state"]["Target"] = false
 	SetNuiFocus(false,false)
 	SendNUIMessage({ response = "closeTarget" })
 end)
