@@ -304,7 +304,7 @@ AddEventHandler("queue:playerConnecting",function(source,ids,name,setKickReason,
 			else
 				local newUser = vRP.getInfos(steam)
 				if newUser[1] == nil then
-					vRP.execute("vRP/create_user",{ steam = steam, discord = discord, login = os.date("%d/%m/%Y") })
+					vRP.execute("vRP/create_user",{ steam = steam, discord = discord })
 				end
 
 				deferrals.done("Envie na sala liberação: "..steam)
