@@ -1,11 +1,8 @@
 .vscode
 /artifacts
 /cache
-MarqCU.txt.txt
 /txData
 resources/\[gabz\]
 resources/\[addons\]
 resources/\[maps\]
-resources/vrpserver
 resources/\[extras\]
-resources/MQCU
