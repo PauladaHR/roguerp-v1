@@ -289,7 +289,6 @@ end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 AddEventHandler("queue:playerConnecting",function(source,ids,name,setKickReason,deferrals)
 	deferrals.defer()
-
 	local source = source
 	local steam = vRP.getSteam(source)
 	local discord = vRP.getDiscord(source)
@@ -297,84 +296,26 @@ AddEventHandler("queue:playerConnecting",function(source,ids,name,setKickReason,
 	if discord then
 		discord = string.gsub(discord,"discord:","")
 	end
-
+	
 	if steam then
 		if not vRP.CheckBanned(steam) then
-			local newUser = vRP.getInfos(steam)
-			if newUser[1] == nil then
-				vRP.execute("vRP/create_user",{ steam = steam, discord = discord })
-			end
-
-			if vRP.checkRoleDiscord(discord,"953468179940782083") then
+			if vRP.Allowlisted(steam) then
 				deferrals.done()
 			else
-				deferrals.done("Você não tem whitelist em nosso servidor, entre em nosso discord e garanta já a sua whitelist! https://discord.gg/roguerp")
+				local newUser = vRP.getInfos(steam)
+				if newUser[1] == nil then
+					vRP.execute("vRP/create_user",{ steam = steam, discord = discord, login = os.date("%d/%m/%Y") })
+				end
+
+				deferrals.done("Envie na sala liberação: "..steam)
 				TriggerEvent("queue:playerConnectingRemoveQueues",ids)
 			end
 		else
 			deferrals.done("Você foi banido da cidade.")
 			TriggerEvent("queue:playerConnectingRemoveQueues",ids)
 		end
-	else
-		deferrals.done("Steam não encontrada.")
 	end
 end)
------------------------------------------------------------------------------------------------------------------------------------------
--- HAS ROLE
------------------------------------------------------------------------------------------------------------------------------------------
-function vRP.checkRoleDiscord(discord,role)
-    local waitCheck = nil
-
-    exports["vrp_whitelist"]:checkWhitelist(discord,role,{},function(hasRole,roles)
-        waitCheck = hasRole
-    end)
-
-	while waitCheck == nil do
-		Wait(100)
-	end
-
-    return waitCheck
-end
------------------------------------------------------------------------------------------------------------------------------------------
--- UPDATEWHITELIST
------------------------------------------------------------------------------------------------------------------------------------------
-function vRP.updateWhitelist(steam)
-	if steam then
-		if not vRP.Allowlisted(steam) then
-			vRP.execute("vRP/update_whitelist",{ steam = steam, whitelist = 1 })
-		end
-	end
-end
-
---AddEventHandler("queue:playerConnecting",function(source,ids,name,setKickReason,deferrals)
---	deferrals.defer()
---	local source = source
---	local steam = vRP.getSteam(source)
---	local discord = vRP.getDiscord(source)
---
---	if discord then
---		discord = string.gsub(discord,"discord:","")
---	end
---	
---	if steam then
---		if not vRP.CheckBanned(steam) then
---			if vRP.Allowlisted(steam) then
---				deferrals.done()
---			else
---				local newUser = vRP.getInfos(steam)
---				if newUser[1] == nil then
---					vRP.execute("vRP/create_user",{ steam = steam, discord = discord, login = os.date("%d/%m/%Y") })
---				end
---
---				deferrals.done("Envie na sala liberação: "..steam)
---				TriggerEvent("queue:playerConnectingRemoveQueues",ids)
---			end
---		else
---			deferrals.done("Você foi banido da cidade.")
---			TriggerEvent("queue:playerConnectingRemoveQueues",ids)
---		end
---	end
---end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- PLAYERSPAWNED
 -----------------------------------------------------------------------------------------------------------------------------------------
