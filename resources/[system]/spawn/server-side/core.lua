@@ -17,9 +17,9 @@ local charActived = {}
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- QUERY
 -----------------------------------------------------------------------------------------------------------------------------------------
-vRP.prepare("accounts/getUser", "SELECT * FROM vrp_infos WHERE steam = @steam")
-vRP.prepare("characters/lastCharacters","SELECT id FROM vrp_users WHERE steam = @steam ORDER BY id DESC LIMIT 1")
-vRP.prepare("characters/getCharacters","SELECT * FROM vrp_users WHERE steam = @steam and deleted = 0")
+vRP.prepare("spawn/getUser", "SELECT * FROM vrp_infos WHERE steam = @steam")
+vRP.prepare("spawn/lastCharacters","SELECT id FROM vrp_users WHERE steam = @steam ORDER BY id DESC LIMIT 1")
+vRP.prepare("spawn/getCharacters","SELECT * FROM vrp_users WHERE steam = @steam and deleted = 0")
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- SETUPCHARS
 -----------------------------------------------------------------------------------------------------------------------------------------
@@ -27,7 +27,7 @@ function Hiro.Init()
 	local source = source
 	local characterList = {}
 	local steam = vRP.getSteam(source)
-	local consult = vRP.query("characters/getCharacters",{ steam = steam })
+	local consult = vRP.query("spawn/getCharacters",{ steam = steam })
 
 	SetPlayerRoutingBucket(source,source)
 	Player(source)["state"]["Route"] = source
@@ -56,7 +56,7 @@ function Hiro.MyCharacters()
 	local source = source
 	local MyCharacters = {}
 	local steam = vRP.getSteam(source)
-	local consult = vRP.query("characters/getCharacters",{ steam = steam })
+	local consult = vRP.query("spawn/getCharacters",{ steam = steam })
 
 	if consult[1] then
 		for k,v in pairs(consult) do
@@ -78,7 +78,7 @@ function getPlayerCharacters(steam)
 	return vRP.query("vRP/get_characters",{ steam = steam })
 end
 function getPlayerMaxCharacters(steam)
-	return vRP.query("accounts/getUser", { steam = steam })[1]["chars"]
+	return vRP.query("spawn/getUser", { steam = steam })[1]["chars"]
 end
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- CANCREATE
@@ -113,7 +113,7 @@ function Hiro.CreateCharacter(name,name2,sex)
 			vRP.execute("vRP/create_characters",{ steam = steam, name = name, name2 = name2 })
 		end
 
-		local consult = vRP.query("characters/lastCharacters",{ steam = steam })
+		local consult = vRP.query("spawn/lastCharacters",{ steam = steam })
 		if consult[1] then
 			SetPlayerRoutingBucket(source,0)
 			Player(source)["state"]["Route"] = 0

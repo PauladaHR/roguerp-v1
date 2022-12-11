@@ -204,11 +204,6 @@ end
 -----------------------------------------------------------------------------------------------------------------------------------------
 AddEventHandler("playerDropped",function(reason)
 	vRP.rejoinServer(source,reason)
-
-	if addPlayer[source] then
-		addPlayer[source] = nil
-	end
-	TriggerClientEvent("vRP:updateList",-1,addPlayer)
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- KICK
@@ -315,16 +310,6 @@ AddEventHandler("queue:playerConnecting",function(source,ids,name,setKickReason,
 			TriggerEvent("queue:playerConnectingRemoveQueues",ids)
 		end
 	end
-end)
------------------------------------------------------------------------------------------------------------------------------------------
--- PLAYERSPAWNED
------------------------------------------------------------------------------------------------------------------------------------------
-RegisterServerEvent("vRP:playerSpawned")
-AddEventHandler("vRP:playerSpawned",function()
-	local source = source
-
-	addPlayer[source] = true
-	TriggerClientEvent("vRP:updateList",-1,addPlayer)
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- PLAYERSPAWNED

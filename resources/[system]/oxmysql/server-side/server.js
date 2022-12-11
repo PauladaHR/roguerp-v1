@@ -38,7 +38,7 @@ var require_SqlString = __commonJS({
     var CHARS_ESCAPE_MAP = {
       "\0": "\\0",
       "\b": "\\b",
-      "	": "\\t",
+      " ": "\\t",
       "\n": "\\n",
       "\r": "\\r",
       "": "\\Z",
@@ -5471,7 +5471,7 @@ var require_sbcs_data_generated = __commonJS({
       "csibm863": "cp863",
       "cp864": {
         "type": "_sbcs",
-        "chars": "\0\x07\b	\n\v\f\r\x1B !\"#$\u066A&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_`abcdefghijklmnopqrstuvwxyz{|}~\x7F\xB0\xB7\u2219\u221A\u2592\u2500\u2502\u253C\u2524\u252C\u251C\u2534\u2510\u250C\u2514\u2518\u03B2\u221E\u03C6\xB1\xBD\xBC\u2248\xAB\xBB\uFEF7\uFEF8\uFFFD\uFFFD\uFEFB\uFEFC\uFFFD\xA0\xAD\uFE82\xA3\xA4\uFE84\uFFFD\uFFFD\uFE8E\uFE8F\uFE95\uFE99\u060C\uFE9D\uFEA1\uFEA5\u0660\u0661\u0662\u0663\u0664\u0665\u0666\u0667\u0668\u0669\uFED1\u061B\uFEB1\uFEB5\uFEB9\u061F\xA2\uFE80\uFE81\uFE83\uFE85\uFECA\uFE8B\uFE8D\uFE91\uFE93\uFE97\uFE9B\uFE9F\uFEA3\uFEA7\uFEA9\uFEAB\uFEAD\uFEAF\uFEB3\uFEB7\uFEBB\uFEBF\uFEC1\uFEC5\uFECB\uFECF\xA6\xAC\xF7\xD7\uFEC9\u0640\uFED3\uFED7\uFEDB\uFEDF\uFEE3\uFEE7\uFEEB\uFEED\uFEEF\uFEF3\uFEBD\uFECC\uFECE\uFECD\uFEE1\uFE7D\u0651\uFEE5\uFEE9\uFEEC\uFEF0\uFEF2\uFED0\uFED5\uFEF5\uFEF6\uFEDD\uFED9\uFEF1\u25A0\uFFFD"
+        "chars": "\0\x07\b  \n\v\f\r\x1B !\"#$\u066A&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_`abcdefghijklmnopqrstuvwxyz{|}~\x7F\xB0\xB7\u2219\u221A\u2592\u2500\u2502\u253C\u2524\u252C\u251C\u2534\u2510\u250C\u2514\u2518\u03B2\u221E\u03C6\xB1\xBD\xBC\u2248\xAB\xBB\uFEF7\uFEF8\uFFFD\uFFFD\uFEFB\uFEFC\uFFFD\xA0\xAD\uFE82\xA3\xA4\uFE84\uFFFD\uFFFD\uFE8E\uFE8F\uFE95\uFE99\u060C\uFE9D\uFEA1\uFEA5\u0660\u0661\u0662\u0663\u0664\u0665\u0666\u0667\u0668\u0669\uFED1\u061B\uFEB1\uFEB5\uFEB9\u061F\xA2\uFE80\uFE81\uFE83\uFE85\uFECA\uFE8B\uFE8D\uFE91\uFE93\uFE97\uFE9B\uFE9F\uFEA3\uFEA7\uFEA9\uFEAB\uFEAD\uFEAF\uFEB3\uFEB7\uFEBB\uFEBF\uFEC1\uFEC5\uFECB\uFECF\xA6\xAC\xF7\xD7\uFEC9\u0640\uFED3\uFED7\uFEDB\uFEDF\uFEE3\uFEE7\uFEEB\uFEED\uFEEF\uFEF3\uFEBD\uFECC\uFECE\uFECD\uFEE1\uFE7D\u0651\uFEE5\uFEE9\uFEEC\uFEF0\uFEF2\uFED0\uFED5\uFEF5\uFEF6\uFEDD\uFED9\uFEF1\u25A0\uFFFD"
       },
       "ibm864": "cp864",
       "csibm864": "cp864",
@@ -5609,7 +5609,7 @@ var require_sbcs_data_generated = __commonJS({
       },
       "tcvn": {
         "type": "_sbcs",
-        "chars": "\0\xDA\u1EE4\u1EEA\u1EEC\u1EEE\x07\b	\n\v\f\r\u1EE8\u1EF0\u1EF2\u1EF6\u1EF8\xDD\u1EF4\x1B !\"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_`abcdefghijklmnopqrstuvwxyz{|}~\x7F\xC0\u1EA2\xC3\xC1\u1EA0\u1EB6\u1EAC\xC8\u1EBA\u1EBC\xC9\u1EB8\u1EC6\xCC\u1EC8\u0128\xCD\u1ECA\xD2\u1ECE\xD5\xD3\u1ECC\u1ED8\u1EDC\u1EDE\u1EE0\u1EDA\u1EE2\xD9\u1EE6\u0168\xA0\u0102\xC2\xCA\xD4\u01A0\u01AF\u0110\u0103\xE2\xEA\xF4\u01A1\u01B0\u0111\u1EB0\u0300\u0309\u0303\u0301\u0323\xE0\u1EA3\xE3\xE1\u1EA1\u1EB2\u1EB1\u1EB3\u1EB5\u1EAF\u1EB4\u1EAE\u1EA6\u1EA8\u1EAA\u1EA4\u1EC0\u1EB7\u1EA7\u1EA9\u1EAB\u1EA5\u1EAD\xE8\u1EC2\u1EBB\u1EBD\xE9\u1EB9\u1EC1\u1EC3\u1EC5\u1EBF\u1EC7\xEC\u1EC9\u1EC4\u1EBE\u1ED2\u0129\xED\u1ECB\xF2\u1ED4\u1ECF\xF5\xF3\u1ECD\u1ED3\u1ED5\u1ED7\u1ED1\u1ED9\u1EDD\u1EDF\u1EE1\u1EDB\u1EE3\xF9\u1ED6\u1EE7\u0169\xFA\u1EE5\u1EEB\u1EED\u1EEF\u1EE9\u1EF1\u1EF3\u1EF7\u1EF9\xFD\u1EF5\u1ED0"
+        "chars": "\0\xDA\u1EE4\u1EEA\u1EEC\u1EEE\x07\b \n\v\f\r\u1EE8\u1EF0\u1EF2\u1EF6\u1EF8\xDD\u1EF4\x1B !\"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_`abcdefghijklmnopqrstuvwxyz{|}~\x7F\xC0\u1EA2\xC3\xC1\u1EA0\u1EB6\u1EAC\xC8\u1EBA\u1EBC\xC9\u1EB8\u1EC6\xCC\u1EC8\u0128\xCD\u1ECA\xD2\u1ECE\xD5\xD3\u1ECC\u1ED8\u1EDC\u1EDE\u1EE0\u1EDA\u1EE2\xD9\u1EE6\u0168\xA0\u0102\xC2\xCA\xD4\u01A0\u01AF\u0110\u0103\xE2\xEA\xF4\u01A1\u01B0\u0111\u1EB0\u0300\u0309\u0303\u0301\u0323\xE0\u1EA3\xE3\xE1\u1EA1\u1EB2\u1EB1\u1EB3\u1EB5\u1EAF\u1EB4\u1EAE\u1EA6\u1EA8\u1EAA\u1EA4\u1EC0\u1EB7\u1EA7\u1EA9\u1EAB\u1EA5\u1EAD\xE8\u1EC2\u1EBB\u1EBD\xE9\u1EB9\u1EC1\u1EC3\u1EC5\u1EBF\u1EC7\xEC\u1EC9\u1EC4\u1EBE\u1ED2\u0129\xED\u1ECB\xF2\u1ED4\u1ECF\xF5\xF3\u1ECD\u1ED3\u1ED5\u1ED7\u1ED1\u1ED9\u1EDD\u1EDF\u1EE1\u1EDB\u1EE3\xF9\u1ED6\u1EE7\u0169\xFA\u1EE5\u1EEB\u1EED\u1EEF\u1EE9\u1EF1\u1EF3\u1EF7\u1EF9\xFD\u1EF5\u1ED0"
       },
       "georgianacademy": {
         "type": "_sbcs",
@@ -5625,15 +5625,15 @@ var require_sbcs_data_generated = __commonJS({
       },
       "viscii": {
         "type": "_sbcs",
-        "chars": "\0\u1EB2\u1EB4\u1EAA\x07\b	\n\v\f\r\u1EF6\u1EF8\x1B\u1EF4 !\"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_`abcdefghijklmnopqrstuvwxyz{|}~\x7F\u1EA0\u1EAE\u1EB0\u1EB6\u1EA4\u1EA6\u1EA8\u1EAC\u1EBC\u1EB8\u1EBE\u1EC0\u1EC2\u1EC4\u1EC6\u1ED0\u1ED2\u1ED4\u1ED6\u1ED8\u1EE2\u1EDA\u1EDC\u1EDE\u1ECA\u1ECE\u1ECC\u1EC8\u1EE6\u0168\u1EE4\u1EF2\xD5\u1EAF\u1EB1\u1EB7\u1EA5\u1EA7\u1EA9\u1EAD\u1EBD\u1EB9\u1EBF\u1EC1\u1EC3\u1EC5\u1EC7\u1ED1\u1ED3\u1ED5\u1ED7\u1EE0\u01A0\u1ED9\u1EDD\u1EDF\u1ECB\u1EF0\u1EE8\u1EEA\u1EEC\u01A1\u1EDB\u01AF\xC0\xC1\xC2\xC3\u1EA2\u0102\u1EB3\u1EB5\xC8\xC9\xCA\u1EBA\xCC\xCD\u0128\u1EF3\u0110\u1EE9\xD2\xD3\xD4\u1EA1\u1EF7\u1EEB\u1EED\xD9\xDA\u1EF9\u1EF5\xDD\u1EE1\u01B0\xE0\xE1\xE2\xE3\u1EA3\u0103\u1EEF\u1EAB\xE8\xE9\xEA\u1EBB\xEC\xED\u0129\u1EC9\u0111\u1EF1\xF2\xF3\xF4\xF5\u1ECF\u1ECD\u1EE5\xF9\xFA\u0169\u1EE7\xFD\u1EE3\u1EEE"
+        "chars": "\0\u1EB2\u1EB4\u1EAA\x07\b \n\v\f\r\u1EF6\u1EF8\x1B\u1EF4 !\"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_`abcdefghijklmnopqrstuvwxyz{|}~\x7F\u1EA0\u1EAE\u1EB0\u1EB6\u1EA4\u1EA6\u1EA8\u1EAC\u1EBC\u1EB8\u1EBE\u1EC0\u1EC2\u1EC4\u1EC6\u1ED0\u1ED2\u1ED4\u1ED6\u1ED8\u1EE2\u1EDA\u1EDC\u1EDE\u1ECA\u1ECE\u1ECC\u1EC8\u1EE6\u0168\u1EE4\u1EF2\xD5\u1EAF\u1EB1\u1EB7\u1EA5\u1EA7\u1EA9\u1EAD\u1EBD\u1EB9\u1EBF\u1EC1\u1EC3\u1EC5\u1EC7\u1ED1\u1ED3\u1ED5\u1ED7\u1EE0\u01A0\u1ED9\u1EDD\u1EDF\u1ECB\u1EF0\u1EE8\u1EEA\u1EEC\u01A1\u1EDB\u01AF\xC0\xC1\xC2\xC3\u1EA2\u0102\u1EB3\u1EB5\xC8\xC9\xCA\u1EBA\xCC\xCD\u0128\u1EF3\u0110\u1EE9\xD2\xD3\xD4\u1EA1\u1EF7\u1EEB\u1EED\xD9\xDA\u1EF9\u1EF5\xDD\u1EE1\u01B0\xE0\xE1\xE2\xE3\u1EA3\u0103\u1EEF\u1EAB\xE8\xE9\xEA\u1EBB\xEC\xED\u0129\u1EC9\u0111\u1EF1\xF2\xF3\xF4\xF5\u1ECF\u1ECD\u1EE5\xF9\xFA\u0169\u1EE7\xFD\u1EE3\u1EEE"
       },
       "iso646cn": {
         "type": "_sbcs",
-        "chars": "\0\x07\b	\n\v\f\r\x1B !\"#\xA5%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_`abcdefghijklmnopqrstuvwxyz{|}\u203E\x7F\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD"
+        "chars": "\0\x07\b  \n\v\f\r\x1B !\"#\xA5%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_`abcdefghijklmnopqrstuvwxyz{|}\u203E\x7F\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD"
       },
       "iso646jp": {
         "type": "_sbcs",
-        "chars": "\0\x07\b	\n\v\f\r\x1B !\"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\xA5]^_`abcdefghijklmnopqrstuvwxyz{|}\u203E\x7F\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD"
+        "chars": "\0\x07\b  \n\v\f\r\x1B !\"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\xA5]^_`abcdefghijklmnopqrstuvwxyz{|}\u203E\x7F\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD\uFFFD"
       },
       "hproman8": {
         "type": "_sbcs",
@@ -15217,20 +15217,28 @@ var require_mysql2 = __commonJS({
 });
 
 // src/config/index.ts
-var resourceName, mysql_ui, mysql_slow_query_warning, mysql_connection_string, mysql_debug, mysql_transaction_isolation_level, parseUri, connectionOptions;
+function setDebug() {
+  try {
+    const debug = GetConvar("mysql_debug", "false");
+    mysql_debug = debug === "false" ? false : JSON.parse(debug);
+  } catch (e2) {
+    mysql_debug = true;
+  }
+}
+var resourceName, mysql_connection_string, mysql_ui, mysql_slow_query_warning, mysql_debug, mysql_transaction_isolation_level, parseUri, connectionOptions;
 var init_config = __esm({
   "src/config/index.ts"() {
     "use strict";
     resourceName = GetCurrentResourceName();
+    mysql_connection_string = GetConvar("mysql_connection_string", "");
     mysql_ui = GetConvar("mysql_ui", "false") === "true";
     mysql_slow_query_warning = GetConvarInt("mysql_slow_query_warning", 200);
-    mysql_connection_string = GetConvar("mysql_connection_string", "");
-    try {
-      const debug = GetConvar("mysql_debug", "false");
-      mysql_debug = debug === "false" ? false : JSON.parse(debug);
-    } catch (e2) {
-      mysql_debug = true;
-    }
+    setDebug();
+    setInterval(() => {
+      setDebug();
+      mysql_ui = GetConvar("mysql_ui", "false") === "true";
+      mysql_slow_query_warning = GetConvarInt("mysql_slow_query_warning", 200);
+    }, 1e3);
     mysql_transaction_isolation_level = (() => {
       const query = "SET TRANSACTION ISOLATION LEVEL";
       switch (GetConvarInt("mysql_transaction_isolation_level", 2)) {
@@ -15287,33 +15295,6 @@ var init_config = __esm({
       }
       return options;
     })();
-    RegisterCommand(
-      "oxmysql_debug",
-      (source2, args) => {
-        if (source2 !== 0)
-          return console.log("^3This command can only be run server side^0");
-        switch (args[0]) {
-          case "add":
-            if (!Array.isArray(mysql_debug))
-              mysql_debug = [];
-            mysql_debug.push(args[1]);
-            return console.log(`^3Added ${args[1]} to mysql_debug^0`);
-          case "remove":
-            if (Array.isArray(mysql_debug)) {
-              const index = mysql_debug.indexOf(args[1]);
-              if (index === -1)
-                return;
-              mysql_debug.splice(index, 1);
-              if (mysql_debug.length === 0)
-                mysql_debug = false;
-              return console.log(`^3Removed ${args[1]} from mysql_debug^0`);
-            }
-          default:
-            return console.log(`^3Usage: oxmysql add|remove <resource>^0`);
-        }
-      },
-      true
-    );
   }
 });
 
@@ -22024,6 +22005,18 @@ var typeCast = (field, next) => {
 // src/database/index.ts
 var pool;
 var serverReady = false;
+async function waitForConnection() {
+  if (!serverReady) {
+    await new Promise((resolve) => {
+      (function wait() {
+        if (serverReady) {
+          return resolve();
+        }
+        setTimeout(wait);
+      })();
+    });
+  }
+}
 setTimeout(() => {
   pool = (0, import_mysql2.createPool)({
     connectTimeout: 6e4,
@@ -22045,8 +22038,6 @@ setTimeout(() => {
 init_config();
 var convertNamedPlaceholders = connectionOptions.namedPlaceholders && require_named_placeholders()();
 var parseArguments = (invokingResource, query, parameters, cb) => {
-  if (typeof query !== "string")
-    throw new Error(`Query expected a string but received ${typeof query} instead`);
   if (convertNamedPlaceholders && parameters && typeof parameters === "object" && !Array.isArray(parameters)) {
     if (query.includes(":") || query.includes("@")) {
       const placeholders = convertNamedPlaceholders(query, parameters);
@@ -22078,9 +22069,11 @@ var parseArguments = (invokingResource, query, parameters, cb) => {
         for (let i2 = 0; i2 < diff; i2++)
           parameters[queryParams.length + i2] = null;
       } else if (diff < 0) {
-        throw new Error(`${invokingResource} was unable to execute a query!
-        Expected ${queryParams.length} parameters, but received ${parameters.length}.
-        ${`${query} ${JSON.stringify(parameters)}`}`);
+        throw new Error(
+          `${invokingResource} was unable to execute a query!
+Expected ${queryParams.length} parameters, but received ${parameters.length}.
+${`${query} ${JSON.stringify(parameters)}`}`
+        );
       }
     }
   }
@@ -22133,44 +22126,6 @@ var logQuery = (invokingResource, query, executionTime, parameters) => {
     slow: executionTime >= mysql_slow_query_warning ? true : void 0
   });
 };
-RegisterCommand(
-  "mysql",
-  (source2) => {
-    if (!mysql_ui)
-      return;
-    if (source2 < 1) {
-      console.log("^3This command cannot run server side^0");
-      return;
-    }
-    let totalQueries = 0;
-    let totalTime = 0;
-    let slowQueries = 0;
-    let chartData = [
-      {
-        x: 0,
-        y: 0,
-        z: ""
-      }
-    ];
-    for (const resource in logStorage) {
-      const queries = logStorage[resource];
-      let totalResourceTime = 0;
-      totalQueries += queries.length;
-      totalTime += queries.reduce((totalTime2, query) => totalTime2 += query.executionTime, 0);
-      slowQueries += queries.reduce((slowQueries2, query) => slowQueries2 += query.slow ? 1 : 0, 0);
-      totalResourceTime += queries.reduce((totalResourceTime2, query) => totalResourceTime2 += query.executionTime, 0);
-      chartData.push({ x: queries.length, y: totalResourceTime, z: resource });
-    }
-    emitNet(`oxmysql:openUi`, source2, {
-      resources: Object.keys(logStorage),
-      totalQueries,
-      slowQueries,
-      totalTime,
-      chartData
-    });
-  },
-  true
-);
 var sortQueries = (queries, sort) => {
   const sortedQueries = [...queries].sort((a, b) => {
     switch (sort.id) {
@@ -22202,25 +22157,22 @@ onNet(
 
 // src/utils/scheduleTick.ts
 init_config();
-var scheduleTick = async () => {
-  if (!serverReady) {
-    await new Promise((resolve) => {
-      (function wait() {
-        if (serverReady) {
-          return resolve();
-        }
-        setTimeout(wait);
-      })();
-    });
-  }
+async function scheduleTick() {
   ScheduleResourceTick(resourceName);
-};
+}
 
 // src/database/rawQuery.ts
-var rawQuery = async (type, invokingResource, query, parameters, cb, throwError) => {
-  await scheduleTick();
+var rawQuery = (type, invokingResource, query, parameters, cb, throwError) => {
+  if (typeof query !== "string")
+    throw new Error(
+      `${invokingResource} was unable to execute a query!
+Expected query to be a string but received ${typeof query} instead.`
+    );
   [query, parameters, cb] = parseArguments(invokingResource, query, parameters, cb);
-  return await new Promise((resolve, reject) => {
+  scheduleTick();
+  return new Promise(async (resolve, reject) => {
+    if (!serverReady)
+      await waitForConnection();
     pool.query(query, parameters, (err, result, _, executionTime) => {
       if (err)
         return reject(err);
@@ -22298,7 +22250,9 @@ ${JSON.stringify(
   parameters
 )}`;
 var rawTransaction = async (invokingResource, queries, parameters, callback) => {
-  await scheduleTick();
+  if (!serverReady)
+    await waitForConnection();
+  scheduleTick();
   const { transactions, cb } = parseTransaction(invokingResource, queries, parameters, callback);
   const connection = await pool.promise().getConnection();
   let response = false;
@@ -22355,7 +22309,7 @@ var executeType = (query) => {
       throw new Error(`Prepared statements only accept SELECT, INSERT, UPDATE, and DELETE methods.`);
   }
 };
-var parseExecute = (parameters) => {
+var parseExecute = (placeholders, parameters) => {
   if (!Array.isArray(parameters)) {
     if (typeof parameters === "object") {
       const arr = [];
@@ -22364,42 +22318,56 @@ var parseExecute = (parameters) => {
     } else
       throw new Error(`Parameters expected an array but received ${typeof parameters} instead`);
   }
-  return parameters;
-};
-var parseValues = (placeholders, parameters) => {
-  if (!Array.isArray(parameters)) {
-    if (typeof parameters === "object") {
+  if (!parameters.every(Array.isArray)) {
+    if (parameters.every((item) => typeof item === "object")) {
       const arr = [];
-      Object.entries(parameters).forEach((entry) => arr[parseInt(entry[0]) - 1] = entry[1]);
+      parameters.forEach((value, index) => {
+        arr[index] = new Array(placeholders);
+        if (!Array.isArray(value)) {
+          Object.entries(value).forEach((entry) => {
+            arr[index][parseInt(entry[0]) - 1] = entry[1];
+          });
+        } else
+          arr[index] = parameters[index];
+        for (let i2 = 0; i2 < placeholders; i2++) {
+          if (!arr[index][i2])
+            arr[index][i2] = null;
+        }
+      });
       parameters = arr;
     } else
-      throw new Error(`Parameters expected an array but received ${typeof parameters} instead`);
-  } else if (placeholders > parameters.length) {
-    for (let i2 = parameters.length; i2 < placeholders; i2++) {
-      parameters[i2] = null;
-    }
+      parameters = [[...parameters]];
   }
   return parameters;
 };
 
 // src/database/rawExecute.ts
-var rawExecute = async (invokingResource, query, parameters, cb, throwError) => {
+var rawExecute = (invokingResource, query, parameters, cb, throwError) => {
+  if (typeof query !== "string")
+    throw new Error(
+      `${invokingResource} was unable to execute a query!
+Expected query to be a string but received ${typeof query} instead.`
+    );
   const type = executeType(query);
-  parameters = parseExecute(parameters);
+  const placeholders = query.split("?").length - 1;
+  parameters = parseExecute(placeholders, parameters);
+  if (parameters.length === 0)
+    throw new Error(`Query received no parameters.`);
   let response = [];
-  if (!parameters.every(Array.isArray))
-    parameters = [[...parameters]];
-  await scheduleTick();
-  return await new Promise((resolve, reject) => {
+  scheduleTick();
+  return new Promise(async (resolve, reject) => {
+    if (!serverReady)
+      await waitForConnection();
     pool.getConnection((err, connection) => {
       if (err)
         return reject(err.message);
-      if (parameters.length === 0)
-        return reject(`Query received no parameters.`);
-      const placeholders = query.split("?").length - 1;
       parameters.forEach((values, index) => {
         const executionTime = process.hrtime();
-        values = parseValues(placeholders, values);
+        if (placeholders > values.length) {
+          for (let i2 = values.length; i2 < placeholders; i2++) {
+            values[i2] = null;
+          }
+        }
         connection.execute(query, values, (err2, results) => {
           if (err2) {
             connection.release();
@@ -22523,6 +22491,3 @@ for (const key in MySQL) {
   if (key === "execute" || key === "scalar" || key === "transaction")
     provide(key, MySQL[key], exp);
 }
-/*! fetch-blob. MIT License. Jimmy Wärting <https://jimmy.warting.se/opensource> */
-/*! formdata-polyfill. MIT License. Jimmy Wärting <https://jimmy.warting.se/opensource> */
-/*! node-domexception. MIT License. Jimmy Wärting <https://jimmy.warting.se/opensource> */

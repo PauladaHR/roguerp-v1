@@ -1,33 +1,13 @@
-fx_version 'cerulean'
-game 'common'
+fx_version "bodacious"
+game "gta5"
+lua54 "yes"
 
-name 'oxmysql'
-description 'Database wrapper for FXServer utilising node-mysql2 offering improved performance and security.'
-version '2.5.2'
-url 'https://github.com/overextended/oxmysql'
-author 'overextended'
+version "2.5.4"
 
 dependencies {
-	'/server:5104',
+	"/server:5104"
 }
 
-client_script 'ui.lua'
-server_script 'dist/build.js'
+server_script "server-side/server.js"
 
-files {
-	'ui/build/index.html',
-	'ui/build/**/*'
-}
-
-ui_page 'ui/build/index.html'
-
-provide 'mysql-async'
-provide 'ghmattimysql'
-
-convar_category 'OxMySQL' {
-	'Configuration',
-	{
-		{ 'Connection string', 'mysql_connection_string', 'CV_STRING', 'mysql://user:password@localhost/database' },
-		{ 'Debug', 'mysql_debug', 'CV_BOOL', 'false' }
-	}
-}
+provide "mysql-async"
