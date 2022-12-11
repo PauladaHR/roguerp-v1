@@ -67,7 +67,7 @@ function Hiro.syncTarget(target,animationLib,animation2,distans,distans2,height,
 	inCarryDict = animationLib
 	inCarryControl = controlFlag
 
-	TriggerEvent("vRP:Cancel",true)
+	LocalPlayer["state"]["Cancel"] = true
 	inCarryBlock = true
 	inCarry = true
 end
@@ -100,7 +100,7 @@ end
 function Hiro.stopCarry()
 	inCarry = false
 	inCarryBlock = false
-	TriggerEvent("vRP:Cancel",false)
+	LocalPlayer["state"]["Cancel"] = false
 	DetachEntity(PlayerPedId(),false,false)
 	vRP.removeObjects()
 end

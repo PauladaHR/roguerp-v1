@@ -175,7 +175,7 @@ AddEventHandler("vrp_eletronics:openSystem",function(shopId)
 		inTimers = 35
 		inService = true
 		TriggerEvent("Progress",37000)
-		TriggerEvent("vRP:Cancel",true)
+		LocalPlayer["state"]["Cancel"] = true
 		LocalPlayer["state"]["Commands"] = true
 		SetEntityHeading(PlayerPedId(),atmList[shopId][4])
 		vRP.playAnim(false,{"oddjobs@shop_robbery@rob_till","loop"},true)
@@ -189,7 +189,7 @@ AddEventHandler("vrp_eletronics:openSystem",function(shopId)
 
 				if inTimers <= 0 then
 					LocalPlayer["state"]["Commands"] = false
-					TriggerEvent("vRP:Cancel",false)
+					LocalPlayer["state"]["Cancel"] = false
 					vRP.removeObjects()
 					inService = false
 					break
@@ -213,7 +213,7 @@ CreateThread(function()
 			local ped = PlayerPedId()
 			if IsControlJustPressed(1,167) or not IsEntityPlayingAnim(ped,"oddjobs@shop_robbery@rob_till","loop",3) then
 				LocalPlayer["state"]["Commands"] = false
-				TriggerEvent("vRP:Cancel",false)
+				LocalPlayer["state"]["Cancel"] = false
 				TriggerEvent("Progress",1000)
 				vRP.removeObjects()
 				inService = false

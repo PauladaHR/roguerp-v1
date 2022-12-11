@@ -992,10 +992,10 @@ local animacoes = {
 	{ nome = "limpar" , dict = "timetable@maid@cleaning_window@base" , anim = "base" , prop = "prop_rag_01" , flag = 49 , hand = 28422 , extra = function()
 		local vehicle = vRP.getNearVehicle(5)
 		if IsEntityAVehicle(vehicle) then
-			TriggerEvent("vRP:Cancel",true)
+			LocalPlayer["state"]["Cancel"] = true
 			TriggerEvent("Progress",15000)
 			SetTimeout(15000,function()
-				TriggerEvent("vRP:Cancel",false)
+				LocalPlayer["state"]["Cancel"] = false
 				TriggerServerEvent("tryCleanEntity",VehToNet(vehicle))
 				vRP.removeObjects("one")
 			end)
@@ -1004,10 +1004,10 @@ local animacoes = {
 	{ nome = "limpar2" , dict = "timetable@maid@cleaning_surface@base" , anim = "base" , prop = "prop_rag_01" , flag = 49 , hand = 28422 , extra = function()
 		local vehicle = vRP.getNearVehicle(5)
 		if IsEntityAVehicle(vehicle) then
-			TriggerEvent("vRP:Cancel",true)
+			LocalPlayer["state"]["Cancel"] = true
 			TriggerEvent("Progress",15000)
 			SetTimeout(15000,function()
-				TriggerEvent("vRP:Cancel",false)
+				LocalPlayer["state"]["Cancel"] = false
 				TriggerServerEvent("tryCleanEntity",VehToNet(vehicle))
 				vRP.removeObjects("one")
 			end)
@@ -1016,10 +1016,10 @@ local animacoes = {
 	{ nome = "limpar3" , dict = "timetable@floyd@clean_kitchen@base" , anim = "base" , prop = "prop_sponge_01" , andar = true , loop = true , flag = 49 , hand = 28422 , pos1 = 0.0 , pos2 = 0.0 , pos3 = -0.01 , pos4 = 90.0 , pos5 = 0.0 , pos6 = 0.0 , propAnim = true , extra = function()
 		local vehicle = vRP.getNearVehicle(5)
 		if IsEntityAVehicle(vehicle) then
-			TriggerEvent("vRP:Cancel",true)
+			LocalPlayer["state"]["Cancel"] = true
 			TriggerEvent("Progress",15000)
 			SetTimeout(15000,function()
-				TriggerEvent("vRP:Cancel",false)
+				LocalPlayer["state"]["Cancel"] = false
 				TriggerServerEvent("tryCleanEntity",VehToNet(vehicle))
 				vRP.removeObjects("one")
 			end)
@@ -1028,10 +1028,10 @@ local animacoes = {
 	{ nome = "limpar4" , dict = "amb@world_human_maid_clean@" , anim = "base" , prop = "prop_sponge_01" , andar = true , loop = true , flag = 49 , hand = 28422 , pos1 = 0.0 , pos2 = 0.0 , pos3 = -0.01 , pos4 = 90.0 , pos5 = 0.0 , pos6 = 0.0 , propAnim = true , extra = function()
 		local vehicle = vRP.getNearVehicle(5)
 		if IsEntityAVehicle(vehicle) then
-			TriggerEvent("vRP:Cancel",true)
+			LocalPlayer["state"]["Cancel"] = true
 			TriggerEvent("Progress",15000)
 			SetTimeout(15000,function()
-				TriggerEvent("vRP:Cancel",false)
+				LocalPlayer["state"]["Cancel"] = false
 				TriggerServerEvent("tryCleanEntity",VehToNet(vehicle))
 				vRP.removeObjects("one")
 			end)

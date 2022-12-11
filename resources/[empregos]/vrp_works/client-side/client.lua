@@ -132,7 +132,7 @@ CreateThread(function()
 							inSeconds = 3
 
 							if works[inService]["collectAnim"] ~= nil then
-								TriggerEvent("vRP:Cancel",true)
+								LocalPlayer["state"]["Cancel"] = true
 								LocalPlayer["state"]["Commands"] = true
 								TriggerEvent("Progress",works[inService]["collectDuration"] + 500)
 								SetEntityHeading(ped,works[inService]["collectCoords"][inCollect][4])
@@ -142,14 +142,14 @@ CreateThread(function()
 
 								Wait(works[inService]["collectDuration"])
 
-								TriggerEvent("vRP:Cancel",false)
+								LocalPlayer["state"]["Cancel"] = false
 								LocalPlayer["state"]["Commands"] = false
 								FreezeEntityPosition(ped,false)
 								vRP.removeObjects()
 							end
 
 							if works[inService]["collectAnimWItem"] ~= nil then
-								TriggerEvent("vRP:Cancel",true)
+								LocalPlayer["state"]["Cancel"] = true
 								LocalPlayer["state"]["Commands"] = true
 								TriggerEvent("Progress",works[inService]["collectDuration"] + 500)
 								SetEntityHeading(ped,works[inService]["collectCoords"][inCollect][4])
@@ -160,7 +160,7 @@ CreateThread(function()
 								Wait(works[inService]["collectDuration"])
 
 								LocalPlayer["state"]["Commands"] = false
-								TriggerEvent("vRP:Cancel",false)
+								LocalPlayer["state"]["Cancel"] = false
 								vRP.removeObjects()
 							end
 
@@ -227,20 +227,20 @@ CreateThread(function()
 							inSeconds = 3
 
 							if works[inService]["deliveryAnim"] ~= nil then
-								TriggerEvent("vRP:Cancel",true)
+								LocalPlayer["state"]["Cancel"] = true
 								TriggerEvent("Progress",works[inService]["deliveryDuration"] + 500)
 								vRP._playAnim(false,{works[inService]["deliveryAnim"][1],works[inService]["deliveryAnim"][2]},true)
 								FreezeEntityPosition(ped,works[inService]["deliveryAnim"][3])
 
 								Wait(works[inService]["deliveryDuration"])
 
-								TriggerEvent("vRP:Cancel",false)
+								LocalPlayer["state"]["Cancel"] = false
 								FreezeEntityPosition(ped,false)
 								vRP.removeObjects()
 							end	
 
 							if works[inService]["deliveryAnimWItem"] ~= nil then
-								TriggerEvent("vRP:Cancel",true)
+								LocalPlayer["state"]["Cancel"] = true
 								LocalPlayer["state"]["Commands"] = true
 								TriggerEvent("Progress",works[inService]["deliveryDuration"] + 500)
 								SetEntityHeading(ped,works[inService]["deliveryCoords"][inCollect][4])
@@ -250,7 +250,7 @@ CreateThread(function()
 								Wait(works[inService]["deliveryDuration"])
 
 								LocalPlayer["state"]["Commands"] = false
-								TriggerEvent("vRP:Cancel",false)
+								LocalPlayer["state"]["Cancel"] = false
 								vRP.removeObjects()
 							end
 

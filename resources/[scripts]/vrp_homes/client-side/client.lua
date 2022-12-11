@@ -417,7 +417,7 @@ Citizen.CreateThread(function()
 							DrawText3D(homesCurrent[1] + v[1],homesCurrent[2] + v[2],1500.0 + v[3],"~b~E~w~   VASCULHAR")
 
 							if IsControlJustPressed(1,38) then
-								TriggerEvent("vRP:Cancel",true)
+								LocalPlayer["state"]["Cancel"] = true
 
 								if k == "LOCKER" then
 									local taskBar = exports["vrp_taskbar"]:taskHomes()
@@ -433,7 +433,7 @@ Citizen.CreateThread(function()
 									end
 								end
 
-								TriggerEvent("vRP:Cancel",false)
+								LocalPlayer["state"]["Cancel"] = false
 							end
 						end
 					end

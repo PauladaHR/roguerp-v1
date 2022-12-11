@@ -16,13 +16,6 @@ LocalPlayer["state"]["Drunk"] = false
 LocalPlayer["state"]["Cancel"] = false
 LocalPlayer["state"]["Route"] = 0
 -----------------------------------------------------------------------------------------------------------------------------------------
--- vRP:CANCEL
------------------------------------------------------------------------------------------------------------------------------------------
-RegisterNetEvent("vRP:Cancel")
-AddEventHandler("vRP:Cancel",function(status)
-	LocalPlayer["state"]["Cancel"] = status
-end)
------------------------------------------------------------------------------------------------------------------------------------------
 -- THREADCANCEL
 -----------------------------------------------------------------------------------------------------------------------------------------
 CreateThread(function()
@@ -210,7 +203,6 @@ end)
 CreateThread(function()
 	while true do
 		local timeDistance = 999
-		local ped = PlayerPedId()
 		if animActived then
 			timeDistance = 4
 			DisableControlAction(1,16,true)

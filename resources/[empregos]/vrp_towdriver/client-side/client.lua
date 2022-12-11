@@ -676,7 +676,7 @@ AddEventHandler("vrp_towdriver:invokeTow",function()
 						end
 
 						vehTower = vehTowed
-						TriggerEvent("vRP:Cancel",true)
+						LocalPlayer["state"]["Cancel"] = true
 						TriggerEvent("sounds:source","tow",0.5)
 						TriggerEvent("player:blockCommands",true)
 						TaskTurnPedToFaceEntity(ped,vehTowed,5000)
@@ -685,7 +685,7 @@ AddEventHandler("vrp_towdriver:invokeTow",function()
 						Citizen.Wait(4500)
 
 						inTowed = vehTowed
-						TriggerEvent("vRP:Cancel",false)
+						LocalPlayer["state"]["Cancel"] = false
 						TriggerEvent("player:blockCommands",false)
 						StopAnimTask(ped,"mini@repair","fixing_a_player",2.0)
 						vSERVER.tryTow(NetworkGetNetworkIdFromEntity(vehicle),NetworkGetNetworkIdFromEntity(vehTowed),"in")
