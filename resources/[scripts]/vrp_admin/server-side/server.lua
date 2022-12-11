@@ -106,7 +106,7 @@ end)
 RegisterCommand("kickall",function(source)
 	if source ~= 0 then
 		local user_id = vRP.getUserId(source)
-		if not vRP.hasRank(user_id,"Admin",40)  then
+		if not vRP.hasRank(user_id,"Admin",40) then
 			return
 		end
 	end
@@ -117,7 +117,20 @@ RegisterCommand("kickall",function(source)
 		Wait(100)
 	end
 
-	TriggerEvent("admin:KickAll")
+	TriggerEvent("vRP:saveServer")
+end)
+-----------------------------------------------------------------------------------------------------------------------------------------
+-- SAVE
+-----------------------------------------------------------------------------------------------------------------------------------------
+RegisterCommand("save",function(source)
+	if source ~= 0 then
+		local user_id = vRP.getUserId(source)
+		if not vRP.hasRank(user_id,"Admin",40) then
+			return
+		end
+	end
+
+	TriggerEvent("vRP:saveServer",false)
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- ITEM

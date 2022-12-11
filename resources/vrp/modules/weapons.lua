@@ -83,7 +83,6 @@ end
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- PLAYERSPAWN
 -----------------------------------------------------------------------------------------------------------------------------------------
-AddEventHandler("vRP:playerSpawned",function()
-    local source = source
+AddEventHandler("vRP:playerSpawn",function(user_id,source)
 	TriggerClientEvent("weapons:insertInit",source,WeaponsList)
 end)

@@ -111,10 +111,10 @@ CreateThread(function()
 	end
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
--- ADMIN:KICKALL
+-- VRP:SAVESERVER
 -----------------------------------------------------------------------------------------------------------------------------------------
-RegisterServerEvent("admin:KickAll")
-AddEventHandler("admin:KickAll",function()
+RegisterServerEvent("vRP:saveServer")
+AddEventHandler("vRP:saveServer",function()
 	for k,v in pairs(srvData) do
 		if json.encode(v["data"]) == "[]" or json.encode(v["data"]) == "{}" then
 			vRP.execute("entitydata/removeData",{ dkey = k })
@@ -123,7 +123,7 @@ AddEventHandler("admin:KickAll",function()
 		end
 	end
 
-	print("Save no banco de dados terminou, ja pode reiniciar o servidor.")
+	print("vRP salvou os dados.")
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- GETBACKPACK

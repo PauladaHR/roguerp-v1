@@ -32,8 +32,6 @@ AddEventHandler("onClientResourceStart",function(resourceName)
         SetModelAsNoLongerNeeded(mHash)
     end
 
-    TriggerServerEvent("vRP:playerSpawned")
-
     SetTimeout(5000,function()
         ShutdownLoadingScreen()
     end)

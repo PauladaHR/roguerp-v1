@@ -76,7 +76,7 @@ AddEventHandler("txAdmin:events:scheduledRestart", function(eventData)
 	if eventData.secondsRemaining == 60 then
         TriggerClientEvent("smartphone:createSMS", -1, "Rogue Weather", "Abrigue-se IMEDIATAMENTE e aguarde o retorno da energia.")
 		Wait(40000)
-		TriggerEvent("admin:KickAll")
+		TriggerEvent("vRP:saveServer")
 		Wait(100)
 
 		for _, pid in pairs(GetPlayers()) do
