@@ -2120,104 +2120,38 @@ AddEventHandler("vrp_inventory:useItem",function(slot,rAmount)
 					end
 
 					if string.find(itemName,"premium") then
-						if vRP.tryGetInventoryItem(user_id,itemName,1,true,slot) then
+						local identity = vRP.userIdentity(user_id)
+						if identity then
+							local userRank,hasPremium = vRP.hasPremium(user_id)
 							local len = string.len(itemName)
-							local priority = string.sub(itemName,len-1,len)
-							local class = string.sub(itemName,8,len-2)
-							local identity = vRP.getUserIdentity(user_id)
-							local accountInfo = vRP.getInfos(identity["steam"])
-							local discord = ""
-							if accountInfo[1]["discord"] then
-								discord = accountInfo[1]["discord"]
-							end
-
-							if identity then
-								
-								if class ~= "Booster" or class ~= "Silver" then
-									if class == "Diamond" then
-										vRP.execute("vRP/set_premium",{ steam = identity["steam"], premium = 1, predays = 2147483647, priority = parseInt(priority) })
-									else
-										vRP.execute("vRP/set_premium",{ steam = identity["steam"], premium = parseInt(os.time()), predays = 30, priority = parseInt(priority) })
+							local premiumName = string.sub(itemName,8,len)
+							if not hasPremium then
+								goto insertPremium
+							else
+								if userRank ~= premiumName then
+									if vRP.request(source,"Você possui o Premium "..userRank.." ativo, deseja modificar seus beneficios para o Premium "..premiumName.."?",60) then
+										goto insertPremium
 									end
-									
-									vRP.execute("vRP/set_class",{ steam = identity["steam"], class = class })
-									TriggerClientEvent("Notify",source,"amarelo","O VIP <b>"..class.."</b> foi ativado com sucesso.",5000)
+									return
 								end
 							end
-							
-							if class == "Diamond" then
-								local gainGaragem = 10
-								while gainGaragem ~=0 do
-									vRP.execute("vRP/update_garages",{  id = parseInt(user_id) })
-									gainGaragem = gainGaragem - 1
+	
+							::insertPremium::
+							if vRP.tryGetInventoryItem(user_id,itemName,1,true,slot) then
+								if vRP.PremiumExist(premiumName) then
+									local infosPremium = vRP.PremiumType(premiumName,"all")
+			
+	
+									exports["oxmysql"]:executeSync("UPDATE vrp_infos SET premiumType = ?, premium = ?, predays = ?, priority = ? WHERE steam = ?",{ premiumName,parseInt(os.time()),infosPremium["Days"],infosPremium["Priority"],identity["steam"] })
+									TriggerClientEvent("Notify",source,"amarelo","O VIP <b>"..premiumName.."</b> foi ativado com sucesso.",5000)
+	
+									for k,v in pairs(infosPremium["Item"]) do
+										if itemIndex(v["ItemName"]) then
+											vRP.generateItem(user_id,v["ItemName"],parseInt(v["ItemAmount"]),true)
+										end
+									end
 								end
-								vRP.giveInventoryItem(user_id,"carpass",3,true)
-								vRP.giveInventoryItem(user_id,"vehiclesound",3,true)
-								vRP.giveInventoryItem(user_id,"keyplate",2,true)
-								vRP.giveInventoryItem(user_id,"housekey",1,true)
-								vRP.giveInventoryItem(user_id,"numberchange",1,true)
-								vRP.giveInventoryItem(user_id,"rgchange",1,true)
-								vRP.giveInventoryItem(user_id,"discount",2,true)
-								vRP.execute("vRP/add_vehicle",{ user_id = parseInt(user_id), vehicle = "benson", plate = vRP.generatePlateNumber(), work = tostring(false) })
-								TriggerEvent("webhooks-noembed","vip",discord.." #"..user_id.." "..identity.name.." "..identity.name2.. " 818535224395956245","VIP Diamond")
-								TriggerEvent("webhooks-noembed","vip",discord.." #"..user_id.." "..identity.name.." "..identity.name2.. " 818481939731841086","VIP Diamond")
 							end
-
-							if class == "Platinum" then
-								local gainGaragem = 7
-								while gainGaragem ~=0 do
-									vRP.execute("vRP/update_garages",{  id = parseInt(user_id) })
-									gainGaragem = gainGaragem - 1
-								end
-								vRP.giveInventoryItem(user_id,"carpass",2,true)
-								vRP.giveInventoryItem(user_id,"keyplate",2,true)
-								vRP.giveInventoryItem(user_id,"vehiclesound",2,true)
-								vRP.giveInventoryItem(user_id,"numberchange",1,true)
-								vRP.giveInventoryItem(user_id,"discount",1,true)
-								TriggerEvent("webhooks-noembed","vip",discord.." #"..user_id.." "..identity.name.." "..identity.name2.. " 818535814606356560","VIP Platinum")
-								TriggerEvent("webhooks-noembed","vip",discord.." #"..user_id.." "..identity.name.." "..identity.name2.. " 818481939731841086","VIP Platinum")
-							end
-
-							if class == "Gold" then
-								local gainGaragem = 5
-								while gainGaragem ~=0 do
-									vRP.execute("vRP/update_garages",{  id = parseInt(user_id) })
-									gainGaragem = gainGaragem - 1
-								end
-								vRP.giveInventoryItem(user_id,"carpass",1,true)
-								vRP.giveInventoryItem(user_id,"vehiclesound",2,true)
-								vRP.giveInventoryItem(user_id,"numberchange",1,true)
-								TriggerEvent("webhooks-noembed","vip",discord.." #"..user_id.." "..identity.name.." "..identity.name2.. " 818535830452699163","VIP Gold")
-								TriggerEvent("webhooks-noembed","vip",discord.." #"..user_id.." "..identity.name.." "..identity.name2.. " 818481939731841086","VIP Gold")
-							end
-
-							if class == "Kids" then
-								local gainGaragem = 2
-								while gainGaragem ~=0 do
-									vRP.execute("vRP/update_garages",{  id = parseInt(user_id) })
-									gainGaragem = gainGaragem - 1
-								end
-								vRP.giveInventoryItem(user_id,"carpass",1,true)
-								vRP.giveInventoryItem(user_id,"numberchange",1,true)
-								TriggerEvent("webhooks-noembed","vip",discord.." #"..user_id.." "..identity.name.." "..identity.name2.. " 818535830452699163","VIP Kids")
-								TriggerEvent("webhooks-noembed","vip",discord.." #"..user_id.." "..identity.name.." "..identity.name2.. " 818481939731841086","VIP Kids")
-							end
-
-							if class == "Silver" then
-								local gainGaragem = 2
-								while gainGaragem ~=0 do
-									vRP.execute("vRP/update_garages",{  id = parseInt(user_id) })
-									gainGaragem = gainGaragem - 1
-								end
-								vRP.giveInventoryItem(user_id,"numberchange",1,true)
-								TriggerEvent("webhooks-noembed","vip",discord.." #"..user_id.." "..identity.name.." "..identity.name2.. " 818535832221777930","VIP Silver")
-								TriggerEvent("webhooks-noembed","vip",discord.." #"..user_id.." "..identity.name.." "..identity.name2.. " 818481939731841086","VIP Silver")
-							end
-
-							if class == "Booster" then
-								vRP.execute("vRP/add_vehicle",{ user_id = parseInt(user_id), vehicle = "panto", plate = vRP.generatePlateNumber(), work = tostring(false) })
-							end
-							
 						end
 					end
 

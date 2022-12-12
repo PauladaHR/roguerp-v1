@@ -1,5 +1,44 @@
 local PremiumType = {
-	["Diamond"] = { ["Name"] = "Diamond", ["Days"] = 999, ["Salary"] = 900, ["Prority"] = 80, ["Garage"] = 10, ["Item"] = { "carpass","vehiclesound,","keyplate","housekey","numberchange","rgchange","discount" } }
+	["Diamond"] = { ["Name"] = "Diamond", ["Days"] = 999, ["Salary"] = 1000, ["Priority"] = 80, ["Garage"] = 10, 
+		["Item"] = {
+			[1] = { ["ItemName"] = "rentalkey", ["ItemAmount"] = 2, },
+			[4] = { ["ItemName"] = "premiumplate", ["ItemAmount"] = 2, },
+			[5] = { ["ItemName"] = "homecont02", ["ItemAmount"] = 2, },
+			[6] = { ["ItemName"] = "numberchange", ["ItemAmount"] = 2, },
+			[7] = { ["ItemName"] = "rgchange", ["ItemAmount"] = 2, },
+			[8] = { ["ItemName"] = "cardiscount", ["ItemAmount"] = 2, },
+		}
+	},
+	["Platinum"] = { ["Name"] = "Platinum", ["Days"] = 30, ["Salary"] = 750, ["Priority"] = 50, ["Garage"] = 5, 
+		["Item"] = {
+			[1] = { ["ItemName"] = "rentalkey", ["ItemAmount"] = 1, },
+			[4] = { ["ItemName"] = "premiumplate", ["ItemAmount"] = 1, },
+			[5] = { ["ItemName"] = "homecont02", ["ItemAmount"] = 1, },
+			[6] = { ["ItemName"] = "numberchange", ["ItemAmount"] = 1, },
+			[7] = { ["ItemName"] = "rgchange", ["ItemAmount"] = 1, },
+			[8] = { ["ItemName"] = "cardiscount", ["ItemAmount"] = 1, },
+		}
+	},
+	["Gold"] = { ["Name"] = "Gold", ["Days"] = 30, ["Salary"] = 500, ["Priority"] = 50, ["Garage"] = 3, 
+		["Item"] = {
+			[1] = { ["ItemName"] = "rentalkey", ["ItemAmount"] = 1, },
+			[4] = { ["ItemName"] = "premiumplate", ["ItemAmount"] = 1, },
+			[5] = { ["ItemName"] = "homecont02", ["ItemAmount"] = 1, },
+			[6] = { ["ItemName"] = "numberchange", ["ItemAmount"] = 1, },
+			[7] = { ["ItemName"] = "rgchange", ["ItemAmount"] = 1, },
+			[8] = { ["ItemName"] = "cardiscount", ["ItemAmount"] = 1, },
+		}
+	},
+	["Silver"] = { ["Name"] = "Silver", ["Days"] = 30, ["Salary"] = 250, ["Priority"] = 50, ["Garage"] = 2, 
+		["Item"] = {
+			[1] = { ["ItemName"] = "rentalkey", ["ItemAmount"] = 1, },
+			[4] = { ["ItemName"] = "premiumplate", ["ItemAmount"] = 1, },
+			[5] = { ["ItemName"] = "homecont02", ["ItemAmount"] = 1, },
+			[6] = { ["ItemName"] = "numberchange", ["ItemAmount"] = 1, },
+			[7] = { ["ItemName"] = "rgchange", ["ItemAmount"] = 1, },
+			[8] = { ["ItemName"] = "cardiscount", ["ItemAmount"] = 1, },
+		}
+	}
 }
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- PREMIUMTYPE
@@ -27,68 +66,53 @@ function vRP.PremiumExist(Name)
     return false
 end
 -----------------------------------------------------------------------------------------------------------------------------------------
--- GETPREMIUM
+-- HASPREMIUM
+-----------------------------------------------------------------------------------------------------------------------------------------
+function vRP.hasPremium(user_id)
+	local identity = vRP.userIdentity(user_id)
+	if identity then
+		local infoAccount = vRP.infoAccount(identity["steam"])
+		if infoAccount["premiumType"] then
+			return infoAccount["premiumType"],true
+		end
+	end
+
+	return false
+end
+-----------------------------------------------------------------------------------------------------------------------------------------
+-- USERPREMIUM
 -----------------------------------------------------------------------------------------------------------------------------------------
 function vRP.userPremium(user_id)
-	local identity = vRP.getUserIdentity(user_id)
+	local identity = vRP.userIdentity(user_id)
 	if identity then
-		local ConsultPremium = vRP.getInfos(identity.steam)
-		if ConsultPremium[1] and os.time() >= (ConsultPremium[1]["premium"] + 24 * ConsultPremium[1]["predays"] * 60 * 60) then
-			return false
-		else
+		local infoAccount = vRP.infoAccount(identity["steam"])
+		if infoAccount and os.time() <= (infoAccount["premium"] + 24 * infoAccount["predays"] * 60 * 60) then
 			return true
 		end
 	end
-end
------------------------------------------------------------------------------------------------------------------------------------------
--- HASPERMISSION
------------------------------------------------------------------------------------------------------------------------------------------
-function vRP.hasClass(user_id,class)
-	local ConsultClass = vRP.query("vRP/get_class",{ id = user_id, class = tostring(class) })
-	if ConsultClass[1] then
-		return true
-	else
-		return false
-	end
-end
------------------------------------------------------------------------------------------------------------------------------------------
--- CONNECT
------------------------------------------------------------------------------------------------------------------------------------------
-AddEventHandler("vRP:playerSpawn",function(user_id,source)
-	local ConsultRental = vRP.query("vRP/get_rental_time",{ user_id = user_id })
-	if #ConsultRental then 
-		for k,v in pairs(ConsultRental) do
-			if v["rental_time"] ~= 0 and v["rental"] == 1 then
-				if parseInt(os.time()) >= parseInt(v["rental_time"]+3*24*60*60) then
-					TriggerClientEvent("Notify",source,"amarelo","<b>"..vRP.vehicleName(v["vehicle"]).."</b> removido por falta de renovação.",20000)
-					vRP.execute("vRP/rem_vehicle",{ user_id = parseInt(user_id), vehicle = v["vehicle"] })
-					return
-				end
-				if parseInt(os.time()) >= v["rental_time"] then
-					TriggerClientEvent("Notify",source,"amarelo","<b>"..vRP.vehicleName(v["vehicle"]).."</b> vencido, efetue a renovação para não perde-lo.",30000)
-				end
 
-			end
+	return false
+end
+-----------------------------------------------------------------------------------------------------------------------------------------
+-- STEAMPREMIUM
+-----------------------------------------------------------------------------------------------------------------------------------------
+function vRP.steamPremium(steam)
+	local infoAccount = vRP.infoAccount(steam)
+	if infoAccount then
+		if os.time() <= (infoAccount["premium"] + 24 * infoAccount["predays"] * 60 * 60) then
+			return true
 		end
 	end
-end)
------------------------------------------------------------------------------------------------------------------------------------------
--- DISCONNECT
------------------------------------------------------------------------------------------------------------------------------------------
+
+	return false
+end
+-- -----------------------------------------------------------------------------------------------------------------------------------------
+-- -- DISCONNECT
+-- -----------------------------------------------------------------------------------------------------------------------------------------
 AddEventHandler("vRP:playerLeave",function(user_id,source)
 	if not vRP.userPremium(user_id) then
 		local identity = vRP.getUserIdentity(user_id)
 		if identity then
-			vRP.execute("vRP/update_priority",{ steam = identity.steam })
-			if vRP.hasClass(user_id,"Gold") then
-				vRP.execute("vRP/set_class",{ steam = identity.steam, class = nil})
-			end
-			if vRP.hasClass(user_id,"Silver") then
-				vRP.execute("vRP/set_class",{ steam = identity.steam, class = nil})
-			end
-			if vRP.hasClass(user_id,"Bronze") then
-				vRP.execute("vRP/set_class",{ steam = identity.steam, class = nil})
-			end
 		end
 	end
 end)
