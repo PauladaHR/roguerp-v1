@@ -840,8 +840,8 @@ function startDrunk()
 
     CreateThread(function()
         while drunked do
-            vRP.playScreenEffect("RaceTurbo",16)
-            vRP.playScreenEffect("DrugsTrevorClownsFight",16)
+            StartScreenEffect("RaceTurbo",0,true)
+            StartScreenEffect("DrugsTrevorClownsFight",0,true)
             Wait(30000)
         end
     end)
@@ -855,6 +855,8 @@ function startDrunk()
             Wait(1000)
         end
         drunkedThread = false
+		StopScreenEffect("RaceTurbo")
+		StopScreenEffect("DrugsTrevorClownsFight")
     end)
 end
 

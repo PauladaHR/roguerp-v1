@@ -12,6 +12,26 @@ Tunnel.bindInterface("vRP",tvRP)
 vRPS = Tunnel.getInterface("vRP")
 Proxy.addInterface("vRP",tvRP)
 -----------------------------------------------------------------------------------------------------------------------------------------
+-- VRP:PLAYERACTIVE
+-----------------------------------------------------------------------------------------------------------------------------------------
+RegisterNetEvent("vRP:playerActive")
+AddEventHandler("vRP:playerActive",function(user_id,name)
+	LocalPlayer["state"]["Active"] = true
+	LocalPlayer["state"]["Id"] = user_id
+
+	SetDiscordAppId(1052669376119189544)
+	SetDiscordRichPresenceAsset("logo")
+	SetRichPresence("#"..user_id.." "..name)
+	
+	SetDiscordRichPresenceAssetText("Hiro Dev")
+	-- SetDiscordRichPresenceAction(0, "DISCORD", "https://discord.gg/rogueroleplay")
+    -- SetDiscordRichPresenceAction(1, "INSTAGRAM", "https://www.instagram.com/rogue_roleplay/")
+
+	ReplaceHudColourWithRgba(116,128,19,54,255)
+	SetPlayerCanUseCover(PlayerId(),false)
+    SetEntityInvincible(PlayerPedId(),true)
+end)
+-----------------------------------------------------------------------------------------------------------------------------------------
 -- TELEPORT
 -----------------------------------------------------------------------------------------------------------------------------------------
 function tvRP.teleport(x,y,z)
@@ -179,21 +199,6 @@ CreateThread(function()
 		Wait(30000)
 	end
 end)
------------------------------------------------------------------------------------------------------------------------------------------
--- playScreenEffect
------------------------------------------------------------------------------------------------------------------------------------------
-function tvRP.playScreenEffect(name,duration)
-	if duration < 0 then
-		StartScreenEffect(name,0,true)
-	else
-		StartScreenEffect(name,0,true)
-
-		CreateThread(function()
-			Wait(math.floor((duration+1)*1000))
-			StopScreenEffect(name)
-		end)
-	end
-end
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- PLAYSOUND
 -----------------------------------------------------------------------------------------------------------------------------------------

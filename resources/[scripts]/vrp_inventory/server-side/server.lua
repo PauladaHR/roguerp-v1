@@ -1136,8 +1136,7 @@ AddEventHandler("vrp_inventory:useItem",function(slot,rAmount)
 									vRPC.removeObjects(source)
 	
 									if vRP.tryGetInventoryItem(user_id,itemName,1,true,slot) then
-										vRPC.playScreenEffect(source,"RaceTurbo",16)
-										vRPC.playScreenEffect(source,"DrugsTrevorClownsFight",16)
+										TriggerClientEvent("Notify",source,"verde","Medicamento utilizado com sucesso.",5000)
 									end
 								end
 								Wait(0)
