@@ -185,33 +185,13 @@ function cRP.receiveSalary()
 	local user_id = vRP.getUserId(source)
 	if user_id then
 
-		-- if vRP.userPremium(user_id) then
-		-- 	local premiumRank = vRP.getRank(user_id,"premium")
-		-- 	local premiumSalary = vRP.premiumInfo(premiumRank,"salary")
-		-- 	if premiumSalary then
-		-- 		vRP.addBank(user_id,premiumSalary)
-		-- 	end 
-		-- end
-
 		if vRP.userPremium(user_id) then
-			if vRP.hasClass(user_id,"Diamond") then
-				vRP.addBank(user_id,900)
-			end
-			if vRP.hasClass(user_id,"Platinum") then
-				vRP.addBank(user_id,750)
-			end
-			if vRP.hasClass(user_id,"Gold") then
-				vRP.addBank(user_id,600)
-			end
-			if vRP.hasClass(user_id,"Kids") then
-				vRP.addBank(user_id,600)
-			end
-			if vRP.hasClass(user_id,"Silver") then
-				vRP.addBank(user_id,500)
-			end
-			if vRP.hasClass(user_id,"Booster") then
-				vRP.addBank(user_id,200)
-			end
+			local identity = vRP.getUserIdentity(user_id)
+			local premiumType = identity["premiumType"]
+			local premiumSalary = vRP.premiumInfo(premiumType,"salary")
+			if premiumSalary then
+				vRP.addBank(user_id,premiumSalary)
+			end 
 		end
 
 		local permissions = vRP.getPermissions(user_id,true)
