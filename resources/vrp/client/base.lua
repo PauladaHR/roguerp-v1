@@ -205,3 +205,21 @@ end)
 function tvRP.playSound(dict,name)
 	PlaySoundFrontend(-1,dict,name,false)
 end
+-----------------------------------------------------------------------------------------------------------------------------------------
+-- PLAYSOUND
+-----------------------------------------------------------------------------------------------------------------------------------------
+function tvRP.deleteNpcs()
+	local handle,ped = FindFirstPed()
+	local finished = false
+	repeat
+		local coords = GetEntityCoords(ped)
+		local coordsPed = GetEntityCoords(PlayerPedId())
+		local distance = #(coords - coordsPed)
+		if IsPedDeadOrDying(ped) and not IsPedAPlayer(ped) and distance < 3 then
+			TriggerServerEvent("tryDeleteEntity",PedToNet(ped))
+			finished = true
+		end
+		finished,ped = FindNextPed(handle)
+	until not finished
+	EndFindPed(handle)
+end

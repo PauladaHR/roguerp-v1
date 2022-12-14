@@ -7,12 +7,9 @@ vRP = Proxy.getInterface("vRP")
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- CONNECTION
 -----------------------------------------------------------------------------------------------------------------------------------------
-src = {}
-Tunnel.bindInterface("vrp_inventory",src)
+Hiro = {}
+Tunnel.bindInterface("vrp_inventory",Hiro)
 vSERVER = Tunnel.getInterface("vrp_inventory")
-
-LocalPlayer["state"]["Buttons"] = false
-LocalPlayer["state"]["Drunked"] = 300
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- INVCLOSE
 -----------------------------------------------------------------------------------------------------------------------------------------
@@ -264,35 +261,9 @@ end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- PARACHUTECOLORS
 -----------------------------------------------------------------------------------------------------------------------------------------
-function src.parachuteColors()
+function Hiro.parachuteColors()
 	vRP.giveWeapons({["GADGET_PARACHUTE"] = { ammo = 1 }})
 	SetPedParachuteTintIndex(PlayerPedId(),math.random(7))
-end
------------------------------------------------------------------------------------------------------------------------------------------
--- CHECKFOUNTAIN
------------------------------------------------------------------------------------------------------------------------------------------
-local cows = {
-	{ 437.96,6453.19,28.79 },
-	{ 435.35,6455.52,28.75 },
-	{ 432.6,6457.65,28.76 },
-	{ 430.01,6460.13,28.77 },
-	{ 427.02,6462.23,28.77 },
-	{ 424.87,6464.35,28.79 },
-}
-
-
-function src.checkFountain()
-	local ped = PlayerPedId()
-	local coords = GetEntityCoords(ped)
-
-	for k,v in pairs(cows) do
-		local distance = #(coords - vector3(v[1],v[2],v[3]))
-		if distance <= 1.5 then
-			return true,"milk"
-		end
-	end
-
-	return false
 end
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- CHECKFOUNTAIN
@@ -309,7 +280,7 @@ local hen = {
 	{ 432.11,6502.46,28.73 },
 }
 
-function src.checkHen()
+function Hiro.checkHen()
 	local ped = PlayerPedId()
 	local coords = GetEntityCoords(ped)
 	for k,v in pairs(hen) do
@@ -320,26 +291,6 @@ function src.checkHen()
 	end
 	return false
 end
-
------------------------------------------------------------------------------------------------------------------------------------------
--- DEADMORTO
------------------------------------------------------------------------------------------------------------------------------------------
-local sacomorto = nil
-RegisterNetEvent("sacomorto")
-AddEventHandler("sacomorto",function(nome)
-    local coord = GetOffsetFromEntityInWorldCoords(GetPlayerPed(-1),0.0,1.0,-0.94)
-    local prop = "xm_prop_body_bag"
-    local h = GetEntityHeading(GetPlayerPed(-1))
-	sacomorto = CreateObject(GetHashKey(prop),coord.x,coord.y-0.5,coord.z,true,true,false)
-	PlaceObjectOnGroundProperly(sacomorto)
-	SetEntityAsMissionEntity(sacomorto,true,true)
-	SetEntityHeading(sacomorto,h)
-	FreezeEntityPosition(sacomorto,true)
-	SetEntityAsNoLongerNeeded(sacomorto)
-	SetTimeout(120000,function()
-		TriggerServerEvent("tryDeleteEntity",ObjToNet(sacomorto))
-	end)
-end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- throwableWeapons
 -----------------------------------------------------------------------------------------------------------------------------------------
@@ -363,7 +314,7 @@ end)
 -- RETURNWEAPON
 -----------------------------------------------------------------------------------------------------------------------------------------
 local Weapon = ""
-function src.returnWeapon()
+function Hiro.returnWeapon()
 	if Weapon ~= "" then
 		return Weapon
 	end
@@ -450,7 +401,7 @@ local fishCoords = PolyZone:Create({
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- FISHINGCOORDS
 -----------------------------------------------------------------------------------------------------------------------------------------
-function src.fishingCoords()
+function Hiro.fishingCoords()
 	local ped = PlayerPedId()
 	local coords = GetEntityCoords(ped)
 	if fishCoords:isPointInside(coords) and IsEntityInWater(ped) then
@@ -462,7 +413,7 @@ end
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- FISHINGANIM
 -----------------------------------------------------------------------------------------------------------------------------------------
-function src.fishingAnim()
+function Hiro.fishingAnim()
 	local ped = PlayerPedId()
 	if IsEntityPlayingAnim(ped,"amb@world_human_stand_fishing@idle_a","idle_c",3) then
 		return true
@@ -597,7 +548,7 @@ end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- UNFREEZEVEHICLE
 -----------------------------------------------------------------------------------------------------------------------------------------
-function src.FreezeVehicle()
+function Hiro.FreezeVehicle()
 	local ped = PlayerPedId()
 	if IsPedInAnyVehicle(ped) then
 		local vehicle = GetVehiclePedIsUsing(ped)
@@ -610,7 +561,7 @@ end
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- UNFREEZEVEHICLE
 -----------------------------------------------------------------------------------------------------------------------------------------
-function src.unfreezeVehicle()
+function Hiro.unfreezeVehicle()
 	local ped = PlayerPedId()
 	if IsPedInAnyVehicle(ped) then
 		local vehicle = GetVehiclePedIsUsing(ped)
@@ -622,32 +573,13 @@ end
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- PLATE - COLORS
 -----------------------------------------------------------------------------------------------------------------------------------------
-function src.plateApply(plate)
+function Hiro.plateApply(plate)
 	local ped = PlayerPedId()
 	local vehicle = GetVehiclePedIsUsing(ped)
 	if IsEntityAVehicle(vehicle) then
 		SetVehicleNumberPlateText(vehicle,plate)
 		FreezeEntityPosition(vehicle,false)
 	end
-end
------------------------------------------------------------------------------------------------------------------------------------------
--- ADRENALINEDISTANCE
------------------------------------------------------------------------------------------------------------------------------------------
-local adrenalineCds = {
-	{ 3608.91,2533.79,10.9 },
-	
-}
-
-function src.adrenalineDistance()
-	local ped = PlayerPedId()
-	local coords = GetEntityCoords(ped)
-	for k,v in pairs(adrenalineCds) do
-		local distance = #(coords - vector3(v[1],v[2],v[3]))
-		if distance <= 5 then
-			return true
-		end
-	end
-	return false
 end
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- CAÇADOR
@@ -664,7 +596,7 @@ local hashAnimal = {
 	{ hash = -832573324 } -- Javali
 }
 
-function src.removeMeat()
+function Hiro.removeMeat()
 	local ped = PlayerPedId()
 	local coords = GetEntityCoords(ped)
 	if not IsPedInAnyVehicle(ped) then
@@ -784,7 +716,7 @@ end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- TYRESTATUS
 -----------------------------------------------------------------------------------------------------------------------------------------
-function src.tyreStatus()
+function Hiro.tyreStatus()
 	local ped = PlayerPedId()
 	if not IsPedInAnyVehicle(ped) then
 		local Vehicle = vRP.getNearVehicle(5)
@@ -807,7 +739,7 @@ end
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- TYREHEALTH
 -----------------------------------------------------------------------------------------------------------------------------------------
-function src.tyreHealth(vehNet,Tyre)
+function Hiro.tyreHealth(vehNet,Tyre)
 	if NetworkDoesNetworkIdExist(vehNet) then
 		local Vehicle = NetToEnt(vehNet)
 		if DoesEntityExist(Vehicle) then
@@ -861,6 +793,6 @@ function startDrunk()
 end
 
 
-function src.checkConnection()
+function Hiro.checkConnection()
 	return true
 end

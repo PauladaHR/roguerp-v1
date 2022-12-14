@@ -8,13 +8,12 @@ vRPC = Tunnel.getInterface("vRP")
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- CONNECTION
 -----------------------------------------------------------------------------------------------------------------------------------------
-src = {}
-Tunnel.bindInterface("vrp_inventory",src)
+Hiro = {}
+Tunnel.bindInterface("vrp_inventory",Hiro)
 vCLIENT = Tunnel.getInterface("vrp_inventory")
 vGARAGE = Tunnel.getInterface("vrp_garages")
 vPLAYER = Tunnel.getInterface("vrp_player")
 vTASKBAR = Tunnel.getInterface("vrp_taskbar")
-vADMIN = Tunnel.getInterface("vrp_admin")
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- VARIABLES
 -----------------------------------------------------------------------------------------------------------------------------------------
@@ -75,7 +74,7 @@ end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- MOCHILA
 -----------------------------------------------------------------------------------------------------------------------------------------
-function src.Mochila()
+function Hiro.Mochila()
 	local source = source
 	local user_id = vRP.getUserId(source)
 	if user_id then
@@ -245,7 +244,7 @@ end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- ITEMPICKUP
 -----------------------------------------------------------------------------------------------------------------------------------------
-function src.itemPickup(grid,id)
+function Hiro.itemPickup(grid,id)
 	local source = source
 	local user_id = vRP.getUserId(source)
 	if user_id then
@@ -426,48 +425,6 @@ AddEventHandler("vrp_inventory:useItem",function(slot,rAmount)
 								else
 									TriggerClientEvent("Notify",source,"azul","Aguarde "..completeTimers(syringeTime[nuser_id]*60)..".",5000)
 								end
-							end
-						end
-					end
-					
-					if itemName == "plaster" then
-						if vRP.hasPermission(user_id,"Paramedic") then
-							local nplayer = vRPC.nearestPlayer(source,3)
-							if nplayer then
-								local nuser_id = vRP.getUserId(nplayer)
-								local identity = vRP.getUserIdentity(user_id)
-								local nidentity = vRP.getUserIdentity(nuser_id)
-								TriggerClientEvent("inventory:Close",source)
-
-								local body = vRP.prompt(source,"Parte do Corpo: (1 = Corpo Inteiro, 2 = Tronco, 3 = Pernas, 4 = Pés)","")
-								if body == "" then
-									return
-								end
-								
-								local duration = vRP.prompt(source,"Duração (Minutos):","")
-								if duration == "" or tonumber(duration) == 0 or tonumber(duration) > 30 then
-									return
-								end
-
-								local bodyCheck = sanitizeString(body,"1234",true)
-								if bodyCheck and duration then
-									local namebody = {
-										[1] = "Corpo Inteiro",
-										[2] = "Braços",
-										[3] = "Pernas",
-										[4] = "Pés"
-									}
-
-									vPLAYER.setPlaster(nplayer,bodyCheck)
-									vRPC.startCure(nplayer)
-									vRP.updateRepose(nuser_id,parseInt(duration*60))
-
-									TriggerClientEvent("resetDiagnostic",nplayer)
-									TriggerClientEvent("Notify",nplayer,"verde","Você foi engessado por "..identity.name.." "..identity.name2.." e deverá ficar em repouso por "..completeTimers(parseInt(duration)*60)..".",10000)
-									TriggerClientEvent("Notify",source,"verde","O gesso foi aplicado com sucesso e o paciente deverá ficar em repouso por "..completeTimers(parseInt(duration)*60)..".",10000)
-									TriggerEvent("webhooks","gesso","```ini\n[DOUTOR]: "..identity.id.." "..identity.name.." "..identity.name2.." \n[ENGESSOU]: "..nidentity.id.." "..nidentity.name.." "..nidentity.name2.." \n[PARTE DO CORPO]: "..namebody[parseInt(bodyCheck)].." \n[TEMPO DO GESSO]: "..parseInt(duration).." Minutos "..os.date("\n[DATA]: %d/%m/%Y [Hora]: %H:%M:%S").." \r```")
-								end
-
 							end
 						end
 					end
@@ -1144,47 +1101,6 @@ AddEventHandler("vrp_inventory:useItem",function(slot,rAmount)
 						end
 					end
 
-					if itemName == "adrenaline" then
-						local distance = vCLIENT.adrenalineDistance(source)
-						local parAmount = vRP.numPermission("Paramedic")
-						if parseInt(#parAmount) > 0 and not distance then
-							return
-						end
-
-						local nplayer = vRPC.nearestPlayer(source,2)
-						if nplayer then
-							local nuser_id = vRP.getUserId(nplayer)
-							if nuser_id then
-								if Player(nplayer)["state"]["DeadPlayer"] then
-									active[user_id] = 10
-									vRPC.stopActived(source)
-									TriggerClientEvent("inventory:Close",source)
-									TriggerClientEvent("inventory:Buttons",source,true)
-									TriggerClientEvent("Progress",source,10000)
-									vRPC._playAnim(source,false,{"mini@cpr@char_a@cpr_str","cpr_pumpchest"},true)
-
-									repeat
-										if active[user_id] == 0 then
-											active[user_id] = nil
-											TriggerClientEvent("inventory:Buttons",source,false)
-											if vRP.tryGetInventoryItem(user_id,itemName,1,true,slot) then
-												TriggerClientEvent("Notify",source,"sucesso","<b>Adrenalina</b> vencida. Chame os <b>Paramédicos</b>",8000)
-												vRP.upgradeStress(user_id,10)
-												vRP.upgradeStress(nuser_id,10)
-												vRP.upgradeThirst(nuser_id,10)
-												vRP.upgradeHunger(nuser_id,10)
-												vRP.chemicalTimer(nuser_id,1)
-												vRPC.revivePlayer(nplayer,110)
-			
-											end
-										end
-										Wait(0)
-									until active[user_id] == nil
-								end
-							end
-						end
-					end
-
 					if itemName == "teddy" then
 						TriggerClientEvent("inventory:Close",source)
 						vRPC._createObjects(source,"impexp_int-0","mp_m_waremech_01_dual-0","v_ilev_mr_rasberryclean",49,24817,-0.20,0.46,-0.016,-180.0,-90.0,0.0)
@@ -1233,7 +1149,7 @@ AddEventHandler("vrp_inventory:useItem",function(slot,rAmount)
 					if itemName == "gsrkit" then
 						local nplayer = vRPC.nearestPlayer(source,5)
 						if nplayer then
-							if vPLAYER.getHandcuff(nplayer) then
+							if Player(nplayer)["state"]["Handcuff"] then
 								active[user_id] = 10
 								TriggerClientEvent("inventory:Close",source)
 								TriggerClientEvent("inventory:Buttons",source,true)
@@ -1245,7 +1161,7 @@ AddEventHandler("vrp_inventory:useItem",function(slot,rAmount)
 										TriggerClientEvent("inventory:Buttons",source,false)
 
 										if vRP.tryGetInventoryItem(user_id,itemName,1,true,slot) then
-											local check = vPLAYER.gsrCheck(nplayer)
+											local check = vPLAYER.gHiroheck(nplayer)
 											if parseInt(check) > 0 then
 												TriggerClientEvent("Notify",source,"verde","Resultado positivo.",5000)
 											else
@@ -1485,7 +1401,7 @@ AddEventHandler("vrp_inventory:useItem",function(slot,rAmount)
 								if active[user_id] == 0 then
 									active[user_id] = nil
 									TriggerClientEvent("inventory:Buttons",source,false)
-									vADMIN.deleteNpcs(source)
+									vRPC.deleteNpcs(source)
 									vRP.giveInventoryItem(user_id,"meat",math.random(1,3),true)
 									vRPC._stopAnim(source,false)
 								end
@@ -1689,35 +1605,6 @@ AddEventHandler("vrp_inventory:useItem",function(slot,rAmount)
 						end
 					end
 
-					if itemName == "emptybottle" then
-						local status,style = vCLIENT.checkFountain(source)
-						if status then
-							if style == "milk" then
-								active[user_id] = 30
-								vRPC.stopActived(source)
-								TriggerClientEvent("inventory:Buttons",source,true)
-								TriggerClientEvent("inventory:Close",source)
-								vRPC._playAnim(source,false,{"anim@amb@clubhouse@tutorial@bkr_tut_ig3@","machinic_loop_mechandplayer"},true)
-
-								if vTASKBAR.taskFishing(source) then
-									if vRP.computeInvWeight(user_id) + vRP.itemWeightList(itemName) * 1 <= vRP.getBackpack(user_id) then
-										if vRP.tryGetInventoryItem(user_id,itemName,1,false) then
-											vRP.giveInventoryItem(user_id,"FoodmilkThirst",1,true)
-										else
-											TriggerClientEvent("Notify",source,"amarelo","Você precisa de <b>"..vRP.format(1).."x "..vRP.itemNameList(itemName).."</b>.",5000)
-										end
-									else
-										TriggerClientEvent("Notify",source,"vermelho","Mochila cheia.",5000)
-									end
-								end
-	
-								vRPC._stopAnim(source,false)
-								TriggerClientEvent("inventory:Buttons",source,false)
-								active[user_id] = nil
-							end
-						end
-					end
-
 					if itemName == "cartelaovo" then
 						local status = vCLIENT.checkHen(source)
 						if status then
@@ -1876,7 +1763,7 @@ AddEventHandler("vrp_inventory:useItem",function(slot,rAmount)
 						if not vRPC.inVehicle(source) then
 							local nplayer = vRPC.nearestPlayer(source,1)
 							if nplayer then
-								if vPLAYER.getHandcuff(nplayer) then
+								if Player(nplayer)["state"]["Handcuff"] then
 									vPLAYER.toggleHandcuff(nplayer)
 									vRPC._stopAnim(nplayer,false)
 									TriggerClientEvent("sounds:Private",source,"uncuff",0.5)
@@ -1900,7 +1787,7 @@ AddEventHandler("vrp_inventory:useItem",function(slot,rAmount)
 
 					if itemName == "hood" then
 						local nplayer = vRPC.nearestPlayer(source,2)
-						if nplayer and vPLAYER.getHandcuff(nplayer) then
+						if nplayer and Player(nplayer)["state"]["Handcuff"] then
 							TriggerClientEvent("hud:toggleHood",nplayer)
 						end
 					end
@@ -2387,7 +2274,7 @@ end)
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- CHECKINVENTORY
 -----------------------------------------------------------------------------------------------------------------------------------------
-function src.checkInventory()
+function Hiro.checkInventory()
 	local source = source
 	local user_id = vRP.getUserId(source)
 	if user_id then
@@ -2400,7 +2287,7 @@ end
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- REMOVETHROWABLE
 -----------------------------------------------------------------------------------------------------------------------------------------
-function src.removeThrowable(nameItem)
+function Hiro.removeThrowable(nameItem)
 	local source = source
 	local user_id = vRP.getUserId(source)
 	if user_id then
@@ -2622,7 +2509,7 @@ local stealItens = {
 	[49] = { ["item"] = "bluecard", ["min"] = 1, ["max"] = 1, ["rand"] = 200 },
 	[50] = { ["item"] = "blackcard", ["min"] = 1, ["max"] = 1, ["rand"] = 200 }
 }
-function src.stealTrunk(Entity)
+function Hiro.stealTrunk(Entity)
 	local source = source
 	local vehNet = Entity[4]
 	local vehPlate = Entity[1]
