@@ -261,7 +261,7 @@ AddEventHandler("homes:buySystem",function(numberHome)
 					local request = vRP.request(source,"Casas","Deseja ativar a residência <b>"..homeName.."</b> com interior <b>"..interiorSelect["interior"].."</b> utilizando sua <b>"..vRP.itemNameList("housekey").."</b>?.",30)
 					if request then
 						if vRP.tryGetInventoryItem(user_id,"housekey",1,true,slot) then
-							vRP.execute("vRP/homesBuy", { name = homeName, user_id = user_id, interior = interiorSelect["interior"], price = interiorSelect["price"], pricemin = interiorSelect["price"], residents = interiorSelect["residents"], vault = interiorSelect["vault"], fridge = interiorSelect["fridge"], tax = parseInt(os.time()), premium = 1 })
+							vRP.query("vRP/homesBuy", { name = homeName, user_id = user_id, interior = interiorSelect["interior"], price = interiorSelect["price"], pricemin = interiorSelect["price"], residents = interiorSelect["residents"], vault = interiorSelect["vault"], fridge = interiorSelect["fridge"], tax = parseInt(os.time()), premium = 1 })
 							TriggerClientEvent("Notify",source,"verde", "Compra efetuada.", 5000)
 							atualizeBlip("update",homeName)
 						end
@@ -279,10 +279,10 @@ AddEventHandler("homes:buySystem",function(numberHome)
 				local homesPrice = parseInt(interiorSelect["price"]) + areaPrice
 				local priceFinal = parseInt(interiorSelect["price"]) + areaPrice
 
-				local request = vRP.request(source,"Casas","Você deseja comprar a residência por <b>$"..vRP.format(homesPrice).."</b> dólares?",30)
+				local request = vRP.request(source,"Casas","Você deseja comprar a residência por <b>$"..parseFormat(homesPrice).."</b> dólares?",30)
 				if request then
 					if vRP.paymentBank(user_id,homesPrice) then
-						vRP.execute("vRP/homesBuy", { name = homeName, user_id = user_id, interior = interiorSelect["interior"], price = priceFinal, pricemin = priceFinal, residents = interiorSelect["residents"], vault = interiorSelect["vault"], fridge = interiorSelect["fridge"], tax = parseInt(os.time()), premium = 0 })
+						vRP.query("vRP/homesBuy", { name = homeName, user_id = user_id, interior = interiorSelect["interior"], price = priceFinal, pricemin = priceFinal, residents = interiorSelect["residents"], vault = interiorSelect["vault"], fridge = interiorSelect["fridge"], tax = parseInt(os.time()), premium = 0 })
 						TriggerClientEvent("Notify",source,"verde", "Compra efetuada.", 5000)
 						atualizeBlip("update",homeName)
 					else
@@ -333,11 +333,11 @@ AddEventHandler("homes:changeInterior",function(numberInterior)
 							interiorPayment = 1
 						end
 
-						local request = vRP.request(source,"Casas","Deseja alterar o interior pagando <b>$"..vRP.format(interiorPayment).."</b> dólares?",30)
+						local request = vRP.request(source,"Casas","Deseja alterar o interior pagando <b>$"..parseFormat(interiorPayment).."</b> dólares?",30)
 						if request then
 							if vRP.paymentBank(user_id,interiorPayment) then
-								vRP.execute("vRP/homesInterior", { name = homeName, user_id = user_id, interior = interiorSelect["interior"], price = interiorPriceSelect, pricemin = interiorPriceSelect, residents = interiorSelect["residents"], vault = interiorSelect["vault"], fridge = interiorSelect["fridge"], tax = parseInt(os.time()) })
-								vRP.execute("vRP/homesInteriorPermission", { name = homeName, interior = interiorSelect["interior"], pricemin = interiorPriceSelect })
+								vRP.query("vRP/homesInterior", { name = homeName, user_id = user_id, interior = interiorSelect["interior"], price = interiorPriceSelect, pricemin = interiorPriceSelect, residents = interiorSelect["residents"], vault = interiorSelect["vault"], fridge = interiorSelect["fridge"], tax = parseInt(os.time()) })
+								vRP.query("vRP/homesInteriorPermission", { name = homeName, interior = interiorSelect["interior"], pricemin = interiorPriceSelect })
 							else
 								TriggerClientEvent("Notify",source,"vermelho", "Dinheiro insuficiente.", 5000)
 							end
@@ -374,7 +374,7 @@ AddEventHandler("homes:infoSystem",function(numberInterior)
 						areaGarage = "Sim"
 					end
 
-					TriggerClientEvent("Notify",source,"amarelo","Area do exterior: <b>"..areaName.."</b><br> Valor da area: <b>$"..vRP.format(areaPrice).."</b><br> Garagem: <b>"..areaGarage.."</b> ",10000)
+					TriggerClientEvent("Notify",source,"amarelo","Area do exterior: <b>"..areaName.."</b><br> Valor da area: <b>$"..parseFormat(areaPrice).."</b><br> Garagem: <b>"..areaGarage.."</b> ",10000)
 				else
 					local interiorPrice = infoInterior[parseInt(numberInterior)]["price"]
 					local interiorResidents = infoInterior[parseInt(numberInterior)]["residents"]
@@ -397,9 +397,9 @@ AddEventHandler("homes:infoSystem",function(numberInterior)
 					finalPrice = interiorPrice + areaPrice
 
 					if string.find(interiorName,"Hotel") then
-						TriggerClientEvent("Notify",source,"amarelo","Valor do interior: <b>$"..vRP.format(interiorPrice).."</b><br> Numero de residentes: <b>"..interiorResidents.."</b><br> Baú: <b>"..interiorVault.."Kg</b><br> Garagem: <b>"..areaGarage.."</b><br> Valor com area: <b>$"..vRP.format(finalPrice).."</b>",10000)
+						TriggerClientEvent("Notify",source,"amarelo","Valor do interior: <b>$"..parseFormat(interiorPrice).."</b><br> Numero de residentes: <b>"..interiorResidents.."</b><br> Baú: <b>"..interiorVault.."Kg</b><br> Garagem: <b>"..areaGarage.."</b><br> Valor com area: <b>$"..parseFormat(finalPrice).."</b>",10000)
 					else
-						TriggerClientEvent("Notify",source,"amarelo","Valor do interior: <b>$"..vRP.format(interiorPrice).."</b><br> Numero de residentes: <b>"..interiorResidents.."</b><br> Baú: <b>"..interiorVault.."Kg</b><br> Geladeira: <b>"..interiorFridge.."</b><br> Garagem: <b>"..areaGarage.."</b><br> Valor com area: <b>$"..vRP.format(finalPrice).."</b>",10000)
+						TriggerClientEvent("Notify",source,"amarelo","Valor do interior: <b>$"..parseFormat(interiorPrice).."</b><br> Numero de residentes: <b>"..interiorResidents.."</b><br> Baú: <b>"..interiorVault.."Kg</b><br> Geladeira: <b>"..interiorFridge.."</b><br> Garagem: <b>"..areaGarage.."</b><br> Valor com area: <b>$"..parseFormat(finalPrice).."</b>",10000)
 					end
 				end
 			end
@@ -479,10 +479,10 @@ AddEventHandler("homes:invokeSystem",function(functionName)
 
 								local userConsult = vRP.query("vRP/homeUserPermission", { user_id = nuser_id, name = homeName })
 								if userConsult[1] then
-									vRP.execute("vRP/homesRemPermission", { name = homeName, user_id = nuser_id })
+									vRP.query("vRP/homesRemPermission", { name = homeName, user_id = nuser_id })
 								end
-								vRP.execute("vRP/homesClearPermission",{ name = homeName })
-								vRP.execute("vRP/updateOwnerHomes", { name = homeName, user_id = user_id, nuser_id = nuser_id })
+								vRP.query("vRP/homesClearPermission",{ name = homeName })
+								vRP.query("vRP/updateOwnerHomes", { name = homeName, user_id = user_id, nuser_id = nuser_id })
 								TriggerClientEvent("Notify",source,"verde", "Transferencia da residência para <b>"..identity["name"].." "..identity["name2"].."</b> concluída.", 5000)
 							end
 						else
@@ -495,12 +495,12 @@ AddEventHandler("homes:invokeSystem",function(functionName)
 						TriggerClientEvent("vrp_dynamicHomes:closeSystem",source)
 
 						local homesPrice = parseInt(consult[1]["price"] * 0.5)
-						local request = vRP.request(source,"Casas","Você deseja concluir a venda da residência por <b>$"..vRP.format(homesPrice).."</b> dólares?",30)
+						local request = vRP.request(source,"Casas","Você deseja concluir a venda da residência por <b>$"..parseFormat(homesPrice).."</b> dólares?",30)
 						if request then
 							TriggerEvent("vrp_garages:removeGarages",homeName)
-							vRP.execute("vRP/homesRemAllPermission",{ name = homeName })
-							vRP.execute("vRP/rem_srv_data",{ dkey = "homesChest:"..homeName })
-							vRP.execute("vRP/rem_srv_data",{ dkey = "homesFridge:"..homeName })
+							vRP.query("vRP/homesRemAllPermission",{ name = homeName })
+							vRP.query("vRP/rem_srv_data",{ dkey = "homesChest:"..homeName })
+							vRP.query("vRP/rem_srv_data",{ dkey = "homesFridge:"..homeName })
 							atualizeBlip("remove",homeName)
 							vRP.addBank(user_id,homesPrice)
 						end
@@ -513,10 +513,10 @@ AddEventHandler("homes:invokeSystem",function(functionName)
 						local priceMax = parseInt(consult[1]["price"])
 						local pricePay = parseInt(consult[1]["price"]*0.50)
 						if priceMax <= priceMin then
-							local request = vRP.request(source,"Casas","Deseja ativar o seguro pagando <b>$"..vRP.format(pricePay).."</b> dólares?",30)
+							local request = vRP.request(source,"Casas","Deseja ativar o seguro pagando <b>$"..parseFormat(pricePay).."</b> dólares?",30)
 							if request then
 								if vRP.paymentBank(user_id,pricePay) then
-									vRP.execute("vRP/homesSeg",{ name = homeName, pricemin = pricePay })
+									vRP.query("vRP/homesSeg",{ name = homeName, pricemin = pricePay })
 								else
 									TriggerClientEvent("Notify",source,"vermelho", "Dinheiro insuficiente.", 5000)
 								end
@@ -544,7 +544,7 @@ AddEventHandler("homes:invokeSystem",function(functionName)
 								TriggerClientEvent("Notify",source,"amarelo", "<b>"..identity["name"].." "..identity["name2"].." </b> já pertence a residência.", 5000)
 								return
 							else
-								vRP.execute("vRP/homesNewPermission", { user_id = nuser_id, name = homeName, pricemin = consult[1]["pricemin"], interior = consult[1]["interior"], tax = consult[1]["tax"], owner = 0, premium = consult[1]["premium"]})
+								vRP.query("vRP/homesNewPermission", { user_id = nuser_id, name = homeName, pricemin = consult[1]["pricemin"], interior = consult[1]["interior"], tax = consult[1]["tax"], owner = 0, premium = consult[1]["premium"]})
 								TriggerClientEvent("Notify",source,"verde", "Adicionado o(a) <b>"..identity["name"].." "..identity["name2"].." </b> a residência.", 5000)
 							end
 						else
@@ -564,10 +564,10 @@ AddEventHandler("homes:invokeSystem",function(functionName)
 						if identity then
 							local userConsult = vRP.query("vRP/homeUserPermission", { user_id = nuser_id, name = homeName})
 							if userConsult[1] then
-								vRP.execute("vRP/homesRemPermission", { name = homeName, user_id = nuser_id })
+								vRP.query("vRP/homesRemPermission", { name = homeName, user_id = nuser_id })
 								TriggerClientEvent("Notify",source,"verde", "Permissão de residência removida de <b>"..identity.name.." "..identity.name2.."</b>.", 5000)
 							else
-								TriggerClientEvent("Notify",source,"vermelho", "Não foi possível encontrar o passaporte <b>"..vRP.format(nuser_id).."</b> na residência.", 5000)
+								TriggerClientEvent("Notify",source,"vermelho", "Não foi possível encontrar o passaporte <b>"..parseFormat(nuser_id).."</b> na residência.", 5000)
 							end
 						else
 							TriggerClientEvent("Notify",source,"vermelho", "Passaporte inválido.", 5000)
@@ -578,9 +578,9 @@ AddEventHandler("homes:invokeSystem",function(functionName)
 						TriggerClientEvent("vrp_dynamicHomes:closeSystem",source)
 
 						local homesResidents = 25000
-						if vRP.request(source,"Casas","Deseja adicionar mais um morador pagando <b>$"..vRP.format(homesResidents).."</b> dólares?",30) then
+						if vRP.request(source,"Casas","Deseja adicionar mais um morador pagando <b>$"..parseFormat(homesResidents).."</b> dólares?",30) then
 							if vRP.paymentBank(user_id,homesResidents) then
-								vRP.execute("vRP/homesResidents",{ name = homeName, residents = 1 })
+								vRP.query("vRP/homesResidents",{ name = homeName, residents = 1 })
 								TriggerClientEvent("Notify",source,"verde", "Compra efetuada.", 5000)
 							else
 								TriggerClientEvent("Notify",source,"vermelho", "Dinheiro insuficiente.", 5000)
@@ -593,7 +593,7 @@ AddEventHandler("homes:invokeSystem",function(functionName)
 							TriggerClientEvent("vrp_dynamicHomes:closeSystem",source)
 
 							local homesGarage = 7500
-							if vRP.request(source,"Casas","Deseja adicionar a garagem pagando <b>$"..vRP.format(homesGarage).."</b> dólares?",30) then
+							if vRP.request(source,"Casas","Deseja adicionar a garagem pagando <b>$"..parseFormat(homesGarage).."</b> dólares?",30) then
 								if vRP.paymentBank(user_id,homesGarage) then
 									TriggerClientEvent("Notify",source,"amarelo", "Fique no local onde vai abrir a garagem e pressione a tecla <b>E</b>.", 10000)
 									vCLIENT.homeGarage(source,homeName)
@@ -610,10 +610,10 @@ AddEventHandler("homes:invokeSystem",function(functionName)
 						TriggerClientEvent("vrp_dynamicHomes:closeSystem",source)
 
 						local vaultHomes = 25000
-						local request = vRP.request(source,"Casas","Deseja aumentar o baú pagando <b>$"..vRP.format(vaultHomes).."</b> dólares?",30)
+						local request = vRP.request(source,"Casas","Deseja aumentar o baú pagando <b>$"..parseFormat(vaultHomes).."</b> dólares?",30)
 						if request then
 							if vRP.paymentBank(user_id,vaultHomes) then
-								vRP.execute("vRP/homesVault",{ name = homeName, vault = 50 })
+								vRP.query("vRP/homesVault",{ name = homeName, vault = 50 })
 								TriggerClientEvent("Notify",source,"verde", "Compra efetuada.", 5000)
 							else
 								TriggerClientEvent("Notify",source,"vermelho", "Dinheiro insuficiente.", 5000)
@@ -625,10 +625,10 @@ AddEventHandler("homes:invokeSystem",function(functionName)
 						TriggerClientEvent("vrp_dynamicHomes:closeSystem",source)
 
 						local fridgeHomes = 25000
-						local request = vRP.request(source,"Casas","Deseja aumentar a geladeira pagando <b>$"..vRP.format(fridgeHomes).."</b> dólares?",30)
+						local request = vRP.request(source,"Casas","Deseja aumentar a geladeira pagando <b>$"..parseFormat(fridgeHomes).."</b> dólares?",30)
 						if request then
 							if vRP.paymentBank(user_id,fridgeHomes) then
-								vRP.execute("vRP/homesFridge",{ name = homeName, fridge = 25 })
+								vRP.query("vRP/homesFridge",{ name = homeName, fridge = 25 })
 								TriggerClientEvent("Notify",source,"verde", "Compra efetuada.", 5000)
 							else
 								TriggerClientEvent("Notify",source,"vermelho", "Dinheiro insuficiente.", 5000)
@@ -657,10 +657,10 @@ AddEventHandler("homes:invokeSystem",function(functionName)
 						TriggerClientEvent("vrp_dynamicHomes:closeSystem",source)
 
 						local homesTax = parseInt(consult[1]["pricemin"]*0.07)
-						local request = vRP.request(source,"Casas","Deseja pagar a taxa da casa por <b>$"..vRP.format(homesTax).."</b>?",30)
+						local request = vRP.request(source,"Casas","Deseja pagar a taxa da casa por <b>$"..parseFormat(homesTax).."</b>?",30)
 						if request then
 							if vRP.paymentBank(user_id,homesTax) then
-								vRP.execute("vRP/homesTax",{ name = homeName, tax = parseInt(os.time()) })
+								vRP.query("vRP/homesTax",{ name = homeName, tax = parseInt(os.time()) })
 								TriggerClientEvent("Notify",source,"verde", "Pagamento do <b>Homes Tax</b> conclúido com sucesso.", 5000)
 							else
 								TriggerClientEvent("Notify",source,"vermelho", "Dinheiro insuficiente.", 5000)
@@ -704,7 +704,7 @@ AddEventHandler("homes:invokeSystem",function(functionName)
 						local request = vRP.request(source,"Casas","Deseja renovar a sua <b>Casa Premium</b>?",30)
 						if request then
 							if vRP.tryGetInventoryItem(user_id,"housekey",1,true,slot) then
-								vRP.execute("vRP/homesTax",{ name = homeName, tax = parseInt(os.time()) })
+								vRP.query("vRP/homesTax",{ name = homeName, tax = parseInt(os.time()) })
 								TriggerClientEvent("Notify",source,"verde", "Renovação da <b>Casa Premium</b> conclúida com sucesso.", 5000)
 							end
 						end
@@ -748,9 +748,9 @@ AddEventHandler("vRP:playerSpawn",function(user_id,source)
 		for k,v in pairs(checkPremium) do 
 			if parseInt(os.time()) >= parseInt(v['tax']+24*33*60*60) then
 				TriggerEvent("vrp_garages:removeGarages",v['name'])
-				vRP.execute("vRP/homesRemAllPermission",{ name = v['name'] })
-				vRP.execute("vRP/rem_srv_data",{ dkey = "homesChest:"..v['name'] })
-				vRP.execute("vRP/rem_srv_data",{ dkey = "homesFridge:"..v['name'] })
+				vRP.query("vRP/homesRemAllPermission",{ name = v['name'] })
+				vRP.query("vRP/rem_srv_data",{ dkey = "homesChest:"..v['name'] })
+				vRP.query("vRP/rem_srv_data",{ dkey = "homesFridge:"..v['name'] })
 				atualizeBlip("remove",v["name"])
 				TriggerClientEvent("Notify",source,"amarelo", "<b>Casa Premium</b> removida por falta de renovação.", 20000)
 				return
@@ -1162,7 +1162,7 @@ AddEventHandler("leaveHomes",function(user_id)
 			end
 		end
 
-		vRP.execute("playerdata/setUserdata",{ user_id = parseInt(user_id), key = "Datatable", value = json.encode(DataTable) })
+		vRP.query("playerdata/setUserdata",{ user_id = parseInt(user_id), key = "Datatable", value = json.encode(DataTable) })
 		homeEnter[user_id] = nil
 	end
 

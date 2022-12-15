@@ -743,8 +743,8 @@ function cRP.functionShops(shopType,shopItem,shopAmount,slot)
 						if parseInt(consult[1].gems) >= parseInt(shops[shopType]["list"][shopItem]*shopAmount) then
 							vRP.giveInventoryItem(parseInt(user_id),shopItem,parseInt(shopAmount),false,slot)
 							TriggerClientEvent("sounds:Private",source,"cash",0.1)
-							vRP.execute("vRP/rem_vrp_gems",{ steam = identity.steam, gems = parseInt(shops[shopType]["list"][shopItem]*shopAmount) })
-							TriggerClientEvent("Notify",source,"verde","Você comprou <b>"..vRP.format(parseInt(shopAmount)).."x "..vRP.itemNameList(shopItem).."</b> por <b>"..vRP.format(parseInt(shops[shopType]["list"][shopItem]*shopAmount)).." Gemas</b>.",5000)
+							vRP.query("vRP/rem_vrp_gems",{ steam = identity.steam, gems = parseInt(shops[shopType]["list"][shopItem]*shopAmount) })
+							TriggerClientEvent("Notify",source,"verde","Você comprou <b>"..parseFormat(parseInt(shopAmount)).."x "..vRP.itemNameList(shopItem).."</b> por <b>"..parseFormat(parseInt(shops[shopType]["list"][shopItem]*shopAmount)).." Gemas</b>.",5000)
 							TriggerClientEvent("vrp_shops:webhooks",source,user_id,shopType,vRP.itemNameList(shopItem),shopAmount,os.date("\n[Data]: %d/%m/%Y [Hora]: %H:%M:%S"))
 						else
 							TriggerClientEvent("Notify",source,"vermelho","Gemas Insuficientes.",5000)

@@ -40,6 +40,6 @@ function Hiro.updateTattoo(Tattoos)
 	local source = source
 	local user_id = vRP.getUserId(source)
 	if user_id then
-		vRP.execute("playerdata/setUserdata",{ user_id = parseInt(user_id), key = "Tattoos", value = json.encode(Tattoos) })
+		vRP.query("playerdata/setUserdata",{ user_id = parseInt(user_id), key = "Tattoos", value = json.encode(Tattoos) })
 	end
 end

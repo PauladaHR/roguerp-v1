@@ -51,36 +51,42 @@ end
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- NEARESTPLAYER
 -----------------------------------------------------------------------------------------------------------------------------------------
-function tvRP.nearestPlayer(vDistance)
-	local p = nil
-	local players = tvRP.nearestPlayers(2)
-	local min = vDistance + 0.0001
-	for k,v in pairs(players) do
-		if v < min then
-			min = v
-			p = k
+function tvRP.nearestPlayer(Radius)
+	local Selected = false
+	local Min = Radius + 0.0001
+	local List = tvRP.nearestPlayers(Radius)
+
+	for _,v in pairs(List) do
+		if v[1] <= Min then
+			Selected = v[2]
+			Min = v[1]
 		end
 	end
-	return p
+
+	return Selected
 end
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- NEARESTPLAYERS
 -----------------------------------------------------------------------------------------------------------------------------------------
-function tvRP.nearestPlayers(vDistance)
-	local r = {}
-	for k,v in pairs(players) do
-		local player = GetPlayerFromServerId(k)
-		if player ~= PlayerId() and NetworkIsPlayerConnected(player) then
-			local oped = GetPlayerPed(player)
-			local coords = GetEntityCoords(oped)
-			local coordsPed = GetEntityCoords(PlayerPedId())
-			local distance = #(coords - coordsPed)
-			if distance <= vDistance then
-				r[GetPlayerServerId(player)] = distance
+function tvRP.nearestPlayers(Radius)
+	local List = {}
+	local Ped = PlayerPedId()
+	local Players = GetPlayers()
+	local Coords = GetEntityCoords(Ped)
+
+	for Source,v in pairs(Players) do
+		local uPlayer = GetPlayerFromServerId(Source)
+		if uPlayer ~= PlayerId() and NetworkIsPlayerConnected(uPlayer) then
+			local uPed = GetPlayerPed(uPlayer)
+			local uCoords = GetEntityCoords(uPed)
+			local Distance = #(Coords - uCoords)
+			if Distance <= Radius then
+				List[uPlayer] = { Distance,Source }
 			end
 		end
 	end
-	return r
+
+	return List
 end
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- VARANIM

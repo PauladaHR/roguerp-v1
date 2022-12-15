@@ -126,7 +126,7 @@ end)
 CreateThread(function()
 	while true do
 		Wait(100000)
-		for k,v in pairs(vRP.users) do
+		for k,v in pairs(vRP.userIds) do
 			vRP.downgradeThirst(v,1)
 			vRP.downgradeHunger(v,1)
 		end

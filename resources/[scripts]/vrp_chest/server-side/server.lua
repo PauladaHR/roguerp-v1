@@ -76,7 +76,7 @@ function cRP.upgradeSystem(chestName)
 			local upgradePrice = 2500
 
 			if vRP.hasPermission(user_id,consultChest[1]["perm"]) then
-				if vRP.request(source,"Comprar <b>25Kg</b> pagando <b>$"..vRP.format(upgradePrice).."</b>?",30) then
+				if vRP.request(source,"Comprar <b>25Kg</b> pagando <b>$"..parseFormat(upgradePrice).."</b>?",30) then
 					if vRP.paymentBank(user_id,upgradePrice) then
 						exports["oxmysql"]:executeSync("UPDATE vrp_chests SET weight = weight + 25 WHERE name = ?",{ chestName })
 						TriggerClientEvent("Notify",source,"verde","Compra concluída.",3000)

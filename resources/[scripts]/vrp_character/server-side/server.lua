@@ -32,7 +32,7 @@ AddEventHandler("character:finishedCharacter",function(currentCharacterMode,Crea
 	if user_id then
 		exports["oxmysql"]:executeSync("UPDATE vrp_users SET appearence = 0 WHERE id = ?", { user_id })
 
-		vRP.execute("playerdata/setUserdata",{ user_id = parseInt(user_id), key = "Character", value = json.encode(currentCharacterMode) })
+		vRP.query("playerdata/setUserdata",{ user_id = parseInt(user_id), key = "Character", value = json.encode(currentCharacterMode) })
 		
 		if Create then
 			TriggerClientEvent("character:Apply",source,currentCharacterMode,false)

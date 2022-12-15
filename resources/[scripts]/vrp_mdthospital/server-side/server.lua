@@ -131,7 +131,7 @@ function cRP.registerMDT(user,box,text,type,date)
 		local identity = vRP.getUserIdentity(parseInt(user_id))
 		local nidentity = vRP.getUserIdentity(parseInt(user))
 		if nidentity then
-			vRP.execute("vRP/add_mdtmedic",{ user_id = user, medic = parseInt(user_id), type = tostring(type), box = parseInt(box), date = finaldate, text = tostring(text) })
+			vRP.query("vRP/add_mdtmedic",{ user_id = user, medic = parseInt(user_id), type = tostring(type), box = parseInt(box), date = finaldate, text = tostring(text) })
 			TriggerClientEvent("Notify",source,"amarelo","Solicitação de <b>"..nidentity["name"].." "..nidentity["name2"].."</b> registrado com sucesso.",5000)
 			vRPC.playSound(source,"Event_Message_Purple","GTAO_FM_Events_Soundset")
 		end
@@ -308,7 +308,7 @@ function cRP.updateMDT(table,name,type,update)
 	local source = source
 	local user_id = vRP.getUserId(source)
 	if user_id then
-		vRP.execute("vRP/update_consultas",{ id = table, user_id = user_id, type = type })
+		vRP.query("vRP/update_consultas",{ id = table, user_id = user_id, type = type })
 		vRPC.playSound(source,"Event_Message_Purple","GTAO_FM_Events_Soundset")
 		TriggerClientEvent("Notify",source,"amarelo","Solicitação de <b>"..name.."</b> aceita e enviada para aba <b>Medicos</b> com sucesso.",5000)
 		TriggerClientEvent("mdt:Update",source,update)
@@ -326,7 +326,7 @@ function cRP.updateTriagemUser(table,user,text)
 		local identity = vRP.getUserIdentity(parseInt(user))
 		local identity2 = vRP.getUserIdentity(parseInt(user_id))
 		if identity then
-			vRP.execute("vRP/update_prontuario",{ id = table, medic = user_id, utils = parseInt(socorrist), type = "Prontuarios", date2 = os.date("%d/%m/%Y ás %H:%M:%S"), text2 = tostring(text) })
+			vRP.query("vRP/update_prontuario",{ id = table, medic = user_id, utils = parseInt(socorrist), type = "Prontuarios", date2 = os.date("%d/%m/%Y ás %H:%M:%S"), text2 = tostring(text) })
 			vRPC.playSound(source,"Event_Message_Purple","GTAO_FM_Events_Soundset")
 			TriggerClientEvent("mdt:Update",source,"functionMedic")
 		end
@@ -341,7 +341,7 @@ function cRP.updateExamesUser(table,text)
 	if user_id then
 		local identity = vRP.getUserIdentity(parseInt(user_id))
 		if identity then
-			vRP.execute("vRP/update_mdtmedic",{ id = table, medic = user_id, type = "resultExames", date2 = os.date("%d/%m/%Y ás %H:%M:%S"), text2 = tostring(text) })
+			vRP.query("vRP/update_mdtmedic",{ id = table, medic = user_id, type = "resultExames", date2 = os.date("%d/%m/%Y ás %H:%M:%S"), text2 = tostring(text) })
 			vRPC.playSound(source,"Event_Message_Purple","GTAO_FM_Events_Soundset")
 			TriggerClientEvent("mdt:Update",source,"myExames")
 		end
@@ -355,9 +355,9 @@ function cRP.updateInfosUser(user,text,type)
 	if user then
 		local data = vRP.query("vRP/get_usermedic",{ user_id = user, type = type })
 		if data[1] ~= nil then
-			vRP.execute("vRP/update_usermedic",{ user_id = user, type = type, text = tostring(text) })
+			vRP.query("vRP/update_usermedic",{ user_id = user, type = type, text = tostring(text) })
 		else
-			vRP.execute("vRP/add_usermedic",{ user_id = user, type = type, text = tostring(text) })
+			vRP.query("vRP/add_usermedic",{ user_id = user, type = type, text = tostring(text) })
 		end
 		TriggerClientEvent("mdt:Update",source,"infoPage")
 	end
@@ -370,9 +370,9 @@ function cRP.bloodUser(user)
 	if user then
 		local data = vRP.query("vRP/get_usermedic",{ user_id = user, type = "blood" })
 		if data[1] ~= nil then
-			vRP.execute("vRP/update_blood",{ user_id = user, type = "blood", date = os.date("%d/%m/%Y ás %H:%M:%S") })
+			vRP.query("vRP/update_blood",{ user_id = user, type = "blood", date = os.date("%d/%m/%Y ás %H:%M:%S") })
 		else
-			vRP.execute("vRP/add_usermedic",{ user_id = user, type = "blood", quantity = parseInt(1), date = os.date("%d/%m/%Y ás %H:%M:%S") })
+			vRP.query("vRP/add_usermedic",{ user_id = user, type = "blood", quantity = parseInt(1), date = os.date("%d/%m/%Y ás %H:%M:%S") })
 		end
 		TriggerClientEvent("mdt:Update",source,"infoPage")
 	end
@@ -384,7 +384,7 @@ function cRP.delConsult(idconsult,name,type)
 	local source = source
 	local user_id = vRP.getUserId(source)
 	if user_id then
-		vRP.execute("vRP/del_consultas",{ id = idconsult })
+		vRP.query("vRP/del_consultas",{ id = idconsult })
 		vRPC.playSound(source,"Event_Message_Purple","GTAO_FM_Events_Soundset")
 		TriggerClientEvent("Notify",source,"verde","Consulta de <b>"..name.."</b> desmarcada com sucesso.",5000)
 		if type == "Exames" then
@@ -409,7 +409,7 @@ function cRP.getWorker()
 			local identity = vRP.getUserIdentity(v.user_id)
 			local parapusa = vRP.query("vRP/get_paramedic_promotion",{ user_id = parseInt(v.user_id), permiss = "Paramedic" })
 
-			table.insert(resultservice,{ name = tostring(identity.name.." "..identity.name2), user_id = vRP.format(parseInt(v.user_id)), promotion = parseInt(parapusa[1].paramedic_time) })
+			table.insert(resultservice,{ name = tostring(identity.name.." "..identity.name2), user_id = parseFormat(parseInt(v.user_id)), promotion = parseInt(parapusa[1].paramedic_time) })
 			nonDuty = nonDuty + 1
 		end
 	end
@@ -418,7 +418,7 @@ function cRP.getWorker()
 			local identity = vRP.getUserIdentity(v.user_id)
 			local parapusa = vRP.query("vRP/get_paramedic_promotion",{ user_id = parseInt(v.user_id), permiss = "waitParamedic" })
 
-			table.insert(resultservice,{ name = tostring(identity.name.." "..identity.name2), user_id = vRP.format(parseInt(v.user_id)), promotion = parseInt(parapusa[1].paramedic_time)  })
+			table.insert(resultservice,{ name = tostring(identity.name.." "..identity.name2), user_id = parseFormat(parseInt(v.user_id)), promotion = parseInt(parapusa[1].paramedic_time)  })
 			nonDuty = nonDuty + 1
 		end
 	end
@@ -451,13 +451,13 @@ function cRP.medicPayment(passaporte,medicine,quantity)
 			local podecomprar = maxmedic - data[1]["quantity"]
 
 			if parseInt(os.time()) <= parseInt(data[1]["create_at"]+1*60*60) then
-				local request = vRP.request(nSource,"Você deseja concluir a compra de <b>"..vRP.itemNameList(medicname).."</b> por <b>$"..vRP.format(parseInt(price*quercomprar)).."</b> dólares?",30)
+				local request = vRP.request(nSource,"Você deseja concluir a compra de <b>"..vRP.itemNameList(medicname).."</b> por <b>$"..parseFormat(parseInt(price*quercomprar)).."</b> dólares?",30)
 				if request then
 					if parseInt(quercomprar) <= parseInt(podecomprar) then
 						if vRP.paymentBank(parseInt(passaporte),parseInt(price*quercomprar)) then
 							vRP.addBank(user_id,parseInt(pricemedic*quercomprar))
 							vRP.giveInventoryItem(parseInt(passaporte),medicname,parseInt(quercomprar),true)
-							vRP.execute("vRP/update_quantity_medicine",{ user_id = parseInt(passaporte), type = tostring(medicname), quantity = parseInt(quercomprar) })
+							vRP.query("vRP/update_quantity_medicine",{ user_id = parseInt(passaporte), type = tostring(medicname), quantity = parseInt(quercomprar) })
 						else
 							TriggerClientEvent("Notify",nSource,"vermelho","Dinheiro insuficiente.",5000)
 						end
@@ -470,13 +470,13 @@ function cRP.medicPayment(passaporte,medicine,quantity)
 					end
 				end
 			else
-				local request = vRP.request(nSource,"Hospital","Você deseja concluir a compra de <b>"..vRP.itemNameList(medicname).."</b> por <b>$"..vRP.format(parseInt(price*quantity)).."</b> dólares?",30)
+				local request = vRP.request(nSource,"Hospital","Você deseja concluir a compra de <b>"..vRP.itemNameList(medicname).."</b> por <b>$"..parseFormat(parseInt(price*quantity)).."</b> dólares?",30)
 				if request then
 					if parseInt(quantity) <= parseInt(maxmedic) then
 						if vRP.paymentBank(parseInt(passaporte),parseInt(price*quantity)) then
 							vRP.addBank(user_id,parseInt(pricemedic*quantity))
 							vRP.giveInventoryItem(parseInt(passaporte),medicname,parseInt(quantity),true)
-							vRP.execute("vRP/update_time_medicine",{ user_id = parseInt(passaporte), type = tostring(medicname), quantity = parseInt(quantity), create_at = parseInt(os.time()) })
+							vRP.query("vRP/update_time_medicine",{ user_id = parseInt(passaporte), type = tostring(medicname), quantity = parseInt(quantity), create_at = parseInt(os.time()) })
 						else
 							TriggerClientEvent("Notify",nSource,"vermelho","Dinheiro insuficiente.",5000)
 						end
@@ -486,13 +486,13 @@ function cRP.medicPayment(passaporte,medicine,quantity)
 				end
 			end
 		else
-			local request = vRP.request(nSource,"Hospital","Você deseja concluir a compra de <b>"..vRP.itemNameList(medicname).."</b> por <b>$"..vRP.format(parseInt(price*quantity)).."</b> dólares?",30)
+			local request = vRP.request(nSource,"Hospital","Você deseja concluir a compra de <b>"..vRP.itemNameList(medicname).."</b> por <b>$"..parseFormat(parseInt(price*quantity)).."</b> dólares?",30)
 			if request then
 				if parseInt(quantity) <= parseInt(maxmedic) then
 					if vRP.paymentBank(parseInt(passaporte),parseInt(price*quantity)) then
 						vRP.addBank(user_id,parseInt(pricemedic*quantity))
 						vRP.giveInventoryItem(parseInt(passaporte),medicname,parseInt(quantity),true)
-						vRP.execute("vRP/add_medicine",{ user_id = parseInt(passaporte), type = tostring(medicname), quantity = parseInt(quantity), create_at = parseInt(os.time()) })
+						vRP.query("vRP/add_medicine",{ user_id = parseInt(passaporte), type = tostring(medicname), quantity = parseInt(quantity), create_at = parseInt(os.time()) })
 					else
 						TriggerClientEvent("Notify",nSource,"vermelho","Dinheiro insuficiente.",5000)
 					end
@@ -549,7 +549,7 @@ function cRP.anuncioHosp(text)
 	local source = source
 	local user_id = vRP.getUserId(source)
 	if user_id then
-		vRP.execute("vRP/add_usermedic",{ user_id = user_id, type = "announce", text = tostring(text), date = os.date("%d/%m/%Y ás %H:%M:%S") })
+		vRP.query("vRP/add_usermedic",{ user_id = user_id, type = "announce", text = tostring(text), date = os.date("%d/%m/%Y ás %H:%M:%S") })
 		local amountParamedic = vRP.numPermission("Paramedic")
 		for k,v in pairs(amountParamedic) do
 			async(function()
@@ -579,7 +579,7 @@ function cRP.delAnnounce(table)
 	local source = source
 	local user_id = vRP.getUserId(source)
 	if user_id then
-		vRP.execute("vRP/del_usermedic",{ id = table })
+		vRP.query("vRP/del_usermedic",{ id = table })
 		TriggerClientEvent("mdt:Update",source,"functionAnnounce")
 	end
 end
@@ -623,7 +623,7 @@ function cRP.promoverUser(user)
 	if user_id then
 		if vRP.hasPermission(user,"Paramedic") then
 			if parseInt(promotion[1].paramedic_time) < 4 then
-				vRP.execute("vRP/set1_paramedic_promotion",{ user_id = parseInt(user), permiss = "Paramedic" })
+				vRP.query("vRP/set1_paramedic_promotion",{ user_id = parseInt(user), permiss = "Paramedic" })
 				TriggerClientEvent("Notify",source,"verde","Você promoveu o passaporte <b>"..user.."</b>.",10000)
 			else
 				TriggerClientEvent("Notify",source,"vermelho","Passaporte <b>"..user.."</b> atingiu o nível máximo de promoção.",10000)
@@ -641,7 +641,7 @@ function cRP.rebaixarUser(user)
 	if user_id then
 		if vRP.hasPermission(user,"Paramedic") then
 			if parseInt(promotion[1].paramedic_time) > 0 then
-				vRP.execute("vRP/rem_paramedic_promotion",{ user_id = parseInt(user), permiss = "Paramedic" })
+				vRP.query("vRP/rem_paramedic_promotion",{ user_id = parseInt(user), permiss = "Paramedic" })
 				TriggerClientEvent("Notify",source,"verde","Você rebaixou o passaporte <b>"..user.."</b>.",10000)
 			else
 				TriggerClientEvent("Notify",source,"vermelho","Passaporte <b>"..user.."</b> atingiu o nível mais baixo de promoção.",10000)
@@ -659,13 +659,13 @@ function cRP.updateMyConsults(data)
 		if data["data"] ~= "" and data["hora"] ~= "" then
 			if data["texto"] == "" and data["bottonselected"] == "0" then
 				local datefinal = ""..data["data"].. " ás " ..data["hora"]..""
-				vRP.execute("vRP/update_myconsults",{ id = data["number"], date = tostring(datefinal) })
+				vRP.query("vRP/update_myconsults",{ id = data["number"], date = tostring(datefinal) })
 				vRPC.playSound(source,"Event_Message_Purple","GTAO_FM_Events_Soundset")
 				TriggerClientEvent("mdt:Update",source,"minhasConsultas")
 			end
 		else
 			if data["texto"] ~= "" and data["bottonselected"] ~= "0" then
-				vRP.execute("vRP/update_finalconsult",{ id = data["number"], date2 = os.date("%d/%m/%Y ás %H:%M:%S"), utils = data["bottonselected"], text2 = tostring(data["texto"]) })
+				vRP.query("vRP/update_finalconsult",{ id = data["number"], date2 = os.date("%d/%m/%Y ás %H:%M:%S"), utils = data["bottonselected"], text2 = tostring(data["texto"]) })
 				vRPC.playSound(source,"Event_Message_Purple","GTAO_FM_Events_Soundset")
 				TriggerClientEvent("mdt:Update",source,"minhasConsultas")
 			end
@@ -729,7 +729,7 @@ function cRP.rankJob()
 		local identity = vRP.getUserIdentity(parseInt(v.user_id))
 		count = count + 1
 		
-		table.insert(playersrank,{ tops = count, name = tostring(identity.name.." "..identity.name2), user_id = vRP.format(parseInt(v.user_id)), time = completeTimers(parseInt(v.time)*600) })
+		table.insert(playersrank,{ tops = count, name = tostring(identity.name.." "..identity.name2), user_id = parseFormat(parseInt(v.user_id)), time = completeTimers(parseInt(v.time)*600) })
 	end
 	return playersrank
 end
@@ -742,9 +742,9 @@ function cRP.workingTime()
     if user_id then
         local workingtime = vRP.query("vRP/getworkingtime",{ user_id = user_id, job = "Paramedic" })
         if workingtime[1] ~= nil then
-            vRP.execute("vRP/updtworkingtime",{ user_id = user_id, job = "Paramedic" })
+            vRP.query("vRP/updtworkingtime",{ user_id = user_id, job = "Paramedic" })
         else
-            vRP.execute("vRP/addworkingtime",{ user_id = user_id, job = "Paramedic", time = parseInt(1) })
+            vRP.query("vRP/addworkingtime",{ user_id = user_id, job = "Paramedic", time = parseInt(1) })
         end
     end
 end

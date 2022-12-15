@@ -180,6 +180,6 @@ vRP.prepare("hiro/ClearEntityData","DELETE FROM vrp_srv_data WHERE dvalue = '[]'
 -- THREADCLEANERS
 -----------------------------------------------------------------------------------------------------------------------------------------
 CreateThread(function()
-	vRP.execute("hiro/ClearPlayerData")
-	vRP.execute("hiro/ClearEntityData")
+	vRP.query("hiro/ClearPlayerData")
+	vRP.query("hiro/ClearEntityData")
 end)

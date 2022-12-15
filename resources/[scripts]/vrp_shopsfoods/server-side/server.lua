@@ -248,7 +248,7 @@ function paymentBusiness(user_id,shopid,amount)
     if amount > 0 then
         local consult = vRP.query("vRP/getname_business",{ business = tostring(shopid) })
         if consult[1] and consult[1]["cash"] >= amount then
-			vRP.execute("vRP/withdraw_business",{ business = tostring(shopid), cash = parseInt(amount)  })
+			vRP.query("vRP/withdraw_business",{ business = tostring(shopid), cash = parseInt(amount)  })
 			return true
         end
     end
@@ -261,7 +261,7 @@ function setCashBusiness(user_id,shopid,amount)
     if amount > 0 then
         local consult = vRP.query("vRP/getname_business",{ business = tostring(shopid) })
         if consult[1] then
-            vRP.execute("vRP/deposit_business",{ business = tostring(shopid), cash = parseInt(amount)  })
+            vRP.query("vRP/deposit_business",{ business = tostring(shopid), cash = parseInt(amount)  })
         end
     end
 end

@@ -210,7 +210,7 @@ function cRP.addBusiness(nuser_id,restaurantName)
             local business = vRP.query("vRP/get_business",{ user_id = user_id, business = shopsRestaurant[restaurantName]["businessName"] })
             if business[1] then
                 if vRP.hasPermission(nuser_id,shopsRestaurant[restaurantName]["permiss"]) then
-                    vRP.execute("vRP/put_business",{ user_id = nuser_id, business = shopsRestaurant[restaurantName]["businessName"], cash = 0, owner = 0 })
+                    vRP.query("vRP/put_business",{ user_id = nuser_id, business = shopsRestaurant[restaurantName]["businessName"], cash = 0, owner = 0 })
                     local identity = vRP.getUserIdentity(nuser_id)
                     if identity then
                         TriggerClientEvent("Notify",source,"success","Sociedade adicionada para <b>"..identity["name"].." "..identity["name2"].."</b>.",5000)
@@ -233,7 +233,7 @@ function cRP.remBusiness(nuser_id,restaurantName)
     if user_id then
         local business = vRP.query("vRP/get_business",{ user_id = user_id, business = shopsRestaurant[restaurantName]["businessName"] })
         if business[1] then
-            vRP.execute("vRP/rem_permission",{ user_id = nuser_id, business = shopsRestaurant[restaurantName]["businessName"] })
+            vRP.query("vRP/rem_permission",{ user_id = nuser_id, business = shopsRestaurant[restaurantName]["businessName"] })
             local identity = vRP.getUserIdentity(nuser_id)
             if identity then
                 TriggerClientEvent("Notify",source,"success","Sociedade retirada de <b>"..identity["name"].." "..identity["name2"].."</b>.",5000)
@@ -289,7 +289,7 @@ function paymentBusiness(user_id,shopid,amount)
     if amount > 0 then
         local consult = vRP.query("vRP/getname_business",{ business = tostring(shopid) })
         if consult[1] and consult[1]["cash"] >= amount then
-			vRP.execute("vRP/withdraw_business",{ business = tostring(shopid), cash = parseInt(amount)  })
+			vRP.query("vRP/withdraw_business",{ business = tostring(shopid), cash = parseInt(amount)  })
 			return true
         end
     end
@@ -302,7 +302,7 @@ function setCashBusiness(user_id,shopid,amount)
     if amount > 0 then
         local consult = vRP.query("vRP/getname_business",{ business = tostring(shopid) })
         if consult[1] then
-            vRP.execute("vRP/deposit_business",{ business = tostring(shopid), cash = parseInt(amount)  })
+            vRP.query("vRP/deposit_business",{ business = tostring(shopid), cash = parseInt(amount)  })
         end
     end
 end

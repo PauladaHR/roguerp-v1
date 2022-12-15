@@ -3,11 +3,11 @@
 -----------------------------------------------------------------------------------------------------------------------------------------
 function vRP.addBank(user_id,amount)
 	if amount > 0 then
-		vRP.execute("vRP/add_bank",{ id = parseInt(user_id), bank = parseInt(amount) })
+		vRP.query("vRP/add_bank",{ id = parseInt(user_id), bank = parseInt(amount) })
 
 		local source = vRP.getUserSource(user_id)
 		if source then
-			TriggerClientEvent("itensNotify",source,{ "+","dollars",vRP.format(amount),"Dólares" })
+			TriggerClientEvent("itensNotify",source,{ "+","dollars",parseFormat(amount),"Dólares" })
 		end
 	end
 end
@@ -16,7 +16,7 @@ end
 -----------------------------------------------------------------------------------------------------------------------------------------
 function vRP.setBank(user_id,amount)
 	if amount >= 0 then
-		vRP.execute("vRP/set_bank",{ id = parseInt(user_id), bank = parseInt(amount) })
+		vRP.query("vRP/set_bank",{ id = parseInt(user_id), bank = parseInt(amount) })
 	end
 end
 -----------------------------------------------------------------------------------------------------------------------------------------
@@ -24,7 +24,7 @@ end
 -----------------------------------------------------------------------------------------------------------------------------------------
 function vRP.delBank(user_id,amount)
 	if amount > 0 then
-		vRP.execute("vRP/del_bank",{ id = parseInt(user_id), bank = parseInt(amount) })
+		vRP.query("vRP/del_bank",{ id = parseInt(user_id), bank = parseInt(amount) })
 	end
 end
 -----------------------------------------------------------------------------------------------------------------------------------------
@@ -44,11 +44,11 @@ function vRP.paymentBank(user_id,amount)
 		local consult = vRP.getInformation(user_id)
 		if consult[1] then
 			if consult[1].bank >= amount then
-				vRP.execute("vRP/del_bank",{ id = parseInt(user_id), bank = parseInt(amount) })
+				vRP.query("vRP/del_bank",{ id = parseInt(user_id), bank = parseInt(amount) })
 
 				local source = vRP.getUserSource(user_id)
 				if source then
-					TriggerClientEvent("itensNotify",source,{ "-","dollars",vRP.format(amount),"Dólares" })
+					TriggerClientEvent("itensNotify",source,{ "-","dollars",parseFormat(amount),"Dólares" })
 				end
 				return true
 			end
@@ -67,11 +67,11 @@ function vRP.paymentFull(user_id,amount)
 			local consult = vRP.getInformation(user_id)
 			if consult[1] then
 				if consult[1].bank >= amount then
-					vRP.execute("vRP/del_bank",{ id = parseInt(user_id), bank = parseInt(amount) })
+					vRP.query("vRP/del_bank",{ id = parseInt(user_id), bank = parseInt(amount) })
 
 					local source = vRP.getUserSource(user_id)
 					if source then
-						TriggerClientEvent("itensNotify",source,{ "-","dollars",vRP.format(amount),"Dólares" })
+						TriggerClientEvent("itensNotify",source,{ "-","dollars",parseFormat(amount),"Dólares" })
 					end
 					return true
 				end
@@ -89,7 +89,7 @@ function vRP.withdrawCash(user_id,amount)
 		if consult[1] then
 			if consult[1].bank >= amount then
 				vRP.giveInventoryItem(user_id,"dollars",amount,true)
-				vRP.execute("vRP/del_bank",{ id = parseInt(user_id), bank = parseInt(amount) })
+				vRP.query("vRP/del_bank",{ id = parseInt(user_id), bank = parseInt(amount) })
 				return true
 			end
 		end
@@ -100,7 +100,7 @@ end
 -- SETFINES
 -----------------------------------------------------------------------------------------------------------------------------------------
 function vRP.setFines(user_id,price,nuser_id,text)
-	vRP.execute("vRP/add_fines",{ user_id = user_id, nuser_id = tostring(nuser_id), date = os.date("%d.%m.%Y"), price = price, text = tostring(text) })
+	vRP.query("vRP/add_fines",{ user_id = user_id, nuser_id = tostring(nuser_id), date = os.date("%d.%m.%Y"), price = price, text = tostring(text) })
 end
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- GETFINES

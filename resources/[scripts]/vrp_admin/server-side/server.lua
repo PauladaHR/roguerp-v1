@@ -36,7 +36,7 @@ RegisterCommand("gem",function(source,Message)
 		if vRP.hasRank(user_id,"Admin",100) and parseInt(Message[1]) > 0 and parseInt(Message[2]) > 0 then
 			local identity = vRP.getUserIdentity(parseInt(Message[1]))
 			if identity then
-				vRP.execute("vRP/update_gems",{ steam = tostring(identity.steam), gems = parseInt(args[2]) })
+				vRP.query("vRP/update_gems",{ steam = tostring(identity.steam), gems = parseInt(args[2]) })
 				TriggerClientEvent("Notify",source,"verde", "Gemas entregues com sucesso.", 5000)
 			end
 		end
@@ -232,12 +232,12 @@ RegisterCommand("ban",function(source,args,rawCommand)
 		if vRP.hasRank(user_id,"Admin",60) and parseInt(args[1]) > 0 then
 			local identity = vRP.getUserIdentity(parseInt(args[1]))
 			if identity then
-				vRP.execute("vRP/set_banned",{ steam = tostring(identity.steam), banned = 1 })
+				vRP.query("vRP/set_banned",{ steam = tostring(identity.steam), banned = 1 })
 				TriggerClientEvent("Notify",source,"verde", "<b>Jogador com ID "..args[1].." Banido</b>", 5000)
 			else
 				local steam = vRP.getInformation(args[1])
 				if steam[1].steam then
-					vRP.execute("vRP/set_banned",{ steam = tostring(steam[1].steam), banned = 1 })
+					vRP.query("vRP/set_banned",{ steam = tostring(steam[1].steam), banned = 1 })
 					TriggerClientEvent("Notify",source,"verde", "<b>Jogador com ID "..args[1].." Banido</b>", 5000)
 				end
 			end
@@ -272,10 +272,10 @@ RegisterCommand("remhomes",function(source,args,rawCommand)
 		if args[1] then
             if vRP.request(source,"Casas","Deseja remover a casa <b>"..args[1].."</b> ?",30) then
 				TriggerEvent("vrp_garages:removeGarages",tostring(args[1]))
-				vRP.execute("vRP/rem_allpermissions",{ home = tostring(args[1]) })
-				vRP.execute("vRP/rem_srv_data",{ dkey = "homesChest:"..tostring(args[1]) })
-				vRP.execute("vRP/rem_srv_data",{ dkey = "homesFridge:"..tostring(args[1]) })
-				vRP.execute("vRP/rem_srv_data",{ dkey = "wardrobe:"..tostring(args[1]) })
+				vRP.query("vRP/rem_allpermissions",{ home = tostring(args[1]) })
+				vRP.query("vRP/rem_srv_data",{ dkey = "homesChest:"..tostring(args[1]) })
+				vRP.query("vRP/rem_srv_data",{ dkey = "homesFridge:"..tostring(args[1]) })
+				vRP.query("vRP/rem_srv_data",{ dkey = "wardrobe:"..tostring(args[1]) })
 				TriggerClientEvent("Notify",source,"verde", "Você removeu a casa <b>"..args[1].."</b>.", 5000)
             end
 		end
@@ -313,7 +313,7 @@ RegisterCommand("remvehs",function(source,args,rawCommand)
             local nuser_id = vRP.getUserId(parseInt(args[2]))
 			local identity2 = vRP.getUserIdentity(parseInt(args[2]))
 			if vRP.request(source,"Casas","Deseja retirar o veículo <b>"..vRP.vehicleName(args[1]).."</b> do Passaporte: <b>"..parseInt(args[2]).." "..identity2.name.." "..identity2.name2.."</b> ?",30) then
-				vRP.execute("vRP/rem_vehicle",{ user_id = parseInt(args[2]), vehicle = args[1]  }) 
+				vRP.query("vRP/rem_vehicle",{ user_id = parseInt(args[2]), vehicle = args[1]  }) 
 				TriggerClientEvent("Notify",source,"verde", "Voce removeu o veículo <b>"..vRP.vehicleName(args[1]).."</b> do Passaporte: <b>"..parseInt(args[2]).."</b>.", 5000)
 				TriggerClientEvent("Notify",nuser_id,"vermelho", "O veículo <b>"..vRP.vehicleName(args[1]).."</b> foi removido da sua garagem.", 5000)
 			end
@@ -330,7 +330,7 @@ RegisterCommand("addvehs",function(source,args)
             local identity2 = vRP.getUserIdentity(parseInt(args[2]))
             local nuser_id = vRP.getUserId(identity2)
 			if vRP.request(source,"Casas","Deseja adicionar o carro <b>"..vRP.vehicleName(args[1]).."</b> para o Passaporte: <b>"..parseInt(args[2]).." "..identity2.name.." "..identity2.name2.."</b> ?",30) then
-				vRP.execute("vRP/add_vehicle",{ user_id = parseInt(args[2]), vehicle = args[1], plate = vRP.generatePlateNumber(), work = tostring(false) })
+				vRP.query("vRP/add_vehicle",{ user_id = parseInt(args[2]), vehicle = args[1], plate = vRP.generatePlateNumber(), work = tostring(false) })
 				vRP.query("vehicles/updateVehiclesTax",{ user_id = parseInt(user_id), vehicle = args[1], tax = os.time() })
 				TriggerClientEvent("Notify",source,"verde", "Voce adicionou o veículo <b>"..vRP.vehicleName(args[1]).."</b> para o Passaporte: <b>"..parseInt(args[2]).."</b>.", 5000)
 			end
@@ -346,7 +346,7 @@ RegisterCommand("clearchest",function(source,args,rawCommand)
         if args[1] then
             local identity2 = vRP.getUserIdentity(parseInt(args[2]))
             if vRP.request(source,"Casas","Deseja limpar o baú <b>"..args[1].."</b> ?",30) then
-                vRP.execute("vRP/rem_srv_data",{ dkey = "chest:"..tostring(args[1]) })
+                vRP.query("vRP/rem_srv_data",{ dkey = "chest:"..tostring(args[1]) })
 				TriggerClientEvent("Notify",source,"verde", "Você limpou o baú <b>"..args[1].."</b>.", 5000)
             end
         end
@@ -393,7 +393,7 @@ RegisterCommand("wl",function(source,args,rawCommand)
 	local user_id = vRP.getUserId(source)
 	if user_id then
 	if vRP.hasRank(user_id,"Admin",40) then
-			vRP.execute("vRP/set_whitelist",{ steam = tostring(args[1]), whitelist = 1 })
+			vRP.query("vRP/set_whitelist",{ steam = tostring(args[1]), whitelist = 1 })
 			TriggerClientEvent("Notify",source,"verde","Você aprovou a wl da hex "  ..args[1],5000)
 		end
 	end
@@ -407,7 +407,7 @@ RegisterCommand("unwl",function(source,args,rawCommand)
 		if vRP.hasRank(user_id,"Admin",20) and parseInt(args[1]) > 0 then
 			local identity = vRP.getUserIdentity(parseInt(args[1]))
 			if identity then
-				vRP.execute("vRP/set_whitelist",{ steam = tostring(identity.steam), whitelist = 0 })
+				vRP.query("vRP/set_whitelist",{ steam = tostring(identity.steam), whitelist = 0 })
 				TriggerClientEvent("Notify",source,"verde","Você retirou a wl da hex "  ..args[1],5000)
 			end
 		end
@@ -422,7 +422,7 @@ RegisterCommand("unban",function(source,args,rawCommand)
 		if vRP.hasRank(user_id,"Admin",60) and parseInt(args[1]) > 0 then
 			local identity = vRP.getUserIdentity(parseInt(args[1]))
 			if identity then
-				vRP.execute("vRP/set_banned",{ steam = tostring(identity.steam), banned = 0 })
+				vRP.query("vRP/set_banned",{ steam = tostring(identity.steam), banned = 0 })
 			end
 		end
 	end
@@ -926,7 +926,7 @@ RegisterCommand("idp",function(source,args)
 						fines = parseInt(fines) + parseInt(v.price)
 					end
 
-					TriggerClientEvent("Notify",source,"amarelo", "<b>Passaporte:</b> "..identity.id.."<br><b>Nome:</b> "..identity.name.." "..identity.name2.."<br><b>RG:</b> "..identity.registration.."<br><b>Telefone:</b> "..identity.phone.."<br><b>Multas Pendentes:</b> $"..vRP.format(parseInt(fines)), 2000)
+					TriggerClientEvent("Notify",source,"amarelo", "<b>Passaporte:</b> "..identity.id.."<br><b>Nome:</b> "..identity.name.." "..identity.name2.."<br><b>RG:</b> "..identity.registration.."<br><b>Telefone:</b> "..identity.phone.."<br><b>Multas Pendentes:</b> $"..parseFormat(parseInt(fines)), 2000)
 				end
 			else
 				local nplayer = vRPC.nearestPlayer(source,2)
@@ -941,7 +941,7 @@ RegisterCommand("idp",function(source,args)
 								fines = parseInt(fines) + parseInt(v.price)
 							end
 
-							TriggerClientEvent("Notify",source,"amarelo", "<b>Passaporte:</b> "..identity.id.."<br><b>Nome:</b> "..identity.name.." "..identity.name2.."<br><b>RG:</b> "..identity.registration.."<br><b>Telefone:</b> "..identity.phone.."<br><b>Multas Pendentes:</b> $"..vRP.format(parseInt(fines)), 2000)
+							TriggerClientEvent("Notify",source,"amarelo", "<b>Passaporte:</b> "..identity.id.."<br><b>Nome:</b> "..identity.name.." "..identity.name2.."<br><b>RG:</b> "..identity.registration.."<br><b>Telefone:</b> "..identity.phone.."<br><b>Multas Pendentes:</b> $"..parseFormat(parseInt(fines)), 2000)
 						end
 					end
 				end
@@ -1034,12 +1034,12 @@ RegisterCommand("vipinicial", function(source,args,command)
 		if not vRP.userPremium(user_id) then
 			local vip = vRP.query("characters/getVip",{ id = parseInt(user_id) })
 			if vip[1].vipinitial == 1 then
-				vRP.execute("vRP/add_vehicle",{ user_id = parseInt(user_id), vehicle = "vwgolfgti", plate = vRP.generatePlateNumber(), work = tostring(false) })
-				vRP.execute("vRP/set_rental_time",{ user_id = parseInt(user_id), vehicle = "vwgolfgti", rental_time = parseInt(os.time()+3*24*60*60) })
-				vRP.execute("vRP/set_premium",{ steam = identity["steam"], premium = parseInt(os.time()), predays = 3, priority = 30 })
-				vRP.execute("vRP/set_class",{ steam = identity["steam"], class = "Silver" })
+				vRP.query("vRP/add_vehicle",{ user_id = parseInt(user_id), vehicle = "vwgolfgti", plate = vRP.generatePlateNumber(), work = tostring(false) })
+				vRP.query("vRP/set_rental_time",{ user_id = parseInt(user_id), vehicle = "vwgolfgti", rental_time = parseInt(os.time()+3*24*60*60) })
+				vRP.query("vRP/set_premium",{ steam = identity["steam"], premium = parseInt(os.time()), predays = 3, priority = 30 })
+				vRP.query("vRP/set_class",{ steam = identity["steam"], class = "Silver" })
 				TriggerClientEvent("Notify",source,"verde","Vip Inicial resgatado com sucesso.")
-				vRP.execute("characters/setInitialVip", { id = parseInt(user_id) })
+				vRP.query("characters/setInitialVip", { id = parseInt(user_id) })
 			else
 				TriggerClientEvent("Notify",source,"vermelho","Você já resgatou o mesmo.")
 			end
@@ -1084,7 +1084,7 @@ RegisterCommand('registerveh',function(source)
 				return
 			end
 
-			vRP.execute("admin/registerVehicle", { spawn = vehicle, name = vehicleName, price = price, class = class, hash = hash, chestweight = weight })
+			vRP.query("admin/registerVehicle", { spawn = vehicle, name = vehicleName, price = price, class = class, hash = hash, chestweight = weight })
 			TriggerClientEvent("Notify",source,"sucesso",
 				"Registrado<br/><br/>" ..
 				"Spawn: <b>" .. vehicle .. "</b><br/>" ..

@@ -10,7 +10,7 @@ local itemlist = {}
 -- 		if not checkExist[1] then
 -- 			exports["oxmysql"]:executeSync("INSERT INTO vrp_items(indexName,item,name,type,description,weight,max,economy,hunger,thirst,stress,anim,noStore,available) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?)",{ k,vRP.itemIndexList(k),vRP.itemNameList(k),vRP.itemTypeList(k),vRP.itemDescList(k),vRP.itemWeightList(k),vRP.itemMaxAmount(k),vRP.itemEconomyList(k),vRP.itemHungerList(k),vRP.itemWaterList(k),vRP.itemStressList(k),vRP.itemAnim(k),1,1 })
 -- 		else
--- 			vRP.execute("items/update_item",{ indexName = k, item = vRP.itemIndexList(k), name = vRP.itemNameList(k), type = vRP.itemTypeList(k), description = vRP.itemDescList(k), weight = vRP.itemWeightList(k), max = 0, economy = vRP.itemEconomyList(k), 
+-- 			vRP.query("items/update_item",{ indexName = k, item = vRP.itemIndexList(k), name = vRP.itemNameList(k), type = vRP.itemTypeList(k), description = vRP.itemDescList(k), weight = vRP.itemWeightList(k), max = 0, economy = vRP.itemEconomyList(k), 
 -- 			hunger = vRP.itemHungerList(k), thirst = vRP.itemWaterList(k), stress = vRP.itemStressList(k), anim = vRP.itemAnim(k) })
 -- 		end
 -- 		print(k,json.encode(v))
@@ -101,7 +101,7 @@ CreateThread(function()
 				v["timer"] = v["timer"] - 1
 
 				if v["timer"] <= 0 then
-					vRP.execute("entitydata/setData",{ dkey = k, value = json.encode(v["data"]) })
+					vRP.query("entitydata/setData",{ dkey = k, value = json.encode(v["data"]) })
 					srvData[k] = nil
 				end
 			end
@@ -117,9 +117,9 @@ RegisterServerEvent("vRP:saveServer")
 AddEventHandler("vRP:saveServer",function()
 	for k,v in pairs(srvData) do
 		if json.encode(v["data"]) == "[]" or json.encode(v["data"]) == "{}" then
-			vRP.execute("entitydata/removeData",{ dkey = k })
+			vRP.query("entitydata/removeData",{ dkey = k })
 		else
-			vRP.execute("entitydata/setData",{ dkey = k, value = json.encode(v["data"]) })
+			vRP.query("entitydata/setData",{ dkey = k, value = json.encode(v["data"]) })
 		end
 	end
 
@@ -374,7 +374,7 @@ function vRP.giveInventoryItem(user_id,idname,amount,notify,slot)
 			end
 
 			if notify and vRP.itemBodyList(idname) then
-				TriggerClientEvent("itensNotify",vRP.getUserSource(user_id),{ "+",vRP.itemIndexList(idname),vRP.format(parseInt(amount)),vRP.itemNameList(idname) })
+				TriggerClientEvent("itensNotify",vRP.getUserSource(user_id),{ "+",vRP.itemIndexList(idname),parseFormat(parseInt(amount)),vRP.itemNameList(idname) })
 			end
 		else
 			slot = tostring(slot)
@@ -389,7 +389,7 @@ function vRP.giveInventoryItem(user_id,idname,amount,notify,slot)
 			end
 
 			if notify and vRP.itemBodyList(idname) then
-				TriggerClientEvent("itensNotify",vRP.getUserSource(user_id),{ "+",vRP.itemIndexList(idname),vRP.format(parseInt(amount)),vRP.itemNameList(idname) })
+				TriggerClientEvent("itensNotify",vRP.getUserSource(user_id),{ "+",vRP.itemIndexList(idname),parseFormat(parseInt(amount)),vRP.itemNameList(idname) })
 			end
 		end
 	end
@@ -420,7 +420,7 @@ function vRP.generateItem(user_id,idname,amount,notify,slot)
 			end
 
 			if notify and vRP.itemBodyList(idname) then
-				TriggerClientEvent("itensNotify",vRP.getUserSource(user_id),{ "+",vRP.itemIndexList(idname),vRP.format(amount),vRP.itemNameList(idname) })
+				TriggerClientEvent("itensNotify",vRP.getUserSource(user_id),{ "+",vRP.itemIndexList(idname),parseFormat(amount),vRP.itemNameList(idname) })
 			end
 		else
 			local selectSlot = tostring(slot)
@@ -434,7 +434,7 @@ function vRP.generateItem(user_id,idname,amount,notify,slot)
 			end
 
 			if notify and vRP.itemBodyList(idname) then
-				TriggerClientEvent("itensNotify",vRP.getUserSource(user_id),{ "+",vRP.itemIndexList(idname),vRP.format(amount),vRP.itemNameList(idname) })
+				TriggerClientEvent("itensNotify",vRP.getUserSource(user_id),{ "+",vRP.itemIndexList(idname),parseFormat(amount),vRP.itemNameList(idname) })
 			end
 		end
 	end
@@ -455,7 +455,7 @@ function vRP.tryGetInventoryItem(user_id,idname,amount,notify,slot)
 					end
 
 					if notify and vRP.itemBodyList(idname) then
-						TriggerClientEvent("itensNotify",vRP.getUserSource(user_id),{ "-",vRP.itemIndexList(idname),vRP.format(parseInt(amount)),vRP.itemNameList(idname) })
+						TriggerClientEvent("itensNotify",vRP.getUserSource(user_id),{ "-",vRP.itemIndexList(idname),parseFormat(parseInt(amount)),vRP.itemNameList(idname) })
 					end
 					return true
 				end
@@ -471,7 +471,7 @@ function vRP.tryGetInventoryItem(user_id,idname,amount,notify,slot)
 				end
 
 				if notify and vRP.itemBodyList(idname) then
-					TriggerClientEvent("itensNotify",vRP.getUserSource(user_id),{ "-",vRP.itemIndexList(idname),vRP.format(parseInt(amount)),vRP.itemNameList(idname) })
+					TriggerClientEvent("itensNotify",vRP.getUserSource(user_id),{ "-",vRP.itemIndexList(idname),parseFormat(parseInt(amount)),vRP.itemNameList(idname) })
 				end
 				return true
 			end
@@ -495,7 +495,7 @@ function vRP.removeInventoryItem(user_id,idname,amount,notify)
 				end
 
 				if notify and vRP.itemBodyList(idname) then
-					TriggerClientEvent("itensNotify",vRP.getUserSource(user_id),{ "-",vRP.itemIndexList(idname),vRP.format(parseInt(amount)),vRP.itemNameList(idname) })
+					TriggerClientEvent("itensNotify",vRP.getUserSource(user_id),{ "-",vRP.itemIndexList(idname),parseFormat(parseInt(amount)),vRP.itemNameList(idname) })
 				end
 
 				break
@@ -536,7 +536,7 @@ function vRP.tryChest(user_id,chestData,itemName,amount,slot,target)
 
 			if vRP.getInventoryItemMax(user_id,itemName,parseInt(amount)) then
 				if vRP.computeInvWeight(user_id) + (vRP.itemWeightList(itemName) * parseInt(amount)) <= vRP.getBackpack(user_id) then
-					local inventory = vRP.user_tables[parseInt(user_id)]["inventory"]
+					local inventory = vRP.userTables[parseInt(user_id)]["inventory"]
 					local targetSlot = tostring(target)
 					local selectSlot = tostring(slot)
 					local identity = vRP.getUserIdentity(user_id)
@@ -551,7 +551,7 @@ function vRP.tryChest(user_id,chestData,itemName,amount,slot,target)
 									result[selectSlot] = nil
 								end
 
-								vRP.execute("vRP/set_srvdata",{ key = chestData, value = json.encode(result) })
+								vRP.query("vRP/set_srvdata",{ key = chestData, value = json.encode(result) })
 
 							else
 								return false
@@ -569,7 +569,7 @@ function vRP.tryChest(user_id,chestData,itemName,amount,slot,target)
 									result[selectSlot] = nil
 								end
 
-								vRP.execute("vRP/set_srvdata",{ key = chestData, value = json.encode(result) })
+								vRP.query("vRP/set_srvdata",{ key = chestData, value = json.encode(result) })
 
 							else
 								return false
@@ -604,7 +604,7 @@ function vRP.storeChest(user_id,chestData,itemName,amount,dataWeight,slot,target
 		local result = json.decode(consult) or {}
 		if result ~= nil then
 			if vRP.chestWeight(result) + vRP.itemWeightList(itemName) * parseInt(amount) <= dataWeight then
-				local inventory = vRP.user_tables[parseInt(user_id)]["inventory"]
+				local inventory = vRP.userTables[parseInt(user_id)]["inventory"]
 				local targetSlot = tostring(target)
 				local selectSlot = tostring(slot)
 				local identity = vRP.getUserIdentity(user_id)
@@ -641,7 +641,7 @@ function vRP.storeChest(user_id,chestData,itemName,amount,dataWeight,slot,target
 					end
 				end
 
-				vRP.execute("vRP/set_srvdata",{ key = chestData, value = json.encode(result) })
+				vRP.query("vRP/set_srvdata",{ key = chestData, value = json.encode(result) })
 
 			else
 				return true
@@ -703,7 +703,7 @@ function vRP.updateChest(user_id,chestData,itemName,slot,target,amount)
 				end
 			end
 
-			vRP.execute("vRP/set_srvdata",{ key = chestData, value = json.encode(result) })
+			vRP.query("vRP/set_srvdata",{ key = chestData, value = json.encode(result) })
 		end
 		return false
 	else
@@ -727,7 +727,7 @@ end
 -----------------------------------------------------------------------------------------------------------------------------------------
 function vRP.inventoryWeight(user_id)
     local totalWeight = 0
-    local inventory = vRP.user_tables[parseInt(user_id)]["inventory"]
+    local inventory = vRP.userTables[parseInt(user_id)]["inventory"]
     if inventory then
         for k,v in pairs(inventory) do
             if vRP.itemBodyList(v["item"]) then

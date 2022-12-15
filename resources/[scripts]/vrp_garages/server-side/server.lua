@@ -272,7 +272,7 @@ function cRP.spawnVehicles(vehName,garageName)
 			local vehicle = vRP.query("vRP/get_vehicles",{ user_id = parseInt(user_id), vehicle = vehName })
 
 			if vehicle[1] == nil then
-				vRP.execute("vRP/add_vehicle",{ user_id = parseInt(user_id), vehicle = vehName, plate = vRP.generatePlateNumber(), work = tostring(true) })
+				vRP.query("vRP/add_vehicle",{ user_id = parseInt(user_id), vehicle = vehName, plate = vRP.generatePlateNumber(), work = tostring(true) })
 				vehicle = vRP.query("vRP/get_vehicles",{ user_id = parseInt(user_id), vehicle = vehName })
 			end
 
@@ -285,7 +285,7 @@ function cRP.spawnVehicles(vehName,garageName)
 					local status = vRP.request(source,"Veículo detido, deseja acionar o seguro pagando <b>$"..parseFormat(vehPrice * 0.01).."</b> dólares?",60)
 					if status then
 						if vRP.paymentFull(user_id,vehPrice * 0.01) then
-							vRP.execute("vRP/set_arrest",{ user_id = parseInt(user_id), vehicle = vehName, arrest = 0, time = 0 })
+							vRP.query("vRP/set_arrest",{ user_id = parseInt(user_id), vehicle = vehName, arrest = 0, time = 0 })
 						else
 							TriggerClientEvent("Notify",source,"vermelho","Dólares insuficientes.",5000)
 						end
@@ -294,7 +294,7 @@ function cRP.spawnVehicles(vehName,garageName)
 					local status = vRP.request(source,"Veículo detido, deseja acionar o seguro pagando <b>$"..parseFormat(vehPrice * 0.1).."</b> dólares?",60)
 					if status then
 						if vRP.paymentFull(user_id,vehPrice * 0.1) then
-							vRP.execute("vRP/set_arrest",{ user_id = parseInt(user_id), vehicle = vehName, arrest = 0, time = 0 })
+							vRP.query("vRP/set_arrest",{ user_id = parseInt(user_id), vehicle = vehName, arrest = 0, time = 0 })
 						else
 							TriggerClientEvent("Notify",source,"vermelho","Dólares insuficientes.",5000)
 						end
@@ -512,7 +512,7 @@ function cRP.tryDelete(vehNet,vehEngine,vehBody,vehFuel,vehDoors,vehWindows,vehT
 
 		local vehicle = vRP.query("vRP/get_vehicles",{ user_id = parseInt(user_id), vehicle = tostring(vehName) })
 		if vehicle[1] ~= nil then
-			vRP.execute("vRP/set_update_vehicles",{ user_id = parseInt(user_id), vehicle = tostring(vehName), engine = parseInt(vehEngine), body = parseInt(vehBody), fuel = parseInt(vehFuel), doors = json.encode(vehDoors), windows = json.encode(vehWindows), tyres = json.encode(vehTyres) })
+			vRP.query("vRP/set_update_vehicles",{ user_id = parseInt(user_id), vehicle = tostring(vehName), engine = parseInt(vehEngine), body = parseInt(vehBody), fuel = parseInt(vehFuel), doors = json.encode(vehDoors), windows = json.encode(vehWindows), tyres = json.encode(vehTyres) })
 		end
 	end
 
@@ -624,20 +624,20 @@ AddEventHandler("garages:vehicleFunctions",function(vehFunctions)
 				end
 
 				if vRP.request(source,"Deseja transferir o veículo <b>"..vRP.vehicleName(vehName).."</b> para <b>"..nidentity["name"].." "..nidentity["name2"].."</b>?",30) then
-					vRP.execute("vRP/move_vehicle",{ user_id = parseInt(user_id), nuser_id = parseInt(nuser_id), vehicle = tostring(vehName) })
+					vRP.query("vRP/move_vehicle",{ user_id = parseInt(user_id), nuser_id = parseInt(nuser_id), vehicle = tostring(vehName) })
 					
 					local custom = vRP.getSData("custom:"..parseInt(user_id)..":"..tostring(vehName))
 					local custom2 = json.decode(custom) or {}
 					if custom and custom2 ~= nil then
 						vRP.setSData("custom:"..parseInt(nuser_id)..":"..tostring(vehName),json.encode(custom2))
-						vRP.execute("vRP/rem_srv_data",{ dkey = "custom:"..parseInt(user_id)..":"..tostring(vehName) })
+						vRP.query("vRP/rem_srv_data",{ dkey = "custom:"..parseInt(user_id)..":"..tostring(vehName) })
 					end
 					
 					local chest = vRP.getSData("chest:"..parseInt(user_id)..":"..tostring(vehName))
 					local chest2 = json.decode(chest) or {}
 					if chest and chest2 ~= nil then
 						vRP.setSData("chest:"..parseInt(nuser_id)..":"..tostring(vehName),json.encode(chest2))
-						vRP.execute("vRP/rem_srv_data",{ dkey = "chest:"..parseInt(user_id)..":"..tostring(vehName) })
+						vRP.query("vRP/rem_srv_data",{ dkey = "chest:"..parseInt(user_id)..":"..tostring(vehName) })
 					end
 					TriggerEvent("webhooks","enviarcarro","```ini\n[======== ENVIAR CARRO ========]\n[ID]: "..user_id.." "..identity.name.." "..identity.name2.." \n[TRANSFERIU]: "..vRP.vehicleName(tostring(vehName)).." [PARA ID:] "..parseInt(nuser_id).." "..nidentity.name.." "..nidentity.name2.." "..os.date("\n[Data]: %d/%m/%Y [Hora]: %H:%M:%S").. " \r```","ENVIAR CARRO")
 					TriggerClientEvent("Notify",source,"verde", "Transferência concluída com sucesso.", 5000)

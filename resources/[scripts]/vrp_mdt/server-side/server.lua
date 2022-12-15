@@ -217,7 +217,7 @@ function hiro.occurrenceUser(user,text)
 		local identity = vRP.getUserIdentity(parseInt(user))
 		local identity2 = vRP.getUserIdentity(parseInt(user_id))
 		if identity then
-			vRP.execute("vRP/add_mdt",{ user_id = user, officer = tostring(user_id), type = "occurrence", fine = 0, prison = 0, date = os.date("%d/%m/%Y ás %H:%M:%S"), text = tostring(text) })
+			vRP.query("vRP/add_mdt",{ user_id = user, officer = tostring(user_id), type = "occurrence", fine = 0, prison = 0, date = os.date("%d/%m/%Y ás %H:%M:%S"), text = tostring(text) })
 			vRPC.playSound(source,"Event_Message_Purple","GTAO_FM_Events_Soundset")
 			TriggerClientEvent("Notify",source,"amarelo","Ocorrência de <b>"..identity["name"].." "..identity["name2"].."</b> registrada com sucesso.",10000, 'info')
 		end
@@ -234,11 +234,11 @@ function hiro.weaponPortUser(nuser_id)
 		local nidentity = vRP.getUserIdentity(nuser_id)
 
 		if nidentity["weaponport"] == 0 then
-			vRP.execute("vRP/add_weaponport",{ id = parseInt(nuser_id) })
+			vRP.query("vRP/add_weaponport",{ id = parseInt(nuser_id) })
 			vRPC.playSound(source,"Event_Message_Purple","GTAO_FM_Events_Soundset")
 			TriggerClientEvent("Notify",source,"amarelo","Porte de armas de <b>"..identity["name"].." "..identity["name2"].."</b> retirado com sucesso.",10000, 'info')
 		else
-			vRP.execute("vRP/rem_weaponport",{ id = parseInt(nuser_id) })
+			vRP.query("vRP/rem_weaponport",{ id = parseInt(nuser_id) })
 			vRPC.playSound(source,"Event_Message_Purple","GTAO_FM_Events_Soundset")
 			TriggerClientEvent("Notify",source,"amarelo","Porte de armas de <b>"..identity["name"].." "..identity["name2"].."</b> retirado com sucesso.",10000, 'info')
 		end
@@ -256,7 +256,7 @@ function hiro.fineUser(user,price,text)
 		if identity then
 			vRP.setFines(parseInt(user),parseInt(price),parseInt(user_id),tostring(text))
 
-			vRP.execute("vRP/add_mdt",{ user_id = user, officer = tostring(user_id), type = "fines", fine = parseInt(price), prison = 0, date = os.date("%d/%m/%Y ás %H:%M:%S"), text = tostring(text) })
+			vRP.query("vRP/add_mdt",{ user_id = user, officer = tostring(user_id), type = "fines", fine = parseInt(price), prison = 0, date = os.date("%d/%m/%Y ás %H:%M:%S"), text = tostring(text) })
 			vRPC.playSound(source,"Event_Message_Purple","GTAO_FM_Events_Soundset")
 			TriggerClientEvent("Notify",source,"amarelo","Multa aplicada em <b>"..identity["name"].." "..identity["name2"].."</b> no valor de <b>$"..parseFormat(price).." dólares</b>.",10000, 'info')
 			TriggerEvent("webhooks","multas","```ini\n[============== MULTAS ==============]\n[OFICIAL]: "..user_id.." "..identity2["name"].." "..identity2["name2"].."\n\n[MULTOU]: "..parseInt(user).." "..identity["name"].." "..identity["name2"].."\n[VALOR]: $"..parseFormat(price).."\n[MOTIVO]: "..text.." "..os.date("\n[Data]: %d/%m/%Y [Hora]: %H:%M:%S").." \r```","Multas")
@@ -282,8 +282,8 @@ function hiro.prisonUser(user,services,price,text)
 		end
 
         vRP.setFines(parseInt(user),parseInt(price),parseInt(user_id),tostring(text))
-        vRP.execute("vRP/set_prison",{ user_id = parseInt(user), prison = parseInt(services), locate = 1 })
-        vRP.execute("vRP/add_mdt",{ user_id = parseInt(user), officer = tostring(user_id), type = "arrest", fine = parseInt(price), prison = parseInt(services), date = os.date("%d.%m.%Y %H:%M:%S"), text = tostring(text) })
+        vRP.query("vRP/set_prison",{ user_id = parseInt(user), prison = parseInt(services), locate = 1 })
+        vRP.query("vRP/add_mdt",{ user_id = parseInt(user), officer = tostring(user_id), type = "arrest", fine = parseInt(price), prison = parseInt(services), date = os.date("%d.%m.%Y %H:%M:%S"), text = tostring(text) })
 
         local identity = vRP.getUserIdentity(parseInt(user))
 		local oficial = vRP.getUserIdentity(parseInt(user_id))
@@ -302,9 +302,9 @@ function hiro.delPrisonUser(user,services)
 	if user then
 		local consult = vRP.getInformation(parseInt(user))
 		if parseInt(consult[1].prison) <= parseInt(services) then
-			vRP.execute("vRP/fix_prison",{ user_id = parseInt(user) })
+			vRP.query("vRP/fix_prison",{ user_id = parseInt(user) })
 		else
-			vRP.execute("vRP/rem_prison",{ user_id = parseInt(user), prison = parseInt(services) })
+			vRP.query("vRP/rem_prison",{ user_id = parseInt(user), prison = parseInt(services) })
 		end
 
 		local identity = vRP.getUserIdentity(parseInt(user))
@@ -332,9 +332,9 @@ RegisterCommand("rprender",function(source,args,rawCommand)
 
 			local consult = vRP.getInformation(parseInt(nuser_id))
 			if parseInt(consult[1].prison) <= parseInt(services) then
-				vRP.execute("vRP/fix_prison",{ user_id = parseInt(nuser_id) })
+				vRP.query("vRP/fix_prison",{ user_id = parseInt(nuser_id) })
 			else
-				vRP.execute("vRP/rem_prison",{ user_id = parseInt(nuser_id), prison = parseInt(services) })
+				vRP.query("vRP/rem_prison",{ user_id = parseInt(nuser_id), prison = parseInt(services) })
 			end
 
 			local identity = vRP.getUserIdentity(parseInt(nuser_id))
@@ -352,9 +352,9 @@ function hiro.desligarUser(user)
 	local user_id = vRP.getUserId(source)
 	local identity = vRP.getUserIdentity(user)
 	if user_id then
-		vRP.execute("vRP/del_group",{ user_id = parseInt(user), permiss = "waitPolice" })
-		vRP.execute("vRP/del_group",{ user_id = parseInt(user), permiss = "Police" })
-		vRP.execute("vRP/del_group",{ user_id = parseInt(user), permiss = "ActionPolice" })
+		vRP.query("vRP/del_group",{ user_id = parseInt(user), permiss = "waitPolice" })
+		vRP.query("vRP/del_group",{ user_id = parseInt(user), permiss = "Police" })
+		vRP.query("vRP/del_group",{ user_id = parseInt(user), permiss = "ActionPolice" })
 		vRPC.playSound(source,"Event_Message_Purple","GTAO_FM_Events_Soundset")
 		TriggerClientEvent("Notify",source,"verde","Você demitiu <b>"..identity["name"].." "..identity["name2"].."</b> do grupo de <b>Oficiais</b>.",5000)
 		TriggerClientEvent("vrp_mdt:Update",source,"functionFuncionario")	
@@ -397,7 +397,7 @@ function hiro.contractPolice(passport)
 	if user_id then
         if not vRP.hasPermission(passport,"Police") then
 			if not vRP.hasPermission(passport,"waitPolice") then
-				vRP.execute("vRP/add_group",{ user_id = parseInt(passport), permiss = "waitPolice" })
+				vRP.query("vRP/add_group",{ user_id = parseInt(passport), permiss = "waitPolice" })
 				vRPC.playSound(source,"Event_Message_Purple","GTAO_FM_Events_Soundset")
 				TriggerClientEvent("Notify",source,"amarelo","Você contratou <b>"..identity["name"].." "..identity["name2"].."</b> para o grupo de <b>Police</b>.",5000, 'info')
 			else
@@ -415,7 +415,7 @@ function hiro.anuncioPolice(text)
 	local source = source
 	local user_id = vRP.getUserId(source)
 	if user_id then
-		vRP.execute("vRP/add_usermedic",{ user_id = user_id, type = "announcePolice", text = tostring(text), date = os.date("%d/%m/%Y ás %H:%M:%S") })
+		vRP.query("vRP/add_usermedic",{ user_id = user_id, type = "announcePolice", text = tostring(text), date = os.date("%d/%m/%Y ás %H:%M:%S") })
 		local amountParamedic = vRP.numPermission("Police")
 		for k,v in pairs(amountParamedic) do
 			async(function()
@@ -445,7 +445,7 @@ function hiro.delAnnounce(table)
 	local source = source
 	local user_id = vRP.getUserId(source)
 	if user_id then
-		vRP.execute("vRP/del_usermedic",{ id = table })
+		vRP.query("vRP/del_usermedic",{ id = table })
 		TriggerClientEvent("mdt:Update",source,"functionAnnounce")
 	end
 end
@@ -458,8 +458,8 @@ function hiro.checkKey()
     if user_id then
         if vRP.tryGetInventoryItem(user_id,"key",1) then
             vCLIENT.stopPrison(source)
-            vRP.execute("vRP/resgate_prison",{ user_id = parseInt(user_id) })
-			vRP.execute("playerdata/setUserdata",{ user_id = parseInt(user_id), key = "prison:administrative", value = "" })
+            vRP.query("vRP/resgate_prison",{ user_id = parseInt(user_id) })
+			vRP.query("playerdata/setUserdata",{ user_id = parseInt(user_id), key = "prison:administrative", value = "" })
             return true
 		else
 			TriggerClientEvent("Notify",source,"vermelho","Você não tem uma <b>Chaves</b>.",3000, 'error')
@@ -538,13 +538,13 @@ function hiro.reducePrison()
 	local source = source
 	local user_id = vRP.getUserId(source)
 	if user_id then
-		vRP.execute("vRP/rem_prison",{ user_id = parseInt(user_id), prison = 2 })
+		vRP.query("vRP/rem_prison",{ user_id = parseInt(user_id), prison = 2 })
 
 		local consult = vRP.getInformation(user_id)
 		if parseInt(consult[1].prison) <= 0 then
 			vCLIENT.stopPrison(source)
 			vRPC.teleport(source,1849.24,2586.12,45.68)
-			vRP.execute("playerdata/setUserdata",{ user_id = parseInt(user_id), key = "prison:administrative", value = "" })
+			vRP.query("playerdata/setUserdata",{ user_id = parseInt(user_id), key = "prison:administrative", value = "" })
 		else
 			local udata = vRP.userData(user_id, "prison:administrative")
 			local administrative = false
@@ -562,7 +562,7 @@ function hiro.reduceTimePrison()
 	local source = source
 	local user_id =  vRP.getUserId(source)
 	if user_id then
-		vRP.execute("vRP/rem_prison",{ user_id = parseInt(user_id), prison = 1 })
+		vRP.query("vRP/rem_prison",{ user_id = parseInt(user_id), prison = 1 })
 	end
 end
 --------------------------------------------------------------------------------------------------------------------------------------------------
@@ -580,7 +580,7 @@ RegisterCommand("cleanrec",function(source,args,rawCommand)
 		if vRP.hasPermission(user_id,{"PolMaster","Juridico"}) or vRP.hasRank(user_id,"Admin",80) then
 			local nuser_id = parseInt(args[1])
 			if nuser_id > 0 then
-				vRP.execute("vRP/cleanRecords",{ nuser_id = nuser_id })
+				vRP.query("vRP/cleanRecords",{ nuser_id = nuser_id })
 				TriggerClientEvent("Notify",source,"verde","Limpeza efetuada.",5000)
 			end
 		end
@@ -605,9 +605,9 @@ RegisterCommand("punicao", function(source)
 			vCLIENT.startPrison(nplayer, 1, true)
 			vRPC.teleport(nplayer,1677.72,2509.68,45.57)
 		end
-		vRP.execute("vRP/set_prison",{ user_id = uid, prison = services, locate = 1 })
+		vRP.query("vRP/set_prison",{ user_id = uid, prison = services, locate = 1 })
 		
-		vRP.execute("playerdata/setUserdata",{ user_id = parseInt(user_id), key = "prison:administrative", value = "true" })
+		vRP.query("playerdata/setUserdata",{ user_id = parseInt(user_id), key = "prison:administrative", value = "true" })
 	end
 end)
 
@@ -738,7 +738,7 @@ AddEventHandler("police:runArrest",function()
 					local inVehicle = vRP.query("vRP/get_vehicles",{ user_id = parseInt(plateUser), vehicle = vehName })
 					if inVehicle[1] then
 						if inVehicle[1].arrest <= 0 then
-							vRP.execute("vRP/set_arrest",{ user_id = parseInt(plateUser), vehicle = vehName, arrest = 1, time = parseInt(os.time()) })
+							vRP.query("vRP/set_arrest",{ user_id = parseInt(plateUser), vehicle = vehName, arrest = 1, time = parseInt(os.time()) })
 							TriggerClientEvent("Notify",source,"verde", "O veículo foi apreendido no galpão da polícia.", 5000)
 							TriggerEvent("webhooks","detido","```ini\n[============== VEICULO DETIDO ==============]\n[OFICIAL]: "..user_id.." "..identity.name.." "..identity.name2.." \n\n[DETEVE]: "..vehName.." \n[PLACA]: "..vehPlate.." \n[DONO]: "..plateUser.." "..identity2.name.." "..identity2.name2.." \n[COORDS]: "..x..","..y..","..z.." \n "..os.date("\n[Data]: %d/%m/%Y [Hora]: %H:%M:%S").." \r```","POLICE - DETIDO")
 						else

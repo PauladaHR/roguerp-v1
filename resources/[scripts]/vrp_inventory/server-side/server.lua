@@ -1116,10 +1116,10 @@ AddEventHandler("vrp_inventory:useItem",function(slot,rAmount)
 						local nplayer = vRPC.nearestPlayer(source,2)
 						if nplayer then
 							if identity then
-								TriggerClientEvent("Notify",nplayer,"amarelo","<b>Passaporte:</b> "..vRP.format(parseInt(identity.id)).."<br><b>Nome:</b> "..identity.name.." "..identity.name2.."<br><b>RG:</b> "..identity.registration.."<br><b>Telefone:</b> "..identity.phone,10000)
+								TriggerClientEvent("Notify",nplayer,"amarelo","<b>Passaporte:</b> "..parseFormat(parseInt(identity.id)).."<br><b>Nome:</b> "..identity.name.." "..identity.name2.."<br><b>RG:</b> "..identity.registration.."<br><b>Telefone:</b> "..identity.phone,10000)
 							end
 						end
-						TriggerClientEvent("Notify",source,"amarelo","<b>Passaporte:</b> "..vRP.format(parseInt(identity.id)).."<br><b>Nome:</b> "..identity.name.." "..identity.name2.."<br><b>RG:</b> "..identity.registration.."<br><b>Telefone:</b> "..identity.phone,10000)
+						TriggerClientEvent("Notify",source,"amarelo","<b>Passaporte:</b> "..parseFormat(parseInt(identity.id)).."<br><b>Nome:</b> "..identity.name.." "..identity.name2.."<br><b>RG:</b> "..identity.registration.."<br><b>Telefone:</b> "..identity.phone,10000)
 					end
 
 					if itemName == "firecracker" then
@@ -1593,7 +1593,7 @@ AddEventHandler("vrp_inventory:useItem",function(slot,rAmount)
 									if vRP.tryGetInventoryItem(user_id,"bait",payment,true) then
 										vRP.giveInventoryItem(user_id,fishs[rand],payment,true)
 									else
-										TriggerClientEvent("Notify",source,"amarelo","Você precisa de <b>"..vRP.format(rand).."x "..vRP.itemNameList("bait").."</b>.",5000)
+										TriggerClientEvent("Notify",source,"amarelo","Você precisa de <b>"..parseFormat(rand).."x "..vRP.itemNameList("bait").."</b>.",5000)
 									end
 								else
 									TriggerClientEvent("Notify",source,"vermelho","Mochila cheia.",5000)
@@ -1619,7 +1619,7 @@ AddEventHandler("vrp_inventory:useItem",function(slot,rAmount)
 									if vRP.tryGetInventoryItem(user_id,itemName,1,false) then
 										vRP.giveInventoryItem(user_id,"ovo",1,true)
 									else
-										TriggerClientEvent("Notify",source,"amarelo","Você precisa de <b>"..vRP.format(1).."x "..vRP.itemNameList(itemName).."</b>.",5000)
+										TriggerClientEvent("Notify",source,"amarelo","Você precisa de <b>"..parseFormat(1).."x "..vRP.itemNameList(itemName).."</b>.",5000)
 									end
 								else
 									TriggerClientEvent("Notify",source,"vermelho","Mochila cheia.",5000)
@@ -1976,7 +1976,7 @@ AddEventHandler("vrp_inventory:useItem",function(slot,rAmount)
 							local ownerVehicles = vRP.query("vRP/get_vehicles",{ user_id = parseInt(user_id), vehicle = tostring(vehModel) })
 							if ownerVehicles[1] then
 								if vRP.vehicleClass(tostring(vehModel)) == "rental" and ownerVehicles[1]["rental"] == 1 then
-									vRP.execute("vRP/set_rental_time",{ user_id = parseInt(user_id), vehicle = tostring(vehModel), rental_time = parseInt(os.time()+30*24*60*60) })
+									vRP.query("vRP/set_rental_time",{ user_id = parseInt(user_id), vehicle = tostring(vehModel), rental_time = parseInt(os.time()+30*24*60*60) })
 									TriggerClientEvent("Notify",source,"verde","O veiculo <b>"..vRP.vehicleName(vehModel).."</b> foi renovado com sucesso.",5000)
 								end
 							end
@@ -1996,8 +1996,8 @@ AddEventHandler("vrp_inventory:useItem",function(slot,rAmount)
 								discord = accountInfo[1].discord
 							end
 
-							vRP.execute("vRP/add_vehicle",{ user_id = parseInt(user_id), vehicle = vehicle, plate = vRP.generatePlateNumber(), work = tostring(false) })
-							vRP.execute("vRP/set_rental_time",{ user_id = parseInt(user_id), vehicle = vehicle, rental_time = parseInt(os.time()+parseInt(time)*24*60*60) })
+							vRP.query("vRP/add_vehicle",{ user_id = parseInt(user_id), vehicle = vehicle, plate = vRP.generatePlateNumber(), work = tostring(false) })
+							vRP.query("vRP/set_rental_time",{ user_id = parseInt(user_id), vehicle = vehicle, rental_time = parseInt(os.time()+parseInt(time)*24*60*60) })
 							TriggerClientEvent("Notify",source,"amarelo","O veiculo <b>"..vRP.vehicleName(vehicle).."</b> foi adicionado a sua garagem.",5000)
 
 							TriggerEvent("webhooks-noembed","vip",discord.." #"..user_id.." "..identity.name.." "..identity.name2.. " 818481939731841086","Rental")
@@ -2058,7 +2058,7 @@ AddEventHandler("vrp_inventory:useItem",function(slot,rAmount)
 						local rgCheck = sanitizeString(rgChange,"abcdefghijklmnopqrstuvwxyz0123456789",true)
 						if rgCheck and string.len(rgCheck) == 8 then
 							if vRP.tryGetInventoryItem(user_id,itemName,1,true,slot) then
-								vRP.execute("vRP/update_document",{ id = parseInt(user_id), registration = string.upper(tostring(rgChange)) })
+								vRP.query("vRP/update_document",{ id = parseInt(user_id), registration = string.upper(tostring(rgChange)) })
 								TriggerClientEvent("Notify",source,"verde","Seu novo documento: <b>"..string.upper(tostring(rgChange)).."</b> foi registrado com sucesso.",5000)
 							end
 						else
@@ -2091,7 +2091,7 @@ AddEventHandler("vrp_inventory:useItem",function(slot,rAmount)
 						local numberCheck = sanitizeString(finalNumber,"0123456789",true)
 						if numberCheck and string.len(numberCheck) == 6 then
 							if vRP.tryGetInventoryItem(user_id,itemName,1,true,slot) then
-								vRP.execute("vRP/update_number",{ id = parseInt(user_id), phone = finalNumber })
+								vRP.query("vRP/update_number",{ id = parseInt(user_id), phone = finalNumber })
 								TriggerClientEvent("Notify",source,"verde","Seu novo número: <b>"..finalNumber.."</b> foi registrado com sucesso.",5000)
 							end
 						else
@@ -2123,7 +2123,7 @@ AddEventHandler("vrp_inventory:useItem",function(slot,rAmount)
 							local plateCheck = sanitizeString(vehPlate,"abcdefghijklmnopqrstuvwxyz0123456789",true)
 							if plateCheck and string.len(plateCheck) == 8 then
 								if vRP.tryGetInventoryItem(user_id,itemName,1,true,slot) then
-									vRP.execute("vRP/update_plate_vehicle",{ user_id = parseInt(user_id), vehicle = tostring(vehModel), plate = string.upper(tostring(vehPlate)) })
+									vRP.query("vRP/update_plate_vehicle",{ user_id = parseInt(user_id), vehicle = tostring(vehModel), plate = string.upper(tostring(vehPlate)) })
 									TriggerClientEvent("Notify",source,"verde","Placa atualizada para <b>"..string.upper(tostring(vehPlate)).."</b> com sucesso.",5000)
 								end
 							else
@@ -2151,14 +2151,14 @@ AddEventHandler("vrp_inventory:useItem",function(slot,rAmount)
 
 						local nameCheck = sanitizeString(finalName," aáâàãbcdeéêfghiíjklmnoóôõpqrstuúvwxyzAÁÂÀÃBCDEÉÊFGHIÍJKLMNOÓÔÕPQRSTUÚVWXYZ",true)
 						if nameCheck then
-							vRP.execute("vRP/update_name",{ id = parseInt(user_id), name = name, name2 = name2 })
+							vRP.query("vRP/update_name",{ id = parseInt(user_id), name = name, name2 = name2 })
 							TriggerClientEvent("Notify",source,"verde","O seu nome foi alterado para <b>"..finalName.."</b> com sucesso.",5000)
 						end
 					end
 
 					if itemName == "keygarage" then
 						if vRP.tryGetInventoryItem(user_id,itemName,1,true,slot) then
-							vRP.execute("vRP/update_garages",{ id = parseInt(user_id) })
+							vRP.query("vRP/update_garages",{ id = parseInt(user_id) })
 							TriggerClientEvent("Notify",source,"verde","Garagem adicionada com sucesso.",5000)
 						end
 					end

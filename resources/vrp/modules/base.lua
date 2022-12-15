@@ -3,44 +3,25 @@
 -----------------------------------------------------------------------------------------------------------------------------------------
 local Proxy = module("lib/Proxy")
 local Tunnel = module("lib/Tunnel")
+vRPC = Tunnel.getInterface("vRP")
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- CONNECTION
 -----------------------------------------------------------------------------------------------------------------------------------------
 vRP = {}
-Proxy.addInterface("vRP",vRP)
-
 tvRP = {}
+vRP.userIds = {}
+vRP.userInfos = {}
+vRP.userTables = {}
+vRP.userSources = {}
+-----------------------------------------------------------------------------------------------------------------------------------------
+-- TUNNER/PROXY
+-----------------------------------------------------------------------------------------------------------------------------------------
+Proxy.addInterface("vRP",vRP)
 Tunnel.bindInterface("vRP",tvRP)
-vRPC = Tunnel.getInterface("vRP")
-
-vRP.users = {}
-vRP.rusers = {}
-vRP.user_tables = {}
-vRP.user_sources = {}
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- VARIABLES
 -----------------------------------------------------------------------------------------------------------------------------------------
-local prepared_queries = {}
------------------------------------------------------------------------------------------------------------------------------------------
--- GETIDENTIFIERS
------------------------------------------------------------------------------------------------------------------------------------------
-function vRP.getIdentifiers(source)
-	local identifiers = GetPlayerIdentifiers(source)
-	local array = {}
-
-	for k,v in ipairs(identifiers) do
-		if string.sub(v,1,5) == "steam" then
-			array["steam"] = v
-		end
-
-		if string.sub(v,1,7) == "discord" then
-			array["discord"] = string.gsub(v,"discord:","")
-		end
-	end
-	
-	return array
-end
-----
+local preparedQueries = {}
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- GETSTEAM
 -----------------------------------------------------------------------------------------------------------------------------------------
@@ -78,20 +59,15 @@ end
 -- PREPARE
 -----------------------------------------------------------------------------------------------------------------------------------------
 function vRP.prepare(name, query)
-	prepared_queries[name] = query
+	preparedQueries[name] = query
 end
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- QUERY
 -----------------------------------------------------------------------------------------------------------------------------------------
 function vRP.query(name, params)
-	return exports["oxmysql"]:query_async(prepared_queries[name], params)
+	return exports["oxmysql"]:query_async(preparedQueries[name], params)
 end
------------------------------------------------------------------------------------------------------------------------------------------
--- EXECUTE
------------------------------------------------------------------------------------------------------------------------------------------
-function vRP.execute(name, params)
-	return exports["oxmysql"]:query_async(prepared_queries[name], params)
-end
+vRP.execute = vRP.query
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- ISBANNED
 -----------------------------------------------------------------------------------------------------------------------------------------
@@ -132,7 +108,7 @@ end
 -- SETSDATA
 -----------------------------------------------------------------------------------------------------------------------------------------
 function vRP.setSData(key,value)
-	vRP.execute("vRP/set_srvdata",{ key = key, value = value })
+	vRP.query("vRP/set_srvdata",{ key = key, value = value })
 end
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- GETSDATA
@@ -149,13 +125,13 @@ end
 -- GETUSERDATATABLE
 -----------------------------------------------------------------------------------------------------------------------------------------
 function vRP.getUserDataTable(user_id)
-	return vRP.user_tables[user_id]
+	return vRP.userTables[user_id]
 end
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- GETINVENTORY
 -----------------------------------------------------------------------------------------------------------------------------------------
 function vRP.getInventory(user_id)
-	local data = vRP.user_tables[user_id]
+	local data = vRP.userTables[user_id]
 	if data then
 		return data["inventory"]
 	end
@@ -165,7 +141,7 @@ end
 -- UPDATESELECTSKIN
 -----------------------------------------------------------------------------------------------------------------------------------------
 function vRP.updateSelectSkin(user_id,hash)
-	local data = vRP.user_tables[user_id]
+	local data = vRP.userTables[user_id]
 	if data then
 		data["skin"] = hash
 	end
@@ -177,7 +153,7 @@ function vRP.getUserId(source)
 	if source ~= nil then
 		local ids = GetPlayerIdentifiers(source)
 		if ids ~= nil and #ids > 0 then
-			return vRP.users[ids[1]]
+			return vRP.userIds[ids[1]]
 		end
 	end
 	return nil
@@ -187,7 +163,7 @@ end
 -----------------------------------------------------------------------------------------------------------------------------------------
 function vRP.getUsers()
 	local users = {}
-	for k,v in pairs(vRP.user_sources) do
+	for k,v in pairs(vRP.userSources) do
 		users[k] = v
 	end
 	return users
@@ -196,7 +172,7 @@ end
 -- GETUSERSOURCE
 -----------------------------------------------------------------------------------------------------------------------------------------
 function vRP.getUserSource(user_id)
-	return vRP.user_sources[user_id]
+	return vRP.userSources[user_id]
 end
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- PLAYERDROPPED
@@ -208,8 +184,8 @@ end)
 -- KICK
 -----------------------------------------------------------------------------------------------------------------------------------------
 function vRP.kick(user_id,reason)
-	if vRP.user_sources[user_id] then
-		local source = vRP.user_sources[user_id]
+	if vRP.userSources[user_id] then
+		local source = vRP.userSources[user_id]
 
 		vRP.rejoinServer(source,reason)
 		DropPlayer(source,reason)
@@ -228,13 +204,13 @@ function vRP.rejoinServer(source,reason)
 			
 			local DataTable = vRP.getUserDataTable(user_id)
 			if DataTable then
-				vRP.execute("playerdata/setUserdata",{ user_id = parseInt(user_id), key = "Datatable", value = json.encode(DataTable) })
+				vRP.query("playerdata/setUserdata",{ user_id = parseInt(user_id), key = "Datatable", value = json.encode(DataTable) })
 				TriggerEvent("vRP:playerLeave",user_id,source)
 				
-				vRP.users[identity.steam] = nil
-				vRP.user_sources[user_id] = nil
-				vRP.user_tables[user_id] = nil
-				vRP.rusers[user_id] = nil
+				vRP.userIds[identity.steam] = nil
+				vRP.userSources[user_id] = nil
+				vRP.userTables[user_id] = nil
+				vRP.userInfos[user_id] = nil
 			end
 
 			Wait(1000)
@@ -271,7 +247,7 @@ AddEventHandler("vRP:playerSpawn",function(user_id,source)
 		discord = accountInfo[1].discord
 	else
 		discord = string.gsub(vRP.getDiscord(source),"discord:","")
-		vRP.execute("vRP/update_discord",{ steam = info, discord = discord })
+		vRP.query("vRP/update_discord",{ steam = info, discord = discord })
 	end
 
 	if identity then
@@ -298,7 +274,7 @@ AddEventHandler("queue:playerConnecting",function(source,ids,name,setKickReason,
 			else
 				local newUser = vRP.getInfos(steam)
 				if newUser[1] == nil then
-					vRP.execute("vRP/create_user",{ steam = steam, discord = discord })
+					vRP.query("vRP/create_user",{ steam = steam, discord = discord })
 				end
 
 				deferrals.done("Envie na sala liberação: "..steam)
@@ -316,31 +292,31 @@ end)
 RegisterServerEvent("baseModule:idLoaded")
 AddEventHandler("baseModule:idLoaded",function(source,user_id,model)
 	local source = source
-	if vRP.rusers[user_id] == nil then
+	if vRP.userInfos[user_id] == nil then
 		local resultData = vRP.userData(parseInt(user_id),"Datatable")
 
-		vRP.user_tables[user_id] = resultData
-		vRP.user_sources[user_id] = source
+		vRP.userTables[user_id] = resultData
+		vRP.userSources[user_id] = source
 
 		if model ~= nil then
-			vRP.user_tables[user_id].weaps = {}
-			vRP.user_tables[user_id].inventory = {}
-			vRP.user_tables[user_id].skin = GetHashKey(model)
-			vRP.user_tables[user_id].inventory["1"] = { item = "cellphone", amount = 1 }
-			vRP.user_tables[user_id].inventory["2"] = { item = "identity", amount = 1 }
-			vRP.user_tables[user_id].inventory["3"] = { item = "water", amount = 3 }
-			vRP.user_tables[user_id].inventory["4"] = { item = "Foodcookies", amount = 3 }
+			vRP.userTables[user_id].weaps = {}
+			vRP.userTables[user_id].inventory = {}
+			vRP.userTables[user_id].skin = GetHashKey(model)
+			vRP.userTables[user_id].inventory["1"] = { item = "cellphone", amount = 1 }
+			vRP.userTables[user_id].inventory["2"] = { item = "identity", amount = 1 }
+			vRP.userTables[user_id].inventory["3"] = { item = "water", amount = 3 }
+			vRP.userTables[user_id].inventory["4"] = { item = "Foodcookies", amount = 3 }
 		end
 
 		local identity = vRP.getUserIdentity(user_id)
 		if identity then
-			vRP.users[identity.steam] = user_id
-			vRP.rusers[user_id] = identity.steam
+			vRP.userIds[identity.steam] = user_id
+			vRP.userInfos[user_id] = identity.steam
 		end
 
 		local registration = vRP.getUserRegistration(user_id)
 		if registration == nil then
-			vRP.execute("vRP/update_characters",{ id = parseInt(user_id), registration = vRP.generateRegistrationNumber(), phone = vRP.generatePhoneNumber() })
+			vRP.query("vRP/update_characters",{ id = parseInt(user_id), registration = vRP.generateRegistrationNumber(), phone = vRP.generatePhoneNumber() })
 		end
 
 		TriggerEvent("vRP:playerSpawn",user_id,source)

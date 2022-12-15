@@ -1431,7 +1431,7 @@ RegisterCommand("garagem",function(source,args,rawCommand)
 			local request = vRP.request(source,"Garagem","Deseja comprar uma vaga na garagem por $<b>50.000 dólares</b>?",30)
 			if request then
 				if vRP.paymentBank(user_id,50000) then
-					vRP.execute("vRP/update_garages",{ id = parseInt(user_id) })
+					vRP.query("vRP/update_garages",{ id = parseInt(user_id) })
 				else
 					TriggerClientEvent("Notify",source,"vermelho", "Dinheiro insuficiente.", 5000)
 				end
@@ -1514,7 +1514,7 @@ AddEventHandler("player:servicoFunctions",function()
 				local nuser_id = vRP.getUserId(v)
 				local identity = vRP.getUserIdentity(nuser_id)
 
-				onDuty = onDuty.." #<b>"..vRP.format(parseInt(nuser_id)).."</b> - "..identity["name"].." "..identity["name2"].."<br>"
+				onDuty = onDuty.." #<b>"..parseFormat(parseInt(nuser_id)).."</b> - "..identity["name"].." "..identity["name2"].."<br>"
 				nonDuty = nonDuty + 1
 			end
 			TriggerClientEvent("Notify",source,"amarelo", "Atualmente há <b>"..nonDuty.." "..emprego.."</b> "..emprego2.."<br> "..onDuty, 30000)

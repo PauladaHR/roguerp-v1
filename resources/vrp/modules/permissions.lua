@@ -6,9 +6,9 @@ local userRanks = {}
 function updateGroup(user_id)
 	local source = vRP.getUserSource(user_id)
 	if source then
-		local identifiers = vRP.getIdentifiers(source)
+		local userSteam = vRP.getSteam(source)
 		local groupQuery = exports["oxmysql"]:executeSync("SELECT `permiss` FROM `vrp_permissions` WHERE `user_id` = ?",{ user_id })
-		local rankQuery = exports["oxmysql"]:executeSync("SELECT * FROM vrp_infos WHERE `steam` = ?",{ identifiers["steam"] })
+		local rankQuery = exports["oxmysql"]:executeSync("SELECT * FROM vrp_infos WHERE `steam` = ?",{ userSteam })
 		local rankDecode = json.decode(rankQuery[1]["rank"]) or rankQuery[1]["rank"]
 
 		local groupList = {}
@@ -37,8 +37,8 @@ end
 function vRP.updateRank(user_id)
 	local source = vRP.getUserSource(user_id)
 	if source then
-		local identifiers = vRP.getIdentifiers(source)
-		local rankQuery = exports["oxmysql"]:executeSync("SELECT * FROM vrp_infos WHERE `steam` = ?",{ identifiers["steam"] })
+		local userSteam = vRP.getSteam(source)
+		local rankQuery = exports["oxmysql"]:executeSync("SELECT * FROM vrp_infos WHERE `steam` = ?",{ userSteam })
 		local rankDecode = json.decode(rankQuery[1]["rank"]) or rankQuery[1]["rank"]
 
 		local rankList = {}

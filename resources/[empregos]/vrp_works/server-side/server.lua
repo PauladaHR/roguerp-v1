@@ -964,7 +964,7 @@ function Hiro.deliveryConsume(service)
 			amount[source] = nil
 			return true
 		else
-			TriggerClientEvent("Notify",source,"amarelo", "Você precisa de <b>"..vRP.format(parseInt(amount[source])).."x "..vRP.itemNameList(works[service]["itemDelivery"]).."</b>.", 5000)
+			TriggerClientEvent("Notify",source,"amarelo", "Você precisa de <b>"..parseFormat(parseInt(amount[source])).."x "..vRP.itemNameList(works[service]["itemDelivery"]).."</b>.", 5000)
 		end
 		return false
 	end

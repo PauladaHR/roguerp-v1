@@ -193,7 +193,7 @@ function Hiro.payTax(vehName)
 		local status = vRP.request(source,"Deseja efetuar o pagamento da taxa de <b>$"..parseFormat(parseInt(vRP.vehiclePrice(vehName)*0.10)).."</b> dólares?",60)
 		if status then
 			if vRP.paymentBank(user_id,parseInt(vRP.vehiclePrice(vehName)*0.10)) then
-				vRP.execute("vehicles/updateVehiclesTax",{ user_id = parseInt(user_id), vehicle = vehName, tax = os.time() })
+				vRP.query("vehicles/updateVehiclesTax",{ user_id = parseInt(user_id), vehicle = vehName, tax = os.time() })
 				TriggerClientEvent("dealership:Update",source,"requestPossuidos")
 				TriggerClientEvent("Notify",source,"verde", "Pagamento conclúido.",5000)
 			else
@@ -238,16 +238,16 @@ function Hiro.sellDealer(vehName)
 						local tax = 0.75
 
 					
-						vRP.execute("vRP/rem_srv_data",{ dkey = "custom:"..parseInt(user_id)..":"..vehName })
-						vRP.execute("vRP/rem_srv_data",{ dkey = "chest:"..parseInt(user_id)..":"..vehName })
-						vRP.execute("vRP/rem_vehicle",{ user_id = parseInt(user_id), vehicle = vehName })
+						vRP.query("vRP/rem_srv_data",{ dkey = "custom:"..parseInt(user_id)..":"..vehName })
+						vRP.query("vRP/rem_srv_data",{ dkey = "chest:"..parseInt(user_id)..":"..vehName })
+						vRP.query("vRP/rem_vehicle",{ user_id = parseInt(user_id), vehicle = vehName })
 						exports["oxmysql"]:executeSync("UPDATE vrp_vehicles SET stock = ? WHERE spawn = ?", { parseInt(vehicleData["stock"]) + 1, vehName })
-						TriggerClientEvent("Notify",source,"amarelo", "Você vendeu um <b>"..vehicleData["name"].."</b> por <b>$"..vRP.format(parseInt(vehicleData["price"]*tax)).." dólares</b>.", 5000)
+						TriggerClientEvent("Notify",source,"amarelo", "Você vendeu um <b>"..vehicleData["name"].."</b> por <b>$"..parseFormat(parseInt(vehicleData["price"]*tax)).." dólares</b>.", 5000)
 						vRP.addBank(user_id,parseInt(vehicleData["price"]*tax))
 						TriggerClientEvent("dealership:Update",source,"updatePossuidos")
 						TriggerClientEvent("dealership:Close",source)
 
-						TriggerEvent("webhooks","cssvendas","```ini\n[======== VENDEDOR ========]\n[ID]: "..user_id.." "..identity["name"].." "..identity["name2"].." \n[VENDEU]: "  ..vehicleData["name"].. " por "..vRP.format(parseInt(vehicleData["price"]*tax)).." dólares. "..os.date("\n[Data]: %d/%m/%Y [Hora]: %H:%M:%S").. " \r```","VENDAS CSS - DEALERSHIP")
+						TriggerEvent("webhooks","cssvendas","```ini\n[======== VENDEDOR ========]\n[ID]: "..user_id.." "..identity["name"].." "..identity["name2"].." \n[VENDEU]: "  ..vehicleData["name"].. " por "..parseFormat(parseInt(vehicleData["price"]*tax)).." dólares. "..os.date("\n[Data]: %d/%m/%Y [Hora]: %H:%M:%S").. " \r```","VENDAS CSS - DEALERSHIP")
 					end
 				end
 			if os.time() >= parseInt(cooldown[user_id]) then
@@ -261,8 +261,8 @@ end
 -----------------------------------------------------------------------------------------------------------------------------------------
 function setVehicle(user_id,vehName,vehStock,vehClass)
 	exports["oxmysql"]:executeSync("UPDATE vrp_vehicles SET stock = ? WHERE spawn = ?", { vehStock, vehName })
-	vRP.execute("vRP/add_vehicle",{ user_id = parseInt(user_id), vehicle = vehName, plate = vRP.generatePlateNumber(), work = tostring(false) })
-	vRP.execute("vehicles/updateVehiclesTax",{ user_id = parseInt(user_id), vehicle = vehName, tax = os.time() })
+	vRP.query("vRP/add_vehicle",{ user_id = parseInt(user_id), vehicle = vehName, plate = vRP.generatePlateNumber(), work = tostring(false) })
+	vRP.query("vehicles/updateVehiclesTax",{ user_id = parseInt(user_id), vehicle = vehName, tax = os.time() })
 end
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- STARTDRIVE

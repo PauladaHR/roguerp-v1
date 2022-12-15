@@ -254,15 +254,15 @@ const requestShop = () => {
                 const newDurability = (maxDurability - v["durability"]) / maxDurability;
                 const actualPercent = newDurability * 100;
 
-                const item = `<div class="item populated" title="" data-max="${v["max"]}" data-type="${v["type"]}" data-serial="${v["serial"]}" style="background-image: url('http://189.127.164.77/inventory/armas/${v["index"]}.png'),
-                url('http://189.127.164.77/inventory/comidas/${v["index"]}.png'),
-                url('http://189.127.164.77/inventory/geral/${v["index"]}.png'),
-                url('http://189.127.164.77/inventory/hospital/${v["index"]}.png'),
-                url('http://189.127.164.77/inventory/ilegal/${v["index"]}.png'),
-                url('http://189.127.164.77/inventory/mechanic/${v["index"]}.png'),
-                url('http://189.127.164.77/inventory/premium/${v["index"]}.png'),
-                url('http://189.127.164.77/inventory/veiculos/${v["index"]}.png'),
-                url('http://189.127.164.77/inventory/weapons/${v["index"]}.png'); background-size: 86%; background-position: center; background-repeat: no-repeat;" data-amount="${v["amount"]}" data-peso="${v["peso"]}" data-item-key="${v["key"]}" data-name-key="${v["name"]}" data-slot="${slot}" data-description="${v["desc"]}" data-economy="${v["economy"]}" data-hunger="${v["hunger"]}" data-thirst="${v["thirst"]}">
+                const item = `<div class="item populated" title="" data-max="${v["max"]}" data-type="${v["type"]}" data-serial="${v["serial"]}" style="background-image: url('nui://vrp_inventory/web-side/images/armas/${v["index"]}.png'),
+                url('nui://vrp_inventory/web-side/images/comidas/${v["index"]}.png'),
+                url('nui://vrp_inventory/web-side/images/geral/${v["index"]}.png'),
+                url('nui://vrp_inventory/web-side/images/hospital/${v["index"]}.png'),
+                url('nui://vrp_inventory/web-side/images/ilegal/${v["index"]}.png'),
+                url('nui://vrp_inventory/web-side/images/mechanic/${v["index"]}.png'),
+                url('nui://vrp_inventory/web-side/images/premium/${v["index"]}.png'),
+                url('nui://vrp_inventory/web-side/images/veiculos/${v["index"]}.png'),
+                url('nui://vrp_inventory/web-side/images/weapons/${v["index"]}.png'); background-size: 86%; background-position: center; background-repeat: no-repeat;" data-amount="${v["amount"]}" data-peso="${v["peso"]}" data-item-key="${v["key"]}" data-name-key="${v["name"]}" data-slot="${slot}" data-description="${v["desc"]}" data-economy="${v["economy"]}" data-hunger="${v["hunger"]}" data-thirst="${v["thirst"]}">
 
 
                     <div class="itemAmount">${formatarNumero(v.amount)}x</div>
@@ -283,15 +283,15 @@ const requestShop = () => {
 
             if (nameList2[x - 1] !== undefined) {
                 const v = nameList2[x - 1];
-                const item = `<div class="item populated" title="" data-max="${v["max"]}" data-type="${v["type"]}" data-menu="Loja" data-serial="${v["serial"]}" style="background-image: url('http://189.127.164.77/inventory/armas/${v["index"]}.png'),
-                url('http://189.127.164.77/inventory/comidas/${v["index"]}.png'),
-                url('http://189.127.164.77/inventory/geral/${v["index"]}.png'),
-                url('http://189.127.164.77/inventory/hospital/${v["index"]}.png'),
-                url('http://189.127.164.77/inventory/ilegal/${v["index"]}.png'),
-                url('http://189.127.164.77/inventory/mechanic/${v["index"]}.png'),
-                url('http://189.127.164.77/inventory/premium/${v["index"]}.png'),
-                url('http://189.127.164.77/inventory/veiculos/${v["index"]}.png'),
-                url('http://189.127.164.77/inventory/weapons/${v["index"]}.png'); background-size: 86%; background-position: center; background-repeat: no-repeat;" data-amount="1" data-peso="${v["weight"]}" data-item-key="${v["key"]}" data-name-key="${v["name"]}" data-slot="${slot}" data-description="${v["desc"]}" data-economy="${v["economy"]}" data-hunger="${v["hunger"]}" data-thirst="${v["thirst"]}">
+                const item = `<div class="item populated" title="" data-max="${v["max"]}" data-type="${v["type"]}" data-menu="Loja" data-serial="${v["serial"]}" style="background-image: url('nui://vrp_inventory/web-side/images/armas/${v["index"]}.png'),
+                url('nui://vrp_inventory/web-side/images/comidas/${v["index"]}.png'),
+                url('nui://vrp_inventory/web-side/images/geral/${v["index"]}.png'),
+                url('nui://vrp_inventory/web-side/images/hospital/${v["index"]}.png'),
+                url('nui://vrp_inventory/web-side/images/ilegal/${v["index"]}.png'),
+                url('nui://vrp_inventory/web-side/images/mechanic/${v["index"]}.png'),
+                url('nui://vrp_inventory/web-side/images/premium/${v["index"]}.png'),
+                url('nui://vrp_inventory/web-side/images/veiculos/${v["index"]}.png'),
+                url('nui://vrp_inventory/web-side/images/weapons/${v["index"]}.png'); background-size: 86%; background-position: center; background-repeat: no-repeat;" data-amount="1" data-peso="${v["weight"]}" data-item-key="${v["key"]}" data-name-key="${v["name"]}" data-slot="${slot}" data-description="${v["desc"]}" data-economy="${v["economy"]}" data-hunger="${v["hunger"]}" data-thirst="${v["thirst"]}">
 
 					<div class="itemPrice">$${formatarNumero(v["price"])}</div>
 				</div>`;

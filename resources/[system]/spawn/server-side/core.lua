@@ -108,9 +108,9 @@ function Hiro.CreateCharacter(name,name2,sex)
 		end
 
 		if sex == "mp_m_freemode_01" then
-			vRP.execute("vRP/create_characters",{ steam = steam, name = name, name2 = name2 })
+			vRP.query("vRP/create_characters",{ steam = steam, name = name, name2 = name2 })
 		else
-			vRP.execute("vRP/create_characters",{ steam = steam, name = name, name2 = name2 })
+			vRP.query("vRP/create_characters",{ steam = steam, name = name, name2 = name2 })
 		end
 
 		local consult = vRP.query("spawn/lastCharacters",{ steam = steam })

@@ -1,39 +1,16 @@
------------------------------------------------------------------------------------------------------------------------------------------
 -- VARIABLES
------------------------------------------------------------------------------------------------------------------------------------------
 local groups = {}
------------------------------------------------------------------------------------------------------------------------------------------
+
 -- THREAD INIT
------------------------------------------------------------------------------------------------------------------------------------------
 CreateThread(function()
     Wait(1000)
 
 	print('^3[!] ^0Criação de grupos ^3iniciada^0')
-	local selectAll = exports["oxmysql"]:executeSync("SELECT * FROM `vrp_groups`",{})
-    for k,v in pairs(selectAll) do
-        if v["available"] then
-
-            groups[v["permiss"]] = {
-                name = v["name"],
-                permiss = v["permiss"],
-                waitPermiss = v["waitPermiss"] or nil,
-                type = v["typePermiss"],
-                chest = v["chestPermiss"],
-                master = v["masterPermiss"],
-                max = v["max"] or nil,
-                minSalary = v["minSalary"] or nil,
-                maxSalary = v["maxSalary"] or nil,
-                bonusSalary = v["bonusSalary"] or nil,
-                cooldown = v["cooldown"] or nil
-            }
-        end
-    end
-
+    updateGroup()
 	print('^2[!] ^0Criação de grupos ^2finalizada^0')
 end)
------------------------------------------------------------------------------------------------------------------------------------------
+
 -- UPDATE GROUP
------------------------------------------------------------------------------------------------------------------------------------------
 RegisterCommand("updategroup",function(source,args,rawCommand)
 	if source ~= 0 then
 		return
@@ -41,6 +18,12 @@ RegisterCommand("updategroup",function(source,args,rawCommand)
 	Wait(1000)
 
     print('^3[!] ^0Atualização de grupos ^3iniciada^0')
+    updateGroup()
+	print('^2[!] ^0Atualização de grupos ^2finalizada^0')
+end)
+
+-- UPDATE GROUP
+function updateGroup()
 	local selectAll = exports["oxmysql"]:executeSync("SELECT * FROM `vrp_groups`",{})
     for k,v in pairs(selectAll) do
 
@@ -62,12 +45,8 @@ RegisterCommand("updategroup",function(source,args,rawCommand)
 
         end
     end
-
-	print('^2[!] ^0Atualização de grupos ^2finalizada^0')
-end)
------------------------------------------------------------------------------------------------------------------------------------------
+end
 -- GROUP NAME
------------------------------------------------------------------------------------------------------------------------------------------
 function vRP.groupName(groupName)
     if groups[groupName] then
         if groups[groupName]["name"] then
@@ -76,9 +55,8 @@ function vRP.groupName(groupName)
     end
     return ""
 end
------------------------------------------------------------------------------------------------------------------------------------------
+
 -- GROUP PERMISS
------------------------------------------------------------------------------------------------------------------------------------------
 function vRP.groupPermiss(groupName)
     if groups[groupName] then
         if groups[groupName]["permiss"] then
@@ -87,9 +65,8 @@ function vRP.groupPermiss(groupName)
     end
     return false
 end
------------------------------------------------------------------------------------------------------------------------------------------
+
 -- GROUP PERMISS
------------------------------------------------------------------------------------------------------------------------------------------
 function vRP.groupMaster(groupName)
     if groups[groupName] then
         if groups[groupName]["master"] then
@@ -98,9 +75,8 @@ function vRP.groupMaster(groupName)
     end
     return ""
 end
------------------------------------------------------------------------------------------------------------------------------------------
+
 -- GROUP PERMISS
------------------------------------------------------------------------------------------------------------------------------------------
 function vRP.groupMax(groupName)
     if groups[groupName] then
         if groups[groupName]["max"] then
@@ -109,9 +85,8 @@ function vRP.groupMax(groupName)
     end
     return false
 end
------------------------------------------------------------------------------------------------------------------------------------------
+
 -- GROUP PERMISS
------------------------------------------------------------------------------------------------------------------------------------------
 function vRP.groupType(groupName)
     if groups[groupName] then
         if groups[groupName]["type"] then
@@ -120,9 +95,8 @@ function vRP.groupType(groupName)
     end
     return ""
 end
------------------------------------------------------------------------------------------------------------------------------------------
+
 -- GROUP PERMISS
------------------------------------------------------------------------------------------------------------------------------------------
 function vRP.groupCooldown(groupName)
     if groups[groupName] then
         if groups[groupName]["cooldown"] then
@@ -131,9 +105,8 @@ function vRP.groupCooldown(groupName)
     end
     return false
 end
------------------------------------------------------------------------------------------------------------------------------------------
+
 -- GROUP WAIT
------------------------------------------------------------------------------------------------------------------------------------------
 function vRP.groupWait(groupName)
     if groups[groupName] then
         if groups[groupName]["waitPermiss"] then
@@ -142,9 +115,8 @@ function vRP.groupWait(groupName)
     end
     return groupName
 end
------------------------------------------------------------------------------------------------------------------------------------------
+
 -- GROUP MIN SALARY
------------------------------------------------------------------------------------------------------------------------------------------
 function vRP.groupMinSalary(groupName)
     if groups[groupName] then
         if groups[groupName]["minSalary"] then
@@ -153,9 +125,8 @@ function vRP.groupMinSalary(groupName)
     end
     return false
 end
------------------------------------------------------------------------------------------------------------------------------------------
+
 -- GROUP MAX SALARY
------------------------------------------------------------------------------------------------------------------------------------------
 function vRP.groupMaxSalary(groupName)
     if groups[groupName] then
         if groups[groupName]["maxSalary"] then
@@ -164,9 +135,8 @@ function vRP.groupMaxSalary(groupName)
     end
     return false
 end
------------------------------------------------------------------------------------------------------------------------------------------
+
 -- GROUP BONUS SALARY
------------------------------------------------------------------------------------------------------------------------------------------
 function vRP.groupBonusSalary(groupName)
     if groups[groupName] then
         if groups[groupName]["bonusSalary"] then

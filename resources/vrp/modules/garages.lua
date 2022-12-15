@@ -112,7 +112,7 @@ end
 
 function vRP.AddPlateTrust(user_id, plate)
     if not vRP.CheckPlateTrust(user_id, plate) then
-        vRP.execute('vRP/platetrust_insert', {user_id = user_id, plate = plate})
+        vRP.query('vRP/platetrust_insert', {user_id = user_id, plate = plate})
         return true
     end
     return false
@@ -121,12 +121,12 @@ end
 function vRP.DelPlateTrust(user_id, plate, status)
     if status and status == 'all' then
         if #vRP.GetPlateTrusts(plate) > 0 then
-            vRP.execute('vRP/platetrust_deleteall', {plate = plate})
+            vRP.query('vRP/platetrust_deleteall', {plate = plate})
             return true
         end
     else
         if vRP.CheckPlateTrust(user_id, plate) then
-            vRP.execute('vRP/platetrust_delete', {user_id = user_id, plate = plate})
+            vRP.query('vRP/platetrust_delete', {user_id = user_id, plate = plate})
             return true
         end
     end

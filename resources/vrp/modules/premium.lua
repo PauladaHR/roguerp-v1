@@ -63,25 +63,9 @@ function vRP.PremiumExist(Name)
         return true
     end
 
-    return false
+    return false 
 end
------------------------------------------------------------------------------------------------------------------------------------------
--- HASPREMIUM
------------------------------------------------------------------------------------------------------------------------------------------
-function vRP.hasPremium(user_id)
-	local identity = vRP.getUserIdentity(user_id)
-	if identity then
-		local infoAccount = vRP.infoAccount(identity["steam"])
-		if infoAccount["premiumType"] then
-			return infoAccount["premiumType"],true
-		end
-	end
-
-	return false
-end
------------------------------------------------------------------------------------------------------------------------------------------
 -- USERPREMIUM
------------------------------------------------------------------------------------------------------------------------------------------
 function vRP.userPremium(user_id)
 	local identity = vRP.getUserIdentity(user_id)
 	if identity then
@@ -114,7 +98,7 @@ AddEventHandler("vRP:playerSpawn",function(user_id,source)
             if v["rental_time"] ~= 0 and v["rental"] == 1 then
                 if parseInt(os.time()) >= parseInt(v["rental_time"]+3*24*60*60) then
                     TriggerClientEvent("Notify",source,"error","<b>"..vRP.vehicleName(v["vehicle"]).."</b> removido por falta de renovação.",20000)
-                    vRP.execute("vRP/rem_vehicle",{ user_id = parseInt(user_id), vehicle = v["vehicle"] })
+                    vRP.query("vRP/rem_vehicle",{ user_id = parseInt(user_id), vehicle = v["vehicle"] })
                     goto remVIP
                 end
 
@@ -151,13 +135,13 @@ AddEventHandler("vRP:playerSpawn",function(user_id,source)
     end
 
     ::checkInsta::
-    local checkInsta = exports["oxmysql"]:executeSync("SELECT * FROM smartphone_instagram WHERE user_id = ?",{ user_id })
-    if checkInsta[1] then
-        local checkVerified = exports["oxmysql"]:executeSync("SELECT * FROM `instagram_verified` WHERE user_id = ?",{ user_id })
-        if checkVerified[1] then
-            if os.time() <= (checkVerified[1]["time"] + 24 * checkVerified[1]["predays"] * 60 * 60) then
-                exports["oxmysql"]:executeSync("UPDATE `smartphone_instagram` SET verified = 1 WHERE user_id = ?",{ user_id })
-            end
-        end
-    end
+    -- local checkInsta = exports["oxmysql"]:executeSync("SELECT * FROM smartphone_instagram WHERE user_id = ?",{ user_id })
+    -- if checkInsta[1] then
+    --     local checkVerified = exports["oxmysql"]:executeSync("SELECT * FROM `instagram_verified` WHERE user_id = ?",{ user_id })
+    --     if checkVerified[1] then
+    --         if os.time() <= (checkVerified[1]["time"] + 24 * checkVerified[1]["predays"] * 60 * 60) then
+    --             exports["oxmysql"]:executeSync("UPDATE `smartphone_instagram` SET verified = 1 WHERE user_id = ?",{ user_id })
+    --         end
+    --     end
+    -- end
 end)
