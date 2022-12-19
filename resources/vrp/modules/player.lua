@@ -69,9 +69,9 @@ AddEventHandler("vRP:playerSpawn",function(user_id,source)
 		TriggerClientEvent("skinshop:Apply",source,vRP.userData(user_id,"Clothings"))
 		TriggerClientEvent("tattoos:Apply",source,vRP.userData(user_id,"Tattoos"))
 
-		local identity = vRP.getUserIdentity(user_id)
-		if identity then
-			TriggerClientEvent("vRP:playerActive",source,user_id,identity["name"].." "..identity["name2"])
+		local Identity = vRP.getUserIdentity(user_id)
+		if Identity then
+			TriggerClientEvent("vRP:playerActive",source,user_id,Identity["name"].." "..Identity["name2"])
 		end
 	end
 end)

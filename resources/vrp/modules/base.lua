@@ -23,6 +23,23 @@ Tunnel.bindInterface("vRP",tvRP)
 -----------------------------------------------------------------------------------------------------------------------------------------
 local preparedQueries = {}
 -----------------------------------------------------------------------------------------------------------------------------------------
+-- GETIDENTITIES
+-----------------------------------------------------------------------------------------------------------------------------------------
+function vRP.getIdentities(source)
+	local result = false
+
+	local identifiers = GetPlayerIdentifiers(source)
+	for _,v in pairs(identifiers) do
+		if string.find(v,"steam") then
+			local splitName = splitString(v,":")
+			result = splitName[2]
+			break
+		end
+	end
+
+	return result
+end
+-----------------------------------------------------------------------------------------------------------------------------------------
 -- GETSTEAM
 -----------------------------------------------------------------------------------------------------------------------------------------
 function vRP.getSteam(source)
@@ -317,6 +334,11 @@ AddEventHandler("baseModule:idLoaded",function(source,user_id,model)
 		local registration = vRP.getUserRegistration(user_id)
 		if registration == nil then
 			vRP.query("vRP/update_characters",{ id = parseInt(user_id), registration = vRP.generateRegistrationNumber(), phone = vRP.generatePhoneNumber() })
+		end
+
+		local Identities = vRP.getIdentities(source)
+		if Identities ~= identity["steam"] then
+			vRP.kick(user_id,"Expulso da cidade.")
 		end
 
 		TriggerEvent("vRP:playerSpawn",user_id,source)

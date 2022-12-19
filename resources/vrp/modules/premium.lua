@@ -97,13 +97,13 @@ AddEventHandler("vRP:playerSpawn",function(user_id,source)
         for k,v in pairs(rentalVehicle) do
             if v["rental_time"] ~= 0 and v["rental"] == 1 then
                 if parseInt(os.time()) >= parseInt(v["rental_time"]+3*24*60*60) then
-                    TriggerClientEvent("Notify",source,"error","<b>"..vRP.vehicleName(v["vehicle"]).."</b> removido por falta de renovação.",20000)
+                    TriggerClientEvent("Notify",source,"amarelo","<b>"..vRP.vehicleName(v["vehicle"]).."</b> removido por falta de renovação.",20000)
                     vRP.query("vRP/rem_vehicle",{ user_id = parseInt(user_id), vehicle = v["vehicle"] })
                     goto remVIP
                 end
 
                 if parseInt(os.time()) >= v["rental_time"] then
-                    TriggerClientEvent("Notify",source,"error","<b>"..vRP.vehicleName(v["vehicle"]).."</b> vencido, efetue a renovação para não perde-lo.",30000)
+                    TriggerClientEvent("Notify",source,"amarelo","<b>"..vRP.vehicleName(v["vehicle"]).."</b> vencido, efetue a renovação para não perde-lo.",30000)
                 end
             end
         end
@@ -116,20 +116,13 @@ AddEventHandler("vRP:playerSpawn",function(user_id,source)
         if consult[1] then
             local daysRemove = consult[1]["predays"] + 3
             if parseInt(os.time()) >= (consult[1]["premium"] + 24 * daysRemove * 60 * 60) then
-                local userRank = vRP.getRank(user_id,"all")
-                if userRank["rank"] == "User" then
-                    exports["oxmysql"]:executeSync("UPDATE vrp_infos SET premium = 0, predays = 0, priority = 0 WHERE steam = ?",{ identity["steam"] })
-                elseif userRank["rank"] == "Admin" then
-                    exports["oxmysql"]:executeSync("UPDATE vrp_infos SET premium = 0, predays = 0 WHERE steam = ?",{ identity["steam"] })
-                end
-
                 exports["oxmysql"]:executeSync("UPDATE vrp_infos SET premiumType = ? WHERE steam = ?",{ '',identity["steam"] })
-                TriggerClientEvent("Notify",source,"error","Seus beneficios VIP foram removidos por falta de renovação.",30000)
+                TriggerClientEvent("Notify",source,"amarelo","Seus beneficios VIP foram removidos por falta de renovação.",30000)
                 goto checkInsta
             end
 
             if parseInt(os.time()) >= (consult[1]["premium"] + 24 * consult[1]["predays"] * 60 * 60) then
-                TriggerClientEvent("Notify",source,"error","Seus beneficios VIP expiraram, efetue a renovação para não perde-lo.",30000)
+                TriggerClientEvent("Notify",source,"amarelo","Seus beneficios VIP expiraram, efetue a renovação para não perde-lo.",30000)
             end
         end
     end

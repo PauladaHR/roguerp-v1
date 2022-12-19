@@ -33,8 +33,10 @@ end
 function vRP.getBank(user_id)
 	local consult = vRP.getInformation(user_id)
 	if consult[1] then
-		return consult[1].bank
+		return parseInt(consult[1]["bank"])
 	end
+
+	return 0
 end
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- PAYMENTBANK

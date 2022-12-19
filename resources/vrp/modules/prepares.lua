@@ -103,14 +103,6 @@ vRP.prepare("vRP/set_dismantle","UPDATE vrp_users_vehicles SET dismantle = @dism
 vRP.prepare("vRP/get_rental_time","SELECT * FROM vrp_users_vehicles WHERE user_id = @user_id AND rental = 1")
 vRP.prepare("vRP/set_rental_time","UPDATE vrp_users_vehicles SET rental_time = @rental_time, rental = 1 WHERE user_id = @user_id AND vehicle = @vehicle")
 -----------------------------------------------------------------------------------------------------------------------------------------
--- PREPARE VRP_PLATETRUST
------------------------------------------------------------------------------------------------------------------------------------------
-vRP.prepare('vRP/platetrust_select', 'SELECT * FROM vrp_platetrust WHERE user_id = @user_id AND plate = @plate')
-vRP.prepare('vRP/platetrust_selectall', 'SELECT * FROM vrp_platetrust WHERE plate = @plate')
-vRP.prepare('vRP/platetrust_insert', 'INSERT IGNORE INTO vrp_platetrust(user_id, plate) VALUES(@user_id, @plate)')
-vRP.prepare('vRP/platetrust_delete', 'DELETE FROM vrp_platetrust WHERE user_id = @user_id AND plate = @plate')
-vRP.prepare('vRP/platetrust_deleteall', 'DELETE FROM vrp_platetrust WHERE plate = @plate')
------------------------------------------------------------------------------------------------------------------------------------------
 -- CHESTS
 -----------------------------------------------------------------------------------------------------------------------------------------
 vRP.prepare("chests/getChests","SELECT * FROM vrp_chests WHERE name = @name")

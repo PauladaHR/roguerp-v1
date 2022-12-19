@@ -179,14 +179,6 @@ RegisterCommand("globalFunctions",function(source)
 						exports["vrp_dynamic"]:AddButton("Transferir","Transferir veículo.","garages:vehicleFunctions","trans","vehicle4",true)
 						exports["vrp_dynamic"]:AddButton("Rental","Checar veículos rental.","garages:vehicleFunctions","rental","vehicle4",true)
 						exports["vrp_dynamic"]:AddButton("Veículos","Checar veículos.","garages:vehicleFunctions","vehs","vehicle4",true)
-
-				exports["vrp_dynamic"]:AddButton("Chave","Emprestar chave do seu veículo.","","","vehicle",false,true,"vehicle3")
-
-				exports["vrp_dynamic"]:AddButton("Emprestar","Emprestar chave.","garages:vehicleTrust","add","vehicle3",true)
-				exports["vrp_dynamic"]:AddButton("Remover","Remover chave.","garages:vehicleTrust","rem","vehicle3",true)
-				exports["vrp_dynamic"]:AddButton("Remover","Remover todas as chave.","garages:vehicleTrust","remAll","vehicle3",true)
-				exports["vrp_dynamic"]:AddButton("Lista","Lista de permissões.","garages:vehicleTrust","remAll","vehicle3",true)
-
 			else
 				exports["vrp_dynamic"]:AddButton("Banco Dianteiro Esquerdo","Sentar no banco do motorista.","player:seatPlayer","1","vehicle",true)
 				exports["vrp_dynamic"]:AddButton("Banco Dianteiro Direito","Sentar no banco do passageiro.","player:seatPlayer","2","vehicle",true)
