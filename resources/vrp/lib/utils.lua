@@ -311,3 +311,29 @@ function pairsByKeys (t, f)
 	end
 	return iter
 end
+-----------------------------------------------------------------------------------------------------------------------------------------
+-- BLOCKITEM
+-----------------------------------------------------------------------------------------------------------------------------------------
+local blockItem = {
+	["premiumBooster00"] = true,
+	["premiumSilver50"] = true,
+	["premiumGold60"] = true,
+	["premiumPlatinum70"] = true,
+	["premiumDiamond90"] = true,
+	["newgarage"] = true,
+	["newchars"] = true,
+	["newprops"] = true
+}
+-----------------------------------------------------------------------------------------------------------------------------------------
+-- BLOCKCHEST
+-----------------------------------------------------------------------------------------------------------------------------------------
+function blockChest(Item)
+	local Split = splitString(Item,"-")
+	local Item = Split[1]
+
+	if BlockItem[Item] then
+		return true
+	end
+
+	return false
+end

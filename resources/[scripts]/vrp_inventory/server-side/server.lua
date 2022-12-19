@@ -152,19 +152,6 @@ AddEventHandler("vrp_inventory:updateSlot",function(itemName,slot,target,amount)
 	end
 end)
 -----------------------------------------------------------------------------------------------------------------------------------------
--- NOFULL
------------------------------------------------------------------------------------------------------------------------------------------
-local noFull = {
-	["premiumBooster00"] = true,
-	["premiumSilver50"] = true,
-	["premiumGold60"] = true,
-	["premiumPlatinum70"] = true,
-	["premiumDiamond90"] = true,
-	["newgarage"] = true,
-	["newchars"] = true,
-	["newprops"] = true
-}
------------------------------------------------------------------------------------------------------------------------------------------
 -- GRIDCHUNK
 -----------------------------------------------------------------------------------------------------------------------------------------
 function gridChunk(x)
@@ -196,7 +183,7 @@ AddEventHandler("vrp_inventory:dropItem",function(itemName,slot,amount)
 				if amount == nil then amount = 1 end
 				if amount <= 0 then amount = 1 end
 
-				if noFull[itemName] then
+				if blockChest(itemName) then
 					TriggerClientEvent("vrp_inventory:Update",source,"updateMochila")
 					TriggerClientEvent("Notify",source,"INFORMAÇÃO","Armazenamento proibido.",5000,'info')
 					return
@@ -308,7 +295,7 @@ AddEventHandler("vrp_inventory:sendItem",function(itemName,amount)
 			if amount == nil then amount = 1 end
 			if amount <= 0 then amount = 1 end
 
-			if noFull[itemName] then
+			if blockChest(itemName) then
 				TriggerClientEvent("vrp_inventory:Update",source,"updateMochila")
 				TriggerClientEvent("Notify",source,"INFORMAÇÃO","Armazenamento proibido.",5000)
 				return

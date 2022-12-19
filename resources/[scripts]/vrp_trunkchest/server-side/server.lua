@@ -30,20 +30,6 @@ local storeVehs = {
 	["rumpo"] = true
 }
 -----------------------------------------------------------------------------------------------------------------------------------------
--- NOFULL
------------------------------------------------------------------------------------------------------------------------------------------
-local noFull = {
-	["premiumBooster00"] = true,
-	["premiumSilver50"] = true,
-	["premiumGold60"] = true,
-	["premiumPlatinum70"] = true,
-	["premiumDiamond90"] = true,
-	["newgarage"] = true,
-	["newchars"] = true,
-	["newprops"] = true,
-	["newspaper"] = true,
-}
------------------------------------------------------------------------------------------------------------------------------------------
 -- STOREITEM
 -----------------------------------------------------------------------------------------------------------------------------------------
 function Hiro.storeItem(itemName,slot,amount,target)
@@ -58,7 +44,7 @@ function Hiro.storeItem(itemName,slot,amount,target)
 				TriggerClientEvent("Notify",source,"amarelo","Você não pode armazenar este item em veículos.",5000)
                 return
             end
-        elseif not storeVehs[vehNames[parseInt(user_id)]] and vRP.itemHungerList(itemName) or vRP.itemWaterList(itemName) or itemName == "identity" or itemName == "dollars2" or noFull[itemName] then
+        elseif not storeVehs[vehNames[parseInt(user_id)]] and vRP.itemHungerList(itemName) or vRP.itemWaterList(itemName) or itemName == "identity" or itemName == "dollars2" or blockChest(itemName) then
             TriggerClientEvent("vrp_trunkchest:Update",source,"requestChest")
 			TriggerClientEvent("Notify",source,"amarelo","Você não pode armazenar este item em veículos.",5000)
             return

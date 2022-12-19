@@ -16,19 +16,6 @@ vCLIENT = Tunnel.getInterface("vrp_inspect")
 -----------------------------------------------------------------------------------------------------------------------------------------
 local userInspect = {}
 -----------------------------------------------------------------------------------------------------------------------------------------
--- NOFULL
------------------------------------------------------------------------------------------------------------------------------------------
-local noFull = {
-	["premiumBooster00"] = true,
-	["premiumSilver50"] = true,
-	["premiumGold60"] = true,
-	["premiumPlatinum70"] = true,
-	["premiumDiamond90"] = true,
-	["newgarage"] = true,
-	["newchars"] = true,
-	["newprops"] = true
-}
------------------------------------------------------------------------------------------------------------------------------------------
 -- REVISTAR
 -----------------------------------------------------------------------------------------------------------------------------------------
 RegisterNetEvent("vrp_inspect:runInspect")
@@ -139,7 +126,7 @@ function cRP.storeItem(itemName,slot,amount,target)
 			local nuser_id = vRP.getUserId(nsource)
 			if user_id then
 
-				if string.find(itemName,"rental") or noFull[itemName] then
+				if string.find(itemName,"rental") or blockChest(itemName) then
 					TriggerClientEvent("vrp_inspect:Update",source,"requestChest")
 					TriggerClientEvent("Notify",source,"amarelo", "Você não pode armazenar este item.", 5000, 'info')
 					return
@@ -201,7 +188,7 @@ function cRP.takeItem(itemName,slot,amount,target)
 			local nuser_id = vRP.getUserId(nsource)
 			if user_id then
 
-				if string.find(itemName,"rental") or noFull[itemName] then
+				if string.find(itemName,"rental") or blockChest(itemName) then
 					TriggerClientEvent("vrp_inspect:Update",source,"requestChest")
 					TriggerClientEvent("Notify",source,"amarelo", "Você não pode retirar este item.", 5000, 'info')
 					return

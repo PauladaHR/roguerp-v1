@@ -29,19 +29,6 @@ local storeFood = {
 	["CasaSistaGeladeira"] = true,
 }
 -----------------------------------------------------------------------------------------------------------------------------------------
--- NOFULL
------------------------------------------------------------------------------------------------------------------------------------------
-local noFull = {
-	["premiumBooster00"] = true,
-	["premiumSilver50"] = true,
-	["premiumGold60"] = true,
-	["premiumPlatinum70"] = true,
-	["premiumDiamond90"] = true,
-	["newgarage"] = true,
-	["newchars"] = true,
-	["newprops"] = true
-}
------------------------------------------------------------------------------------------------------------------------------------------
 -- CHECKINTPERMISSIONS
 -----------------------------------------------------------------------------------------------------------------------------------------
 function cRP.checkIntPermissions(chestName)
@@ -133,7 +120,7 @@ function cRP.storeItem(itemName,slot,amount,target,chestOpen)
 						return
 					end
 
-				elseif vRP.itemHungerList(itemName) or vRP.itemWaterList(itemName) or noFull[itemName] then
+				elseif vRP.itemHungerList(itemName) or vRP.itemWaterList(itemName) or blockChest(itemName) then
 					TriggerClientEvent("vrp_chest2:Update",source,"requestChest")
 					TriggerClientEvent("Notify",source,"amarelo", "Você não pode armazenar este item em baús.", 5000)
 					return
