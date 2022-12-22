@@ -69,27 +69,3 @@ function tvRP.requestResult(id,ok)
 		requests[id] = nil
 	end
 end
------------------------------------------------------------------------------------------------------------------------------------------
--- DISCORDLOGS
------------------------------------------------------------------------------------------------------------------------------------------
-RegisterServerEvent("webhooks")
-AddEventHandler("webhooks",function(webhook,message,username)
-    local name = username or GetConvar("discord_user","")
-    local webhookUrl = GetConvar("discord_"..webhook,"")        
-    
-    if webhookUrl ~= nil and webhookUrl ~= "" then
-		PerformHttpRequest(webhookUrl,function(err,text,headers) end,"POST",json.encode({ username = name, embeds = { { color = 3092790, description = message, footer = footer } }}),{ ["Content-Type"] = "application/json" })
-    end
-end)
------------------------------------------------------------------------------------------------------------------------------------------
--- WEBHOOKS-NOEMBED
------------------------------------------------------------------------------------------------------------------------------------------
-RegisterServerEvent("webhooks-noembed")
-AddEventHandler("webhooks-noembed",function(webhook,message,username)
-    local name = username or GetConvar("discord_user","")
-    local webhookUrl = GetConvar("discord_"..webhook,"")        
-    
-    if webhookUrl ~= nil and webhookUrl ~= "" then
-        PerformHttpRequest(webhookUrl,function(err,text,headers)end,"POST",json.encode({ username = name, content = message }),{[ "Content-Type"] = "application/json" })
-    end
-end)

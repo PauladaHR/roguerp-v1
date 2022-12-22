@@ -22,12 +22,28 @@ local Discord = {
 	["Homes"] = "https://discord.com/api/webhooks/1026547242410180759/yYQHi3xpOodR8cymZ5AcNcCzAO3RAGhZFdx0lmnZ1jA80Fb6gadIeDC6D0d7Mz-a2Zok"
 }
 -----------------------------------------------------------------------------------------------------------------------------------------
--- DISCORDLOGS
+-- DISCORD
 -----------------------------------------------------------------------------------------------------------------------------------------
-RegisterNetEvent("discordLogs")
-AddEventHandler("discordLogs",function(webhook,message,color)
-	PerformHttpRequest(Discord[webhook],function(err,text,headers) end,"POST",json.encode({
-		username = "Hiro Logs",
-		embeds = { { color = color, description = message } }
-	}),{ ["Content-Type"] = "application/json" })
+RegisterNetEvent("Discord")
+AddEventHandler("Discord",function(Hook,Message,Color)
+	local logs = (Discords[Hook] or {})
+	if type(logs) == "table" then
+		for _, url in pairs(logs) do
+			sendWebhook(url, Message, Color)
+		end
+	else
+		sendWebhook(logs, Message, Color)
+	end
 end)
+
+function sendWebhook(url, Message, Color)
+	PerformHttpRequest(tostring(url),function(err,text,headers) end, "POST", json.encode({
+		username = "Hiro Logs",
+		embeds = {
+			{
+				color = Color,
+				description = Message
+			}
+		}
+	}), {["Content-Type"] = "application/json"})
+end
